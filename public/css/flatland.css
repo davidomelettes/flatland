@@ -1,0 +1,69 @@
+dl { margin-top: 0; }
+dl.dl-inline dt, dl.dl-inline dd { display: inline; }
+
+.rating .glyphicon { color: #F0AD4E; }
+.glyphicon-starhalf:before { content: ""; width: 0.5em; display: inline-block; overflow: hidden; vertical-align: top; }
+
+.players .glyphicon { font-size: 200%; line-height: 80px; margin-bottom: 5px; color: #F0AD4E; }
+
+.suggested-ages .years {
+	font-size: 150%;
+	line-height: 80px;
+	margin-bottom: 5px;
+}
+.suggested-ages .years div { vertical-align: middle; }
+.suggested-ages .age {
+	display: inline-block;
+	vertical-align: middle;
+	color: #fff;
+	font-size: 200%;
+	background-color: #5CB85C;
+	border-radius: 50px;
+	height: 80px;
+	width: 80px;
+	line-height: 80px;
+}
+
+.stopwatch {
+	display: inline-block;
+	border: 5px solid #428BCA;
+	width: 80px;
+	height: 80px;
+	border-radius: 50px;
+	position: relative;
+}
+.stopwatch .length {
+	color: #428BCA;
+	position: absolute;
+	left: -5px;
+	top: -5px;
+	height: 80px;
+	width: 80px;
+	line-height: 80px;
+	display: inline-block;
+	vertical-align: middle;
+	z-index: 2;
+	font-weight: bold;
+	font-size: 200%;
+}
+.stopwatch .tick {
+	position: absolute;
+	left: 33px;
+	top: 5px;
+	height: 8px;
+	border: 2px solid #ccc;
+	transform-origin: 2px 30px;
+	z-index: 1;
+}
+.stopwatch .tick:nth-child(1) { border-color: #b0b0b0; }
+.stopwatch .tick:nth-child(2) { border-color: #b8b8b8; transform: rotate(30deg); }
+.stopwatch .tick:nth-child(3) { border-color: #bcbcbc; transform: rotate(60deg); }
+.stopwatch .tick:nth-child(4) { border-color: #c0c0c0; transform: rotate(90deg); }
+.stopwatch .tick:nth-child(5) { border-color: #c8c8c8; transform: rotate(120deg); }
+.stopwatch .tick:nth-child(6) { border-color: #cccccc; transform: rotate(150deg); }
+.stopwatch .tick:nth-child(7) { border-color: #d0d0d0; transform: rotate(180deg); }
+.stopwatch .tick:nth-child(8) { border-color: #d8d8d8; transform: rotate(210deg); }
+.stopwatch .tick:nth-child(9) { border-color: #dcdcdc; transform: rotate(240deg); }
+.stopwatch .tick:nth-child(10) { border-color: #e0e0e0; transform: rotate(270deg); }
+.stopwatch .tick:nth-child(11) { border-color: #e8e8e8; transform: rotate(300deg); }
+.stopwatch .tick:nth-child(12) { border-color: #ececec; transform: rotate(330deg); }
