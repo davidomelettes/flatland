@@ -8,7 +8,7 @@ class GamesController extends AbstractRestfulController
 {
 	public function getList()
 	{
-		
+		return array();
 	}
 	
 	public function get()

@@ -38,25 +38,49 @@
     <body>
         <nav class="navbar navbar-static-top navbar-inverse" role="navigation">
         	<div class="navbar-header">
+        		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        			<span class="icon-bar"></span>
+        		</button>
         		<a class="navbar-brand" href="/"><?php echo $this->translate('Flatland'); ?></a>
         	</div>
         	
-        	<ul class="nav navbar-nav navbar-right">
-        		<li>
-        			<a href="#"><span class="badge">2</span> Messages</a>
-        		</li>
-        		<li class="dropdown">
-        			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Jon Snow <span class="caret"></span></a>
-        			<ul class="dropdown-menu" role="menu">
-        				<li>
-        					<a href="#">User Preferences</a>
-        				</li>
-        				<li>
-        					<a href="#">Sign Out</a>
-        				</li>
-        			</ul>
-        		</li>
-        	</ul>
+        	<div class="collapse navbar-collapse navbar-top-collapse">
+	        	<ul class="nav navbar-nav">
+	        		<li class="active">
+	        			<a href="<?php echo $this->url('games'); ?>"><span class="glyphicon glyphicon-tower"></span> Games</a>
+	        		</li>
+	        		<li>
+	        			<a href="#"><span class="glyphicon glyphicon-comment"></span> Forums</a>
+	        		</li>
+	        		<li>
+	        			<a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Trading</a>
+	        		</li>
+	        		<li>
+	        			<a href="#"><span class="glyphicon glyphicon-calendar"></span> Groups &amp; Events</a>
+	        		</li>
+	        	</ul>
+	        	<ul class="nav navbar-nav navbar-right">
+	        		<li>
+	        			<a href="#"><span class="badge">17</span> Updates</a>
+	        		</li>
+	        		<li>
+	        			<a href="#"><span class="badge">2</span> Messages</a>
+	        		</li>
+	        		<li class="dropdown">
+	        			<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Jon Snow <span class="caret"></span></a>
+	        			<ul class="dropdown-menu" role="menu">
+	        				<li>
+	        					<a href="#">User Preferences</a>
+	        				</li>
+	        				<li>
+	        					<a href="#">Sign Out</a>
+	        				</li>
+	        			</ul>
+	        		</li>
+	        	</ul>
+        	</div>
         </nav>
         <div class="container">
         
