@@ -5,6 +5,7 @@ namespace Omelettes\Model;
 use Zend\Db\Sql\Predicate;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 abstract class AbstractMapper implements ServiceLocatorAwareInterface
 {
@@ -37,7 +38,36 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	{
 		return $this->serviceLocator;
 	}
-
+	
+	protected function getConnection()
+	{
+		return $this->tableGateway->getAdapter()->getDriver()->getConnection();
+	}
+	
+	/**
+	 * Begin a database transaction
+	 */
+	public function beginTransaction()
+	{
+		$this->getConnection()->beginTransaction();
+	}
+	
+	/**
+	 * Roll back a database transaction
+	 */
+	public function rollbackTransaction()
+	{
+		$this->getConnection()->rollback();
+	}
+	
+	/**
+	 * Commit a database transaction
+	 */
+	public function commitTransaction()
+	{
+		$this->getConnection()->commit();
+	}
+	
 	/**
 	 * Returns the default clauses against which all queries must be run
 	 * 
@@ -57,10 +87,27 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 			if (!$defaultWhere instanceof Predicate\PredicateSet) {
 				throw new \Exception('Expected a PredicateSet');
 			}
-			$this->defaultPredicateSet = $where;
+			$this->defaultPredicateSet = $defaultWhere;
 		}
 		
 		return $this->defaultPredicateSet;
+	}
+	
+	/**
+	 * Returns a single row object, or false if none found
+	 * 
+	 * @param Predicate\PredicateSet $where
+	 * @return boolean|ArrayObject
+	 */
+	protected function findOneWhere(Predicate\PredicateSet $where)
+	{
+		$rowset = $this->tableGateway->select($where);
+		$row = $rowset->current();
+		if (!$row) {
+			return false;
+		}
+		
+		return $row;
 	}
 	
 	/**
@@ -70,15 +117,6 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 * @return ArrayObject|boolean 
 	 */
 	abstract public function find($id);
-	
-	/**
-	 * Performs a find via specified table column
-	 * 
-	 * @param string $property
-	 * @param mixed $value
-	 * @return ArrayObject|boolean
-	 */
-	abstract public function findBy($property, $value);
 	
 	/**
 	 * Returns all results

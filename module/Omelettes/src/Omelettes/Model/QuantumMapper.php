@@ -22,25 +22,10 @@ class QuantumMapper extends AbstractMapper
 			return false;
 		}
 		
-		return $this->findBy('key', $key);
-	}
-	
-	public function findBy($property, $value)
-	{
-		if (method_exists($this, 'findBy'.$property)) {
-			return $this->$methodName($value);
-		}
-		
 		$where = $this->getWhere();
-		$where->andPredicate(new Predicate\Operator($property, '=', $value));
+		$where->andPredicate(new Predicate\Operator('key', '=', $value));
 		
-		$rowset = $this->tableGateway->select($where);
-		$row = $rowset->current();
-		if (!$row) {
-			return false;
-		}
-		
-		return $row;
+		return $this->findOneWhere($where);
 	}
 	
 	public function fetchAll()
@@ -51,7 +36,7 @@ class QuantumMapper extends AbstractMapper
 		return $resultSet;
 	}
 	
-	public function fetchAllWhere(PredicateInterface $where)
+	public function fetchAllWhere(Predicate\PredicateInterface $where)
 	{
 		$defaultWhere = $this->getWhere();
 		$defaultWhere->addPredicate($where);
