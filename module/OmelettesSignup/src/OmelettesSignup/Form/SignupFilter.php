@@ -2,13 +2,16 @@
 
 namespace OmelettesSignup\Form;
 
-use Auth\Model\UsersMapper;
+use Omelettes\Form\AbstractModelFilter;
+use Omelettes\Validator\Model\QuantumDoesNotExist;
+use OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
+use Zend\Validator\EmailAddress;
 
 class SignupFilter extends AbstractModelFilter
 {
 	protected $usersMapper;
 	
-	public function __construct(UsersMapper $usersMapper)
+	public function __construct(SignupUsersMapper $usersMapper)
 	{
 		$this->usersMapper = $usersMapper;
 	}
@@ -45,14 +48,22 @@ class SignupFilter extends AbstractModelFilter
 				'validators'	=> array(
 					array(
 						'name'		=> 'EmailAddress',
+						'options'	=> array(
+							'messages'	=> array(
+								EmailAddress::INVALID_FORMAT => 'Please enter a valid email address',
+							),
+						),
 					),
 					array(
-						'name'		=> 'Omelettes\Quantum\Validator\Model\DoesNotExist',
+						'name'		=> 'Omelettes\Validator\Model\QuantumDoesNotExist',
 						'options'	=> array(
 							'table'		=> 'users',
 							'field'		=> 'name',
 							'mapper'	=> $this->usersMapper,
-							'method'	=> 'fetchByName',
+							'method'	=> 'findByName',
+							'messsages'	=> array(
+								QuantumDoesNotExist::ERROR_MODEL_EXISTS => 'A user with that email address already exists',
+							),
 						),
 					),
 				),

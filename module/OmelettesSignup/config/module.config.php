@@ -1,9 +1,16 @@
 <?php
 
 return array(
+	'acl' => array(
+		'resources' => array(
+			'guest' => array(
+				'signup',
+			), 
+		),
+	),
 	'controllers' => array(
 		'invokables' => array(
-			'Signup\Controller\Signup' => 'Signup\Controller\SignupController',
+			'Signup\Controller\Signup' => 'OmelettesSignup\Controller\SignupController',
 		),
 	),
 	'router' => array(
