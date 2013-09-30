@@ -10,6 +10,12 @@ return array(
 			'system'	=> array('super'),
 		),
 		'resources' => array(
+			'guest'		=> array(
+				'login',
+				'logout',
+				'forgot-password',
+				'reset-password',
+			),
 		),
 	),
 	'controllers' => array(
