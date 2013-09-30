@@ -1,12 +1,30 @@
 <?php
 
 return array(
+	'acl' => array(
+		'resources' => array(
+			'guest' => array(
+				'home',
+			),
+		),
+	),
 	'controllers' => array(
 		'invokables' => array(
+			'Flatland\Controller\Home' => 'Flatland\Controller\HomeController',
 		),
 	),
 	'router' => array(
 		'routes' => array(
+			'home' => array(
+				'type'		=> 'Literal',
+				'options'	=> array(
+					'route'			=> '/',
+					'defaults'		=> array(
+						'controller'	=> 'Flatland\Controller\Home',
+						'action'		=> 'home',
+					),
+				),
+			),
 		),
 	),
 	'service_manager' => array(
