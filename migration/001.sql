@@ -14,7 +14,7 @@ super	Super Admin
 
 CREATE TABLE users (
 	key UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-	name VARCHAR NOT NULL,
+	name VARCHAR NOT NULL UNIQUE,
 	full_name VARCHAR NOT NULL,
 	password_hash VARCHAR NOT NULL,
 	salt VARCHAR NOT NULL DEFAULT uuid_generate_v4(),
@@ -50,7 +50,7 @@ CREATE TABLE user_collection (
 	user_key UUID NOT NULL REFERENCES users(key),
 	game_key UUID NOT NULL REFERENCES games(key),
 	wishlist BOOLEAN NOT NULL DEFAULT FALSE,
-	PRIMARY (user_key, game_key)
+	PRIMARY KEY (user_key, game_key)
 );
 
 CREATE TABLE user_ratings (
@@ -58,7 +58,7 @@ CREATE TABLE user_ratings (
 	game_key UUID NOT NULL REFERENCES games(key),
 	rating NUMERIC(3,1),
 	created TIMESTAMP NOT NULL DEFAULT now(), 
-	PRIMARY (user_key, game_key)
+	PRIMARY KEY (user_key, game_key)
 );
 
 COMMIT;
