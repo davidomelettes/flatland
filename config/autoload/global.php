@@ -21,4 +21,11 @@ return array(
 			'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
 		),
 	),
+	'user_keys'			=> array(
+		'SYSTEM_SYSTEM' => '',
+		'SYSTEM_SIGNUP' => '',
+	),
+	'view_manager' => array(
+		'base_path'	=> 'http://localhost:8888',
+	),
 );
