@@ -1,12 +1,31 @@
 <?php
 
 return array(
+	'acl' => array(
+		'resources' => array(
+			'user'		=> array(
+				'user',
+			),
+		),
+	),
 	'controllers' => array(
 		'invokables' => array(
+			'User\Controller\User' => 'OmelettesUser\Controller\UserController',
 		),
 	),
 	'router' => array(
 		'routes' => array(
+			'user' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/user[/:action]',
+					'defaults'		=> array(
+						'controller'	=> 'User\Controller\User',
+						'action'		=> 'preferences',
+					),
+					'constraints'	=> array(),
+				),
+			),
 		),
 	),
 	'service_manager' => array(

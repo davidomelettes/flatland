@@ -6,6 +6,7 @@ return array(
     	'Omelettes',
     	'OmelettesAuth',
     	'OmelettesSignup',
+    	'OmelettesUser',
         'Game',
     ),
 
