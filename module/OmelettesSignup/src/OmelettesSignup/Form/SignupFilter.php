@@ -61,7 +61,7 @@ class SignupFilter extends AbstractModelFilter
 							'field'		=> 'name',
 							'mapper'	=> $this->usersMapper,
 							'method'	=> 'findByName',
-							'messsages'	=> array(
+							'messages'	=> array(
 								QuantumDoesNotExist::ERROR_MODEL_EXISTS => 'A user with that email address already exists',
 							),
 						),

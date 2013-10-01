@@ -38,7 +38,7 @@ class QuantumDoesNotExist extends AbstractQuantumModel
 			// Multiple rows returned
 			$valid = false;
 			$this->error(self::ERROR_MODEL_EXISTS);
-		} elseif ($result instanceof \ArrayObject) {
+		} elseif (false !== $result) {
 			// Single row returned
 			$valid = false;
 			$this->error(self::ERROR_MODEL_EXISTS);
