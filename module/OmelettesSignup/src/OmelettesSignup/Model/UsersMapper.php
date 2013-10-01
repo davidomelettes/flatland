@@ -43,7 +43,7 @@ class UsersMapper extends QuantumMapper
 			'updated_by'		=> $config['user_keys']['SYSTEM_SIGNUP'],
 			'full_name'			=> $user->fullName,
 			'salt'				=> $salt,
-			'password_hash'		=> hash('sha256', $plaintextPassword . $salt),
+			'password_hash'		=> $this->generatePasswordHash($plaintextPassword, $salt),
 			'acl_role'			=> 'user',
 		);
 		
@@ -51,6 +51,11 @@ class UsersMapper extends QuantumMapper
 		
 		// Load model with new values
 		$user->exchangeArray($data);
+	}
+	
+	protected function generatePasswordHash($plaintextPassword, $salt)
+	{
+		return hash('sha256', $plaintextPassword . $salt);
 	}
 	
 }
