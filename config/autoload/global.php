@@ -25,6 +25,12 @@ return array(
 		'SYSTEM_SYSTEM' => '',
 		'SYSTEM_SIGNUP' => '',
 	),
+	'email_addresses'	=> array(
+		'SYSTEM_NOREPLY' => array(
+			'email'		=> 'noreply@localhost',
+			'name'		=> 'Flatland',
+		),
+	),
 	'view_manager' => array(
 		'base_path'	=> 'http://localhost:8888',
 	),

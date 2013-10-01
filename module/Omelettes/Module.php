@@ -20,4 +20,25 @@ class Module
 		);
 	}
 	
+	public function getServiceConfig()
+	{
+		return array(
+			'aliases'		=> array(
+				'Mailer'		=> 'Omelettes\Mailer',
+			),
+			'factories' => array(
+				'Omelettes\Mailer'		=> function ($sm) {
+					$config = $sm->get('config');
+					$defaultAddress = $config['email_addresses']['SYSTEM_NOREPLY'];
+					$mailer = new Mailer();
+					$mailer->setTextLayout('mail/layout/text')
+						->setHtmlLayout('mail/layout/html')
+						->setFromAddress($defaultAddress['email'])
+						->setFromName($defaultAddress['name']);
+					return $mailer;
+				},
+			),
+		);
+	}
+	
 }
