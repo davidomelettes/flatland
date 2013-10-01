@@ -3,9 +3,9 @@
 namespace Auth\Form;
 
 use Zend\InputFilter\InputFilter;
-use Omelettes\Quantum\Form\AbstractModelFilter;
+use Omelettes\Form\AbstractQuantumModelFilter;
 
-class ResetPasswordFilter extends AbstractModelFilter
+class ResetPasswordFilter extends AbstractQuantumModelFilter
 {
 	public function getInputFilter()
 	{

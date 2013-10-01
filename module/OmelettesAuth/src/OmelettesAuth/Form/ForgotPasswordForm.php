@@ -2,9 +2,9 @@
 
 namespace OmelettesAuth\Form;
 
-use Omelettes\Quantum\Form\AbstractForm;
+use Omelettes\Form\AbstractQuantumForm;
 
-class ForgotPasswordForm extends AbstractForm
+class ForgotPasswordForm extends AbstractQuantumForm
 {
 	public function __construct($name = null)
 	{

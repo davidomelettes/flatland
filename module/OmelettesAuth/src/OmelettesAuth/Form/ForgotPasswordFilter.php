@@ -1,12 +1,12 @@
 <?php
 
-namespace Auth\Form;
+namespace OmelettesAuth\Form;
 
 use Zend\InputFilter\InputFilter;
 use Auth\Model\UsersMapper;
-use Omelettes\Quantum\Form\AbstractModelFilter;
+use Omelettes\Form\AbstractQuantumModelFilter;
 
-class ForgotPasswordFilter extends AbstractModelFilter
+class ForgotPasswordFilter extends AbstractQuantumModelFilter
 {
 	/**
 	 * @var UsersMapper

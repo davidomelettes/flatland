@@ -4,7 +4,7 @@ namespace Omelettes\Form;
 
 use Zend\Form\Form;
 
-abstract class AbstractForm extends Form
+abstract class AbstractQuantumForm extends Form
 {
 	public function __construct($name = null)
 	{

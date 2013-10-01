@@ -6,7 +6,7 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilter;
 
-abstract class AbstractModelFilter implements InputFilterAwareInterface
+abstract class AbstractQuantumModelFilter implements InputFilterAwareInterface
 {
 	/**
 	 * @var InputFilterInterface
