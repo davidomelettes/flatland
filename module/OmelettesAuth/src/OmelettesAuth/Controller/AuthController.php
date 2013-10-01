@@ -2,31 +2,16 @@
 
 namespace OmelettesAuth\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Authentication\AuthenticationService;
+use Omelettes\Controller\AbstractController;
 use OmelettesAuth\Form\LoginForm;
+use Zend\Authentication\AuthenticationService;
 
 class AuthController extends AbstractActionController
 {
 	/**
-	 * @var AuthenticationService
-	 */
-	protected $authService;
-	
-	/**
 	 * @var LoginForm
 	 */
 	protected $loginForm;
-	
-	public function getAuthService()
-	{
-		if (!$this->authService) {
-			$authService = $this->getServiceLocator()->get('AuthService');
-			$this->authService = $authService;
-		}
-		
-		return $this->authService;
-	}
 	
 	public function getLoginForm()
 	{
