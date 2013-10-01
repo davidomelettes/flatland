@@ -1,8 +1,8 @@
 <?php
 
-namespace Auth\Form;
+namespace OmelettesAuth\Form;
 
-use Omelettes\Quantum\Form\AbstractQuantumModelFilter;
+use Omelettes\Form\AbstractQuantumModelFilter;
 
 class LoginFilter extends AbstractQuantumModelFilter
 {

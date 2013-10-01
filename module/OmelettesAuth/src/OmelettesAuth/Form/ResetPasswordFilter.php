@@ -1,6 +1,6 @@
 <?php
 
-namespace Auth\Form;
+namespace OmelettesAuth\Form;
 
 use Zend\InputFilter\InputFilter;
 use Omelettes\Form\AbstractQuantumModelFilter;

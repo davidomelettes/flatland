@@ -2,31 +2,42 @@
 
 namespace OmelettesAuth\Model;
 
-use Omelettes\Model\QuantumMapper;
+use Omelettes\Uuid\V4 as Uuid;
+use OmelettesSignup\Model\UsersMapper as SignupMapper;
 use Zend\Db\Sql\Predicate;
 use Zend\Validator\StringLength;
 
-class UsersMapper extends QuantumMapper
+class UsersMapper extends SignupMapper
 {
-	protected function getDefaultWhere()
+	public function regeneratePasswordResetKey(User $user)
 	{
-		$where = new Predicate\PredicateSet();
-		$where->addPredicate(new Predicate\Operator('acl_role', '=', 'user'));
-		
-		return $where;
-	}
-	
-	public function findByName($name)
-	{
-		$validator = new StringLength(array('min' => 1, 'encoding' => 'UTF-8'));
-		if (!$validator->isValid($name)) {
-			return false;
+		if (!$this->find($user->key)) {
+			throw new \Exception('User with key ' . $user->key . ' does not exist');
 		}
 		
-		$where = $this->getWhere();
-		$where->andPredicate(new Predicate\Operator('name', '=', $value));
+		$key = new Uuid();
+		$data = array(
+			'password_reset_key'		=> $key,
+			'password_reset_requested'	=> 'now()',
+		);
+		$this->tableGateway->update($data, array('key' => $user->key));
 		
-		return $this->findOneWhere($where);
+		return (string)$key;
+	}
+	
+	public function updatePassword(User $user, $plaintextPassword)
+	{
+		if (!$this->find($user->key)) {
+			throw new \Exception('User with key ' . $user->key . ' does not exist');
+		}
+		$salt = new Uuid();
+		$data = array(
+			'salt'						=> $salt,
+			'password_hash'				=> $this->generatePasswordHash($plaintextPassword, $salt),
+			'password_reset_key'		=> null,
+			'password_reset_requested'	=> null,
+		);
+		$this->tableGateway->update($data, array('key' => $user->key));
 	}
 	
 }
