@@ -23,7 +23,7 @@ class QuantumMapper extends AbstractMapper
 		}
 		
 		$where = $this->getWhere();
-		$where->andPredicate(new Predicate\Operator('key', '=', $value));
+		$where->andPredicate(new Predicate\Operator('key', '=', $key));
 		
 		return $this->findOneWhere($where);
 	}

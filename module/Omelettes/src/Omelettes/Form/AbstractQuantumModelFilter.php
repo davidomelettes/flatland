@@ -9,7 +9,7 @@ use Zend\InputFilter\InputFilter;
 abstract class AbstractQuantumModelFilter implements InputFilterAwareInterface
 {
 	/**
-	 * @var InputFilterInterface
+	 * @var InputFilter
 	 */
 	protected $inputFilter;
 	

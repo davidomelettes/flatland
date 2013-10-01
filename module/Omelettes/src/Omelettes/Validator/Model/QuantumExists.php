@@ -1,6 +1,6 @@
 <?php
 
-namespace Omelettes\Quantum\Validator\Model;
+namespace Omelettes\Validator\Model;
 
 use Zend\Validator\Exception;
 
