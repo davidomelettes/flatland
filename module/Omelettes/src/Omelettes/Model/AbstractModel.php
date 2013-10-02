@@ -13,7 +13,7 @@ abstract class AbstractModel
 	{
 		$method = 'get' . $name;
 		if (!method_exists($this, $method)) {
-			throw new Exception('Invalid model property: ' . $name);
+			throw new \Exception('Invalid model property: ' . $name);
 		}
 		return $this->$method();
 	}
@@ -22,7 +22,7 @@ abstract class AbstractModel
 	{
 		$method = 'set' . $name;
 		if ('mapper' == $name || !method_exists($this, $method)) {
-			throw new Exception('Invalid model property: ' . $name);
+			throw new \Exception('Invalid model property: ' . $name);
 		}
 		$this->$method($value);
 	}
