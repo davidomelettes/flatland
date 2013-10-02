@@ -21,7 +21,7 @@ return array(
 					'route'			=> '/user[/:action]',
 					'defaults'		=> array(
 						'controller'	=> 'User\Controller\User',
-						'action'		=> 'preferences',
+						'action'		=> 'info',
 					),
 					'constraints'	=> array(),
 				),
