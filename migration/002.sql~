@@ -1,7 +1,7 @@
 BEGIN;
 
 CREATE TABLE locales (
-	code VARCHAR PRIMARY KEY,
+	code VARHCAR PRIMARY KEY,
 	name VARCHAR NOT NULL
 );
 
