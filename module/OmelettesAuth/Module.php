@@ -2,18 +2,18 @@
 
 namespace OmelettesAuth;
 
-use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
-use Zend\Authentication\AuthenticationService;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\Mvc\MvcEvent;
-use Zend\Permissions\Acl;
-use OmelettesAuth\Form\ForgotPasswordFilter;
-use OmelettesAuth\Form\LoginFilter;
-use OmelettesAuth\Form\ResetPasswordFilter;
-use OmelettesAuth\Storage\Session as StorageSession;
-use OmelettesAuth\Model\User;
-use OmelettesAuth\Model\UsersMapper;
+use OmelettesAuth\Form\ForgotPasswordFilter,
+	OmelettesAuth\Form\LoginFilter,
+	OmelettesAuth\Form\ResetPasswordFilter,
+	OmelettesAuth\Storage\Session as StorageSession,
+	OmelettesAuth\Model\User,
+	OmelettesAuth\Model\UsersMapper;
+use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter,
+	Zend\Authentication\AuthenticationService,
+	Zend\Db\ResultSet\ResultSet,
+	Zend\Db\TableGateway\TableGateway,
+	Zend\Mvc\MvcEvent,
+	Zend\Permissions\Acl;
 
 class Module
 {
@@ -37,10 +37,10 @@ class Module
 	{
 		return array(
 			'factories' => array(
-				'OmelettesAuth\Storage\Session'	=> function($sm) {
+				'OmelettesAuth\Storage\Session' => function($sm) {
 					return new StorageSession(StorageSession::STORAGE_NAMESPACE);
 				},
-				'AuthService'				=> function($sm) {
+				'AuthService' => function($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$dbTableAuthAdapter = new DbTableAuthAdapter(
 							$dbAdapter,
@@ -56,26 +56,26 @@ class Module
 						
 					return $authService;
 				},
-				'UsersTableGateway'			=> function($sm) {
+				'UsersTableGateway' => function($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new User());
 					return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
 				},
-				'OmelettesAuth\Model\UsersMapper'	=> function($sm) {
+				'OmelettesAuth\Model\UsersMapper' => function($sm) {
 					$gateway = $sm->get('UsersTableGateway');
 					$mapper = new UsersMapper($gateway);
 					return $mapper;
 				},
-				'OmelettesAuth\Form\LoginFilter'		=> function($sm) {
+				'OmelettesAuth\Form\LoginFilter' => function($sm) {
 					$filter = new LoginFilter();
 					return $filter;
 				},
-				'OmelettesAuth\Form\ForgotPasswordFilter'		=> function($sm) {
+				'OmelettesAuth\Form\ForgotPasswordFilter' => function($sm) {
 					$filter = new ForgotPasswordFilter($sm->get('OmelettesAuth\Model\UsersMapper'));
 					return $filter;
 				},
-				'AclService'				=> function($sm) {
+				'AclService' => function($sm) {
 					$acl = new Acl\Acl();
 					$config = $sm->get('config');
 					if (is_array($config) && isset($config['acl'])) {

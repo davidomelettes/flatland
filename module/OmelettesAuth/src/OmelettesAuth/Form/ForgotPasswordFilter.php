@@ -2,11 +2,11 @@
 
 namespace OmelettesAuth\Form;
 
-use Omelettes\Form\AbstractQuantumModelFilter;
-use Omelettes\Validator\Model\QuantumExists;
+use Omelettes\Form\AbstractQuantumModelFilter,
+	Omelettes\Validator\Model\QuantumExists;
 use OmelettesAuth\Model\UsersMapper;
-use Zend\InputFilter\InputFilter;
-use Zend\Validator\EmailAddress;
+use Zend\InputFilter\InputFilter,
+	Zend\Validator\EmailAddress;
 
 class ForgotPasswordFilter extends AbstractQuantumModelFilter
 {

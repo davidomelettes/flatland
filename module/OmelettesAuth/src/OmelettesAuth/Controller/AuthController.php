@@ -3,45 +3,40 @@
 namespace OmelettesAuth\Controller;
 
 use Omelettes\Controller\AbstractController;
-use OmelettesAuth\Form\ForgotPasswordFilter;
-use OmelettesAuth\Form\ForgotPasswordForm;
-use OmelettesAuth\Form\LoginFilter;
-use OmelettesAuth\Form\LoginForm;
-use OmelettesAuth\Form\ResetPasswordFilter;
-use OmelettesAuth\Form\ResetPasswordForm;
-use OmelettesAuth\Model\User;
-use OmelettesAuth\Model\UsersMapper;
+use OmelettesAuth\Form,
+	OmelettesAuth\Model\User,
+	OmelettesAuth\Model\UsersMapper;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 
 class AuthController extends AbstractController
 {
 	/**
-	 * @var ForgotPasswordForm
+	 * @var Form\ForgotPasswordForm
 	 */
 	protected $forgotPasswordForm;
 	
 	/**
-	 * @var ForgotPasswordFilter
+	 * @var Form\ForgotPasswordFilter
 	 */
 	protected $forgotPasswordFilter;
 	
 	/**
-	 * @var LoginForm
+	 * @var Form\LoginForm
 	 */
 	protected $loginForm;
 	
 	/**
-	 * @var LoginFilter
+	 * @var Form\LoginFilter
 	 */
 	protected $loginFilter;
 	
 	/**
-	 * @var ResetPasswordForm
+	 * @var Form\ResetPasswordForm
 	 */
 	protected $resetPasswordForm;
 	
 	/**
-	 * @var ResetPasswordFilter
+	 * @var Form\ResetPasswordFilter
 	 */
 	protected $resetPasswordFilter;
 	
@@ -53,7 +48,7 @@ class AuthController extends AbstractController
 	public function getForgotPasswordForm()
 	{
 		if (!$this->forgotPasswordForm) {
-			$this->forgotPasswordForm = new ForgotPasswordForm();
+			$this->forgotPasswordForm = new Form\ForgotPasswordForm();
 		}
 	
 		return $this->forgotPasswordForm;
@@ -122,7 +117,7 @@ class AuthController extends AbstractController
 	public function getLoginForm()
 	{
 		if (!$this->loginForm) {
-			$loginForm = new LoginForm();
+			$loginForm = new Form\LoginForm();
 			$this->loginForm = $loginForm;
 		}
 		
@@ -193,7 +188,7 @@ class AuthController extends AbstractController
 	public function getResetPasswordForm()
 	{
 		if (!$this->resetPasswordForm) {
-			$this->resetPasswordForm = new ResetPasswordForm();
+			$this->resetPasswordForm = new Form\ResetPasswordForm();
 		}
 	
 		return $this->resetPasswordForm;
@@ -202,7 +197,7 @@ class AuthController extends AbstractController
 	public function getResetPasswordFilter()
 	{
 		if (!$this->resetPasswordFilter) {
-			$resetPasswordFilter = new ResetPasswordFilter();
+			$resetPasswordFilter = new Form\ResetPasswordFilter();
 			$this->resetPasswordFilter = $resetPasswordFilter;
 		}
 	

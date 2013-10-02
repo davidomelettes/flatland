@@ -2,8 +2,8 @@
 
 namespace OmelettesSignup\Form;
 
-use Omelettes\Form\AbstractQuantumModelFilter;
-use Omelettes\Validator\Model\QuantumDoesNotExist;
+use Omelettes\Form\AbstractQuantumModelFilter,
+	Omelettes\Validator\Model\QuantumDoesNotExist;
 use OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
 use Zend\Validator\EmailAddress;
 

@@ -4,20 +4,19 @@ namespace OmelettesSignup\Controller;
 
 use Omelettes\Controller\AbstractController;
 use OmelettesAuth\Model\User as SignupUser;
-use OmelettesSignup\Form\SignupForm;
-use OmelettesSignup\Form\SignupFilter;
-use OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
+use OmelettesSignup\Form,
+	OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class SignupController extends AbstractController
 {
 	/**
-	 * @var SignupForm
+	 * @var Form\SignupForm
 	 */
 	protected $signupForm;
 	
 	/**
-	 * @var SignupFilter
+	 * @var Form\SignupFilter
 	 */
 	protected $signupFilter;
 	
@@ -29,7 +28,7 @@ class SignupController extends AbstractController
 	public function getSignupForm()
 	{
 		if (!$this->signupForm) {
-			$form = new SignupForm();
+			$form = new Form\SignupForm();
 			$this->signupForm = $form;
 		}
 		

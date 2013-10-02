@@ -2,8 +2,8 @@
 
 namespace Omelettes\Model;
 
-use Omelettes\Model\AbstractMapper;
-use Omelettes\Validator\Uuid\V4 as UuidValidator;
+use Omelettes\Model\AbstractMapper,
+	Omelettes\Validator\Uuid\V4 as UuidValidator;
 use Zend\Db\Sql\Predicate;
 
 class QuantumMapper extends AbstractMapper

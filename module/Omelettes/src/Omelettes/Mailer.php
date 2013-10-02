@@ -2,14 +2,14 @@
 
 namespace Omelettes;
 
-use Zend\Mail as ZendMail;
-use Zend\Mime\Message as MimeMessage;
-use Zend\Mime\Mime as MimeType;
-use Zend\Mime\Part as MimePart;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer;
+use Zend\Mail as ZendMail,
+	Zend\Mime\Message as MimeMessage,
+	Zend\Mime\Mime as MimeType,
+	Zend\Mime\Part as MimePart,
+	Zend\ServiceManager\ServiceLocatorAwareInterface,
+	Zend\ServiceManager\ServiceLocatorInterface,
+	Zend\View\Model\ViewModel,
+	Zend\View\Renderer\PhpRenderer;
 
 class Mailer implements ServiceLocatorAwareInterface
 {

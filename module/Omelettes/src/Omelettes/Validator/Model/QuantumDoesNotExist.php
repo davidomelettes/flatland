@@ -2,8 +2,8 @@
 
 namespace Omelettes\Validator\Model;
 
-use Zend\Validator\Exception;
-use Zend\Db\ResultSet\AbstractResultSet;
+use Zend\Validator\Exception,
+	Zend\Db\ResultSet\AbstractResultSet;
 
 /**
  * Tests for the existance of a model by key; model must not already exist

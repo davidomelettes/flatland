@@ -2,11 +2,11 @@
 
 namespace OmelettesSignup\Model;
 
-use Omelettes\Model\QuantumMapper;
-use Omelettes\Uuid\V4 as Uuid;
+use Omelettes\Model\QuantumMapper,
+	Omelettes\Uuid\V4 as Uuid;
 use OmelettesAuth\Model\User as SignupUser;
-use Zend\Validator\StringLength;
-use Zend\Db\Sql\Predicate;
+use Zend\Validator\StringLength,
+	Zend\Db\Sql\Predicate;
 
 class UsersMapper extends QuantumMapper
 {

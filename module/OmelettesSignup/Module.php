@@ -4,8 +4,8 @@ namespace OmelettesSignup;
 
 use OmelettesAuth\Model\User as SignupUser;
 use OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\ResultSet\ResultSet,
+	Zend\Db\TableGateway\TableGateway;
 
 class Module
 {

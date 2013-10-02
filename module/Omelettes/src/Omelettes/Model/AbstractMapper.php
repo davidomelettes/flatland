@@ -2,10 +2,10 @@
 
 namespace Omelettes\Model;
 
-use Zend\Db\Sql\Predicate;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\Db\Sql\Predicate,
+	Zend\Db\TableGateway\TableGateway,
+	Zend\ServiceManager\ServiceLocatorAwareInterface,
+	Zend\ServiceManager\ServiceLocatorInterface;
 
 abstract class AbstractMapper implements ServiceLocatorAwareInterface
 {

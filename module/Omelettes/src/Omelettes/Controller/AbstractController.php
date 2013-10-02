@@ -2,8 +2,8 @@
 
 namespace Omelettes\Controller;
 
-use Zend\Authentication\AuthenticationService;
-use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Authentication\AuthenticationService,
+	Zend\Mvc\Controller\AbstractActionController;
 
 abstract class AbstractController extends AbstractActionController
 {

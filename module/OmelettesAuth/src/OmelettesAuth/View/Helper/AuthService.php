@@ -2,10 +2,10 @@
 
 namespace OmelettesAuth\View\Helper;
 
-use Zend\Authentication\AuthenticationService;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Helper\AbstractHelper;
+use Zend\Authentication\AuthenticationService,
+	Zend\ServiceManager\ServiceLocatorAwareInterface,
+	Zend\ServiceManager\ServiceLocatorInterface,
+	Zend\View\Helper\AbstractHelper;
 
 class AuthService extends AbstractHelper implements ServiceLocatorAwareInterface 
 {

@@ -4,8 +4,8 @@ namespace OmelettesAuth\Model;
 
 use Omelettes\Uuid\V4 as Uuid;
 use OmelettesSignup\Model\UsersMapper as SignupMapper;
-use Zend\Db\Sql\Predicate;
-use Zend\Validator\StringLength;
+use Zend\Db\Sql\Predicate,
+	Zend\Validator\StringLength;
 
 class UsersMapper extends SignupMapper
 {

@@ -3,8 +3,8 @@
 namespace Omelettes\Validator\Model;
 
 use Omelettes\Model\QuantumMapper;
-use Zend\Validator\AbstractValidator;
-use Zend\Validator\Exception;
+use Zend\Validator\AbstractValidator,
+	Zend\Validator\Exception;
 
 abstract class AbstractQuantumModel extends AbstractValidator
 {

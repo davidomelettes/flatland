@@ -2,9 +2,9 @@
 
 namespace Omelettes\Form;
 
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilter,
+	Zend\InputFilter\InputFilterAwareInterface,
+	Zend\InputFilter\InputFilterInterface;
 
 abstract class AbstractQuantumModelFilter implements InputFilterAwareInterface
 {
