@@ -2,6 +2,8 @@
 
 namespace OmelettesUser;
 
+use OmelettesUser\Form\UserInfoForm;
+
 class Module
 {
 	public function getConfig()

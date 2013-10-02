@@ -3,14 +3,13 @@
 namespace OmelettesUser\Form;
 
 use Omelettes\Form\AbstractQuantumForm;
-use OmelettesAuth\Model\User;
 
 class UserInfoForm extends AbstractQuantumForm
 {
 	/**
-	 * @var User
+	 * @var array
 	 */
-	protected $identity;
+	protected $localeOptions;
 	
 	public function __construct()
 	{
@@ -29,7 +28,6 @@ class UserInfoForm extends AbstractQuantumForm
 				'id'		=> $this->getName() . 'Name',
 			),
 		));
-		
 		
 		$this->add(array(
 			'name'		=> 'full_name',
@@ -53,7 +51,10 @@ class UserInfoForm extends AbstractQuantumForm
 				'value'		=> '************',
 			),
 		));
-		
+	}
+	
+	public function addLocaleElement(array $localeOptions = array())
+	{
 		$this->add(array(
 			'name'		=> 'locale',
 			'type'		=> 'Select',
@@ -62,6 +63,7 @@ class UserInfoForm extends AbstractQuantumForm
 			),
 			'attributes'=> array(
 				'id'		=> $this->getName() . 'Locale',
+				'options'=> $localeOptions,
 			),
 		));
 	}
