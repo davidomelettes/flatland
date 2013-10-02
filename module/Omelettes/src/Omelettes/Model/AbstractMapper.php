@@ -87,7 +87,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 			if (!$defaultWhere instanceof Predicate\PredicateSet) {
 				throw new \Exception('Expected a PredicateSet');
 			}
-			$this->defaultPredicateSet = $defaultWhere;
+			$this->defaultPredicateSet = count($defaultWhere) > 0 ? $defaultWhere : null;
 		}
 		
 		return $this->defaultPredicateSet;
