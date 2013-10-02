@@ -41,24 +41,4 @@ ALTER TABLE users ADD COLUMN updated_by uuid REFERENCES users(key);
 UPDATE users SET updated_by = 'deadbeef-7a69-40e7-8984-8d3de3bedc0b' WHERE acl_role = 'system';
 ALTER TABLE users ALTER COLUMN updated_by SET NOT NULL;
 
-CREATE TABLE games (
-	key UUID PRIMARY KEY,
-	name varchar NOT NULL
-);
-
-CREATE TABLE user_collection (
-	user_key UUID NOT NULL REFERENCES users(key),
-	game_key UUID NOT NULL REFERENCES games(key),
-	wishlist BOOLEAN NOT NULL DEFAULT FALSE,
-	PRIMARY KEY (user_key, game_key)
-);
-
-CREATE TABLE user_ratings (
-	user_key UUID NOT NULL REFERENCES users(key),
-	game_key UUID NOT NULL REFERENCES games(key),
-	rating NUMERIC(3,1),
-	created TIMESTAMP NOT NULL DEFAULT now(), 
-	PRIMARY KEY (user_key, game_key)
-);
-
 COMMIT;
