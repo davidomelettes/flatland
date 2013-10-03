@@ -2,7 +2,8 @@
 
 namespace OmelettesUser;
 
-use OmelettesUser\Form\UserInfoForm;
+use OmelettesUser\Form\UserInfoForm,
+	OmelettesUser\Model\UserMapper;
 
 class Module
 {
@@ -26,6 +27,11 @@ class Module
 	{
 		return array(
 			'factories' => array(
+				'OmelettesUser\Model\UserMapper' => function ($sm) {
+					$gateway = $sm->get('UsersTableGateway');
+					$mapper = new UserMapper($gateway);
+					return $mapper;
+				},
 			),
 		);
 	}
