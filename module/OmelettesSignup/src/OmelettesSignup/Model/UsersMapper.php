@@ -45,6 +45,7 @@ class UsersMapper extends QuantumMapper
 			'salt'				=> $salt,
 			'password_hash'		=> $this->generatePasswordHash($plaintextPassword, $salt),
 			'acl_role'			=> 'user',
+			'locale'			=> 'en_GB',
 		);
 		
 		$this->tableGateway->insert($data);
