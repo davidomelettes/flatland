@@ -30,7 +30,7 @@ class LocalesMapper extends AbstractMapper
 	public function fetchAll()
 	{
 		$where = $this->getWhere();
-		$resultSet = $this->tableGateway->select($where);
+		$resultSet = $this->select($where);
 		
 		return $resultSet;
 	}

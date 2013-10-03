@@ -31,7 +31,7 @@ class QuantumMapper extends AbstractMapper
 	public function fetchAll()
 	{
 		$where = $this->getWhere();
-		$resultSet = $this->tableGateway->select($where);
+		$resultSet = $this->select($where);
 		
 		return $resultSet;
 	}
@@ -40,7 +40,7 @@ class QuantumMapper extends AbstractMapper
 	{
 		$defaultWhere = $this->getWhere();
 		$defaultWhere->addPredicate($where);
-		$resultSet = $this->tableGateway->select($defaultWhere);
+		$resultSet = $this->select($defaultWhere);
 		
 		return $resultSet;
 	}

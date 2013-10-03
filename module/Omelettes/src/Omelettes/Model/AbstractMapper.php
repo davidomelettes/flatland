@@ -87,7 +87,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 			if (!$defaultWhere instanceof Predicate\PredicateSet) {
 				throw new \Exception('Expected a PredicateSet');
 			}
-			$this->defaultPredicateSet = count($defaultWhere) > 0 ? $defaultWhere : null;
+			$this->defaultPredicateSet = $defaultWhere;
 		}
 		
 		return $this->defaultPredicateSet;
@@ -101,7 +101,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected function findOneWhere(Predicate\PredicateSet $where)
 	{
-		$rowset = $this->tableGateway->select($where);
+		$rowset = $this->select($where);
 		$row = $rowset->current();
 		if (!$row) {
 			return false;
@@ -132,5 +132,16 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 * @return ResultSet
 	 */
 	abstract public function fetchAllWhere(Predicate\PredicateInterface $where);
+	
+	/**
+	 * Performs a select on the tableGateway
+	 * 
+	 * @param Predicate\PredicateSet $where
+	 * @return ResultSet
+	 */
+	protected function select(Predicate\PredicateSet $where)
+	{
+		return $this->tableGateway->select(count($where) < 1 ? null : $where);
+	}
 	
 }
