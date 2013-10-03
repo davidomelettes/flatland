@@ -15,14 +15,8 @@ class UserController extends AbstractController
 	public function getUserInfoForm()
 	{
 		if (!$this->userInfoForm) {
+			// Must fetch via the FormElementManager so that registered form_elements have been initialised
 			$form = $this->getServiceLocator()->get('FormElementManager')->get('OmelettesUser\Form\UserInfoForm');
-			$localesMapper = $this->getServiceLocator()->get('OmelettesLocale\Model\LocalesMapper');
-			$options = array();
-			foreach ($localesMapper->fetchAll() as $locale) {
-				$options[$locale->code] = $locale->name;
-			}
-			$form->addLocaleElement($options);
-			$form->addSubmitElement();
 			$this->userInfoForm = $form;
 		}
 		

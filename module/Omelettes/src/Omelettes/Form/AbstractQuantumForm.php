@@ -2,14 +2,36 @@
 
 namespace Omelettes\Form;
 
-use Zend\Form\Form;
+use Zend\Form\Form,
+	Zend\ServiceManager\ServiceLocatorAwareInterface,
+	Zend\ServiceManager\ServiceLocatorInterface;
 
-abstract class AbstractQuantumForm extends Form
+abstract class AbstractQuantumForm extends Form implements ServiceLocatorAwareInterface
 {
+	/**
+	 * @var ServiceLocatorInterface
+	 */
+	protected $serviceLocator;
+	
 	public function __construct($name = null)
 	{
 		parent::__construct($name);
 		$this->setAttribute('method', 'post');
+	}
+	
+	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+	{
+		$this->serviceLocator = $serviceLocator;
+	}
+	
+	public function getServiceLocator()
+	{
+		return $this->serviceLocator;
+	}
+	
+	public function getApplicationServiceLocator()
+	{
+		return $this->getServiceLocator()->getServiceLocator();
 	}
 	
 	public function addKeyElement()

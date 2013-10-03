@@ -16,6 +16,10 @@ class UserInfoForm extends AbstractQuantumForm
 		parent::__construct('form-user-info');
 	}
 	
+	/**
+	 * Form construction goes here because we have
+	 * non-standard form_elements we want initialised
+	 */
 	public function init()
 	{
 		$this->add(array(
@@ -51,10 +55,12 @@ class UserInfoForm extends AbstractQuantumForm
 				'value'		=> '************',
 			),
 		));
-	}
-	
-	public function addLocaleElement(array $localeOptions = array())
-	{
+		
+		$localesMapper = $this->getApplicationServiceLocator()->get('OmelettesLocale\Model\LocalesMapper');
+		$localeOptions = array();
+		foreach ($localesMapper->fetchAll() as $locale) {
+			$localeOptions[$locale->code] = $locale->name;
+		}
 		$this->add(array(
 			'name'		=> 'locale',
 			'type'		=> 'Select',
@@ -66,6 +72,8 @@ class UserInfoForm extends AbstractQuantumForm
 				'options'=> $localeOptions,
 			),
 		));
+		
+		$this->addSubmitElement();
 	}
 	
 }
