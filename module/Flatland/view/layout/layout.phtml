@@ -39,9 +39,7 @@
 		<nav class="navbar navbar-static-top navbar-inverse" role="navigation">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
+					<span class="glyphicon glyphicon-align-justify"></span>
 				</button>
 				<a class="navbar-brand" href="/"><?php echo $this->translate('Flatland'); ?></a>
 			</div>
@@ -60,6 +58,9 @@
 					<li>
 						<a href="#"><span class="glyphicon glyphicon-calendar"></span> Groups &amp; Events</a>
 					</li>
+					<li>
+						<a href="#"><span class="glyphicon glyphicon-list"></span> Lists</a>
+					</li>
 				</ul>
 				<?php if ($this->authService()->hasIdentity()): ?>
 				<ul class="nav navbar-nav navbar-right">
@@ -73,7 +74,7 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Jon Snow <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<a href="<?php echo $this->url('user', array('action'=>'preferences')); ?>"><?php echo $this->translate('User Preferences'); ?></a>
+								<a href="<?php echo $this->url('user'); ?>"><?php echo $this->translate('User Preferences'); ?></a>
 							</li>
 							<li>
 								<a href="<?php echo $this->url('logout'); ?>"><?php echo $this->translate('Sign out'); ?></a>

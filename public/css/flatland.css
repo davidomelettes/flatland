@@ -1,3 +1,49 @@
+html body {
+	background-color: #eee;
+}
+
+.card {
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 5px;
+	box-shadow: 2px 2px 2px #aaa;
+}
+.card .card-title {
+	margin-bottom: 5px;
+	font-weight: bold;
+	background-color: #fff;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.card .card-image {
+	border-radius: 5px;
+	border: 2px solid #000;
+	margin-bottom: 5px;
+	width: 100%;
+	height: 200px;
+	overflow: hidden;
+}
+.card .card-subtitle {
+	margin-bottom: 5px;
+	font-weight: bold;
+	background-color: #fff;
+}
+.card .card-summary {
+	margin-bottom: 15px;
+	height: 60px;
+	position: relative;
+	background-color: #fff;
+}
+.card .card-score {
+	background-color: #fff;
+	padding: 2px 5px;
+	border: 1px solid #000;
+	border-radius: 5px;
+	position: absolute;
+	bottom: -5px;
+	right: 0;
+}
+
 dl { margin-top: 0; }
 dl.dl-inline dt, dl.dl-inline dd { display: inline; }
 
