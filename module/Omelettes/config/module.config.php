@@ -16,6 +16,11 @@ return array(
 		'invokables' => array(
 		),
 	),
+	'validators' => array(
+		'invokables' => array(
+			'Password' => 'Omelettes\Validator\Password',
+		),
+	),
 	'view_manager' => array(
 		'template_map' => array(
 			'flash-messenger'		=> __DIR__ . '/../view/partial/flash-messenger.phtml',
