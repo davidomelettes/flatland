@@ -28,6 +28,8 @@ class UserController extends AbstractController
 		if (!$this->userInfoForm) {
 			// Must fetch via the FormElementManager so that registered form_elements have been initialised
 			$form = $this->getServiceLocator()->get('FormElementManager')->get('OmelettesUser\Form\UserInfoForm');
+			$form->get('password')->setChangeUrl($this->url()->fromRoute('user', array('action'=>'change-password')));
+			$form->get('name')->setChangeUrl($this->url()->fromRoute('user', array('action'=>'change-email-address')));
 			$this->userInfoForm = $form;
 		}
 		
@@ -80,6 +82,16 @@ class UserController extends AbstractController
 	}
 	
 	public function preferencesAction()
+	{
+		return array();
+	}
+	
+	public function changePasswordAction()
+	{
+		return array();
+	}
+	
+	public function changeEmailAddressAction()
 	{
 		return array();
 	}
