@@ -1,8 +1,13 @@
 <label class="col-lg-<?php echo $this->leftColWidth; ?> control-label" for="<?php echo $element->getAttribute('id'); ?>"><?php echo $element->getLabel(); ?></label>
 <div class="col-lg-<?php echo $this->rightColWidth; ?>">
-	<?php if ($element->getEscapeHtml()): ?>
-	<p class="form-control-static"><?php echo $this->escapehtml($element->getValue()); ?></p>
-	<?php else: ?>
-	<p class="form-control-static"><?php echo $element->getValue(); ?></p>
-	<?php endif; ?>
+	<p class="form-control-static">
+		<?php if ($element->getEscapeHtml()): ?>
+		<?php echo $this->escapehtml($element->getValue()); ?>
+		<?php else: ?>
+		<?php echo $element->getValue(); ?>
+		<?php endif; ?>
+		<?php if ($element->getChangeUrl()): ?>
+		(<a href="<?php echo $element->getChangeUrl(); ?>"><?php echo $this->translate('Change'); ?></a>)
+		<?php endif; ?>
+	</p>
 </div>
