@@ -137,6 +137,7 @@ class Module
 			$response->getHeaders()->addHeaderLine('Location', $e->getRequest()->getBaseUrl() . $loginUrl);
 			$response->setStatusCode('302');
 			
+			// Return a response now to short-circuit the event manger and prevent a dispatch
 			return $response;
 		}
 	}
