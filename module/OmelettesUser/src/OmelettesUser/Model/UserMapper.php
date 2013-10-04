@@ -2,10 +2,10 @@
 
 namespace OmelettesUser\Model;
 
-use Omelettes\Model\QuantumMapper;
-use OmelettesAuth\Model\User;
+use OmelettesAuth\Model\User,
+	OmelettesAuth\Model\UsersMapper as AuthMapper;
 
-class UserMapper extends QuantumMapper
+class UserMapper extends AuthMapper
 {
 	public function updateUser(User $user)
 	{

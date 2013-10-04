@@ -2,7 +2,8 @@
 
 namespace OmelettesUser;
 
-use OmelettesUser\Form\UserInfoForm,
+use OmelettesUser\Form\ChangePasswordFilter, 
+	OmelettesUser\Form\UserInfoForm,
 	OmelettesUser\Model\UserMapper;
 
 class Module
@@ -31,6 +32,10 @@ class Module
 					$gateway = $sm->get('UsersTableGateway');
 					$mapper = new UserMapper($gateway);
 					return $mapper;
+				},
+				'OmelettesUser\Form\ChangePasswordFilter' => function ($sm) {
+					$filter = new ChangePasswordFilter($sm->get('AuthService'));
+					return $filter;
 				},
 			),
 		);

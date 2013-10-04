@@ -9,9 +9,14 @@ use OmelettesUser\Form,
 class UserController extends AbstractController
 {
 	/**
-	 * @var Form\UserInfoForm
+	 * @var Form\ChangePasswordFilter
 	 */
-	protected $userInfoForm;
+	protected $changePasswordFilter;
+	
+	/**
+	 * @var Form\ChangePasswordForm
+	 */
+	protected $changePasswordForm;
 	
 	/**
 	 * @var Form\UserInfoFilter
@@ -19,9 +24,44 @@ class UserController extends AbstractController
 	protected $userInfoFilter;
 	
 	/**
+	 * @var Form\UserInfoForm
+	 */
+	protected $userInfoForm;
+	
+	/**
 	 * @var UserMapper
 	 */
 	protected $userMapper;
+	
+	public function getChangePasswordFilter()
+	{
+		if (!$this->changePasswordFilter) {
+			$changePasswordFilter = $this->getServiceLocator()->get('OmelettesUser\Form\ChangePasswordFilter');
+			$this->changePasswordFilter = $changePasswordFilter;
+		}
+		
+		return $this->changePasswordFilter;
+	}
+	
+	public function getChangePasswordForm()
+	{
+		if (!$this->changePasswordForm) {
+			$changePasswordForm = new Form\ChangePasswordForm();
+			$this->changePasswordForm = $changePasswordForm;
+		}
+		
+		return $this->changePasswordForm;
+	}
+	
+	public function getUserInfoFilter()
+	{
+		if (!$this->userInfoFilter) {
+			$filter = new Form\UserInfoFilter();
+			$this->userInfoFilter = $filter;
+		}
+	
+		return $this->userInfoFilter;
+	}
 	
 	public function getUserInfoForm()
 	{
@@ -34,16 +74,6 @@ class UserController extends AbstractController
 		}
 		
 		return $this->userInfoForm;
-	}
-	
-	public function getUserInfoFilter()
-	{
-		if (!$this->userInfoFilter) {
-			$filter = new Form\UserInfoFilter();
-			$this->userInfoFilter = $filter;
-		}
-		
-		return $this->userInfoFilter;
 	}
 	
 	public function getUserMapper()
@@ -88,7 +118,22 @@ class UserController extends AbstractController
 	
 	public function changePasswordAction()
 	{
-		return array();
+		$changePasswordForm = $this->getChangePasswordForm();
+		
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$changePasswordForm->setInputFilter($this->getChangePasswordFilter()->getInputFilter());
+			$changePasswordForm->setData($request->getPost());
+			if ($changePasswordForm->isValid()) {
+				$this->getUserMapper()->updatePassword($this->getAuthService()->getIdentity(), $changePasswordForm->getInputFilter()->getValue('password_new'));
+				$this->flashMessenger()->addSuccessMessage('Your password has been updated');
+				return $this->redirect()->toRoute('user');
+			}
+		}
+		
+		return array(
+			'form'      => $changePasswordForm,
+		);
 	}
 	
 	public function changeEmailAddressAction()
