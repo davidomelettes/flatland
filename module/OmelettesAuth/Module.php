@@ -136,6 +136,8 @@ class Module
 			$response = $e->getResponse();
 			$response->getHeaders()->addHeaderLine('Location', $e->getRequest()->getBaseUrl() . $loginUrl);
 			$response->setStatusCode('302');
+			
+			return $response;
 		}
 	}
 	
