@@ -131,17 +131,24 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 * @param PredicateInterface $where
 	 * @return ResultSet
 	 */
-	abstract public function fetchAllWhere(Predicate\PredicateInterface $where);
+	protected function fetchAllWhere(Predicate\PredicateInterface $where)
+	{
+		return $this->select($where);
+	}
 	
 	/**
 	 * Performs a select on the tableGateway
 	 * 
-	 * @param Predicate\PredicateSet $where
+	 * @param Predicate\PredicateSet|Closure $where
 	 * @return ResultSet
 	 */
-	protected function select(Predicate\PredicateSet $where)
+	protected function select($where)
 	{
-		return $this->tableGateway->select(count($where) < 1 ? null : $where);
+		if ($where instanceof Predicate\PredicateSet && count($where) < 1) {
+			// Prevent empty PredicateSets from generating bad SQL 
+			$where = null;
+		}
+		return $this->tableGateway->select($where);
 	}
 	
 }
