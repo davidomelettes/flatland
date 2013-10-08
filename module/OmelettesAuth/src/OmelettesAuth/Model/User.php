@@ -23,9 +23,9 @@ class User extends QuantumModel
 	public function getArrayCopy()
 	{
 		return array_merge(parent::getArrayCopy(), array(
-			'full_name'			=> $this->fullName,
-			'acl_role'			=> $this->aclRole,
-			'locale'			=> $this->locale,
+			'full_name'					=> $this->fullName,
+			'acl_role'					=> $this->aclRole,
+			'locale'					=> $this->locale,
 		));
 	}
 	

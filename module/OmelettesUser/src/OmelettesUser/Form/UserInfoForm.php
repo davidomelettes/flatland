@@ -78,6 +78,12 @@ class UserInfoForm extends AbstractQuantumForm
 		foreach ($localesMapper->fetchForUser($identity) as $locale) {
 			$secondaryLocaleOptions[$locale->code] = $locale->name;
 		}
+		$secondaryLocales = $localesMapper->fetchForUser($identity);
+		$secondaryLocalesValue = array();
+		foreach ($secondaryLocales as $locale) {
+			$secondaryLocalesValue[] = $locale->code;
+		}
+		var_dump($secondaryLocalesValue);
 		$this->add(array(
 			'name'		=> 'secondary_locales',
 			'type'		=> 'Select',
@@ -88,6 +94,7 @@ class UserInfoForm extends AbstractQuantumForm
 				'multiple'	=> 'multiple',
 				'id'		=> $this->getName() . 'SecondaryLocales',
 				'options'	=> $localeOptions,
+				'value'		=> $secondaryLocalesValue,
 			),
 		));
 		

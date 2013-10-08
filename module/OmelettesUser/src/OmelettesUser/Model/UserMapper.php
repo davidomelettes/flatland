@@ -18,8 +18,6 @@ class UserMapper extends AuthMapper
 			'locale'			=> $user->locale,
 		);
 		$this->tableGateway->update($data, array('key' => $user->key));
-		
-		$user->exchangeArray($data);
 	}
 	
 }

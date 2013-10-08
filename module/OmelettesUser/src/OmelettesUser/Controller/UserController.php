@@ -102,6 +102,9 @@ class UserController extends AbstractController
 			if ($form->isValid()) {
 				$user->key = $identity->key;
 				$this->getUserMapper()->updateUser($user);
+				
+				$this->getLocalesMapper()->updateForUser($user, $form->getInputFilter()->getValue('secondary_locales'));
+				
 				$this->flashMessenger()->addSuccessMessage('User information updated');
 			}
 		}

@@ -43,24 +43,28 @@ class LocalesMapper extends AbstractMapper
 				'user_secondary_locales',
 				'locales.code = user_secondary_locales.locale_code',
 				'*',
-				'left'
+				'right'
 			);
 		});
 	}
 	
 	public function updateForUser(User $user, array $locales = array())
 	{
+		$this->beginTransaction();
+		
 		// Delete all existing secondary locales
-		$this->tableGateway->delete(function ($select) {
-			$select->join(
-				'user_secondary_locales',
-				'locales.code = user_secondary_locales.locale_code',
-				'*',
-				'left'
-			);
-		});
+		$this->getDependentTable('user_secondary_locales')->delete(array('user_key' => $user->key));
 		
 		// Insert new rows
+		$data = array(
+			'user_key' => $user->key,
+		);
+		foreach ($locales as $code) {
+			$data['locale_code'] = $code;
+			$this->getDependentTable('user_secondary_locales')->insert($data);
+		}
+		
+		$this->commitTransaction();
 	}
 	
 }

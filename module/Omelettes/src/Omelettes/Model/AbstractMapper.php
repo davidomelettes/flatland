@@ -24,9 +24,23 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected $defaultPredicateSet;
 	
-	public function __construct(TableGateway $tableGateway)
+	/**
+	 * Array of table_names => gateways
+	 * 
+	 * @var array
+	 */
+	protected $dependantTables = array();
+	
+	public function __construct(TableGateway $tableGateway, array $dependantTables = array())
 	{
 		$this->tableGateway = $tableGateway;
+		
+		foreach ($dependantTables as $name => $gateway) {
+			if (!$gateway instanceof TableGateway) {
+				throw new \Exception('Expected a TableGateway for: ' . $name);
+			}
+		}
+		$this->dependantTables = $dependantTables;
 	}
 	
 	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
@@ -149,6 +163,21 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 			$where = null;
 		}
 		return $this->tableGateway->select($where);
+	}
+	
+	/**
+	 * Allows access to a dependent table gatweway
+	 * 
+	 * @param string $name
+	 * @throws \Exception
+	 * @return TableGateway
+	 */
+	protected function getDependentTable($name)
+	{
+		if (!isset($this->dependantTables[$name])) {
+			throw new \Exception($name . ' is not a dependent table');
+		}
+		return $this->dependantTables[$name];
 	}
 	
 }

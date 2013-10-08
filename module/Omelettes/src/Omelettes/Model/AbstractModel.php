@@ -27,6 +27,15 @@ abstract class AbstractModel
 		$this->$method($value);
 	}
 	
+	public function setOptions($options)
+	{
+		foreach ($options as $key => $value) {
+			$this->__set($key, $value);
+		}
+		
+		return $this;
+	}
+	
 	abstract public function exchangeArray($data);
 	
 	abstract public function getArrayCopy();

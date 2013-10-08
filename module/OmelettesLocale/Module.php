@@ -35,9 +35,19 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Locale());
 					return new TableGateway('locales', $dbAdapter, null, $resultSetPrototype);
 				},
+				'UserSecondaryLocalesTableGateway' => function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					//$resultSetPrototype->setArrayObjectPrototype(new Locale());
+					return new TableGateway('user_secondary_locales', $dbAdapter, null, $resultSetPrototype);
+				},
 				'OmelettesLocale\Model\LocalesMapper' => function($sm) {
 					$gateway = $sm->get('LocalesTableGateway');
-					$mapper = new LocalesMapper($gateway);
+					$userSecondaryLocalesGateway = $sm->get('UserSecondaryLocalesTableGateway');
+					$dependencies = array(
+						'user_secondary_locales' => $userSecondaryLocalesGateway,
+					);
+					$mapper = new LocalesMapper($gateway, $dependencies);
 					return $mapper;
 				},
 			),
