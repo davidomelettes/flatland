@@ -65,11 +65,29 @@ class UserInfoForm extends AbstractQuantumForm
 			'name'		=> 'locale',
 			'type'		=> 'Select',
 			'options'	=> array(
-				'label'		=> 'Locale',
+				'label'		=> 'Primary Locale',
 			),
 			'attributes'=> array(
 				'id'		=> $this->getName() . 'Locale',
 				'options'=> $localeOptions,
+			),
+		));
+		
+		$secondaryLocaleOptions = array();
+		$identity = $this->getApplicationServiceLocator()->get('AuthService')->getIdentity();
+		foreach ($localesMapper->fetchForUser($identity) as $locale) {
+			$secondaryLocaleOptions[$locale->code] = $locale->name;
+		}
+		$this->add(array(
+			'name'		=> 'secondary_locales',
+			'type'		=> 'Select',
+			'options'	=> array(
+				'label'		=> 'Secondary Locales',
+			),
+			'attributes'=> array(
+				'multiple'	=> 'multiple',
+				'id'		=> $this->getName() . 'SecondaryLocales',
+				'options'	=> $localeOptions,
 			),
 		));
 		

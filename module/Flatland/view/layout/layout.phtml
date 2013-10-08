@@ -71,7 +71,7 @@
 						<a href="#"><span class="badge">2</span> Messages</a>
 					</li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Jon Snow <span class="caret"></span></a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $this->escapehtml($this->authService()->getIdentity()->fullName); ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li>
 								<a href="<?php echo $this->url('user'); ?>"><?php echo $this->translate('User Preferences'); ?></a>

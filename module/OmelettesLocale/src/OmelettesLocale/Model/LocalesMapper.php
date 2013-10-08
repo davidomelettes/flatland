@@ -3,6 +3,7 @@
 namespace OmelettesLocale\Model;
 
 use Omelettes\Model\AbstractMapper;
+use OmelettesAuth\Model\User;
 use Zend\Db\Sql\Predicate;
 
 class LocalesMapper extends AbstractMapper
@@ -29,15 +30,37 @@ class LocalesMapper extends AbstractMapper
 	
 	public function fetchAll()
 	{
-		$where = $this->getWhere();
-		$resultSet = $this->select($where);
-		
-		return $resultSet;
+		return $this->select($this->getWhere());
 	}
 	
-	public function fetchAllWhere(Predicate\PredicateInterface $where)
+	public function fetchForUser(User $user)
 	{
-		throw new \Exception('Method not used!');
+		$where = $this->getWhere();
+		$where->andPredicate(new Predicate\Operator('user_key', '=', $user->key));
+		
+		return $this->select(function ($select) use ($where) {
+			$select->join(
+				'user_secondary_locales',
+				'locales.code = user_secondary_locales.locale_code',
+				'*',
+				'left'
+			);
+		});
+	}
+	
+	public function updateForUser(User $user, array $locales = array())
+	{
+		// Delete all existing secondary locales
+		$this->tableGateway->delete(function ($select) {
+			$select->join(
+				'user_secondary_locales',
+				'locales.code = user_secondary_locales.locale_code',
+				'*',
+				'left'
+			);
+		});
+		
+		// Insert new rows
 	}
 	
 }
