@@ -119,9 +119,18 @@ class Module
 		$acl = $sm->get('AclService');
 		$auth = $sm->get('AuthService');
 		$resource = $e->getRouteMatch()->getMatchedRouteName();
-		$role = $auth->hasIdentity() ? $auth->getIdentity()->aclRole : 'guest';
-		if (empty($role)) {
-			$role = 'guest';
+		
+		$role = 'guest';
+		if ($auth->hasIdentity()) {
+			$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
+			$identity = $auth->getIdentity();
+			if (!$authMapper->find($identity->key)) {
+				// Can't find the user for some reason
+				$auth->clearIdentity();
+				$auth->getStorage()->forgetMe();
+				return $this->redirectToLogin($e);
+			}
+			$role = $identity->aclRole;
 		}
 		if ($resource === 'login') {
 			return;
@@ -131,15 +140,22 @@ class Module
 			throw new \Exception('Undefined ACL resource: ' . $resource);
 		}
 		if (!$acl->isAllowed($role, $resource)) {
-			// Redirect to login page
-			$loginUrl = $e->getRouter()->assemble(array(), array('name'=>'login'));
-			$response = $e->getResponse();
-			$response->getHeaders()->addHeaderLine('Location', $e->getRequest()->getBaseUrl() . $loginUrl);
-			$response->setStatusCode('302');
-			
-			// Return a response now to short-circuit the event manger and prevent a dispatch
-			return $response;
+			// ACL role is not allowed to access this resource
+			// (probably not logged in)
+			return $this->redirectToLogin($e);
 		}
+	}
+	
+	protected function redirectToLogin(MvcEvent $e)
+	{
+		// Redirect to login page
+		$loginUrl = $e->getRouter()->assemble(array(), array('name'=>'login'));
+		$response = $e->getResponse();
+		$response->getHeaders()->addHeaderLine('Location', $e->getRequest()->getBaseUrl() . $loginUrl);
+		$response->setStatusCode('302');
+			
+		// Return a response now to short-circuit the event manger and prevent a dispatch
+		return $response;
 	}
 	
 }
