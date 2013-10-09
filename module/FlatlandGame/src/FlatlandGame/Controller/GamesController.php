@@ -1,6 +1,6 @@
 <?php
 
-namespace Game\Controller;
+namespace FlatlandGame\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 

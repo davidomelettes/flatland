@@ -8,7 +8,7 @@ return array(
     	'OmelettesSignup',
     	'OmelettesUser',
     	'OmelettesLocale',
-        'Game',
+        'FlatlandGame',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
