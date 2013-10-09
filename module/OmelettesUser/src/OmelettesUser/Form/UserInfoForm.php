@@ -83,7 +83,6 @@ class UserInfoForm extends AbstractQuantumForm
 		foreach ($secondaryLocales as $locale) {
 			$secondaryLocalesValue[] = $locale->code;
 		}
-		var_dump($secondaryLocalesValue);
 		$this->add(array(
 			'name'		=> 'secondary_locales',
 			'type'		=> 'Select',
