@@ -26,6 +26,19 @@ class UserLoginsMapper extends AbstractMapper
 		throw new \Exception('Method not used');
 	}
 	
+	public function splitCookieData($string)
+	{
+		$data = explode(',', $string);
+		if (3 !== count($data)) {
+			return false;
+		}
+		return array(
+			'name'		=> $data[0],
+			'series'	=> $data[1],
+			'token'		=> $data[2],
+		);
+	}
+	
 	public function saveLogin($name, $series = null)
 	{
 		$token = new Uuid();

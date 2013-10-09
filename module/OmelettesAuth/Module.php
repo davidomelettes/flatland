@@ -137,10 +137,10 @@ class Module
 		$app = $e->getApplication();
 		$sm = $app->getServiceManager();
 		$auth = $sm->get('AuthService');
+		$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
 		
 		if ($auth->hasIdentity()) {
 			// User is logged in, session is fresh
-			$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
 			$currentIdentity = $auth->getIdentity();
 			if (false === ($freshIdentity = $authMapper->find($currentIdentity->key))) {
 				// Can't find the user for some reason
@@ -149,6 +149,9 @@ class Module
 				return $this->redirectToRoute($e, 'login');
 			}
 			// Refresh the identity
+			if ($currentIdentity->isPasswordAuthenticated()) {
+				$freshIdentity->setPasswordAuthenticated();
+			}
 			$auth->getStorage()->write($freshIdentity);
 		} else {
 			// Perhaps the session has expired
@@ -166,6 +169,13 @@ class Module
 						(int)date('U', strtotime('+2 weeks'))
 					);
 					$e->getResponse()->getHeaders()->addHeader($setCookieHeader);
+					
+					// Fetch id
+					$data = $userLoginsMapper->splitCookieData($cookieData);
+					if (FALSE !== ($user = $authMapper->findByName($data['name']))) {
+						// Authentication identity IS NOT password authenticated!
+						$auth->getStorage()->write($user);
+					}
 				}
 			}
 		}

@@ -10,6 +10,8 @@ class User extends QuantumModel
 	protected $aclRole;
 	protected $locale;
 	
+	protected $passwordAuthenticated = false;
+	
 	public function exchangeArray($data)
 	{
 		parent::exchangeArray($data);
@@ -63,6 +65,16 @@ class User extends QuantumModel
 	public function getLocale()
 	{
 		return $this->locale;
+	}
+	
+	public function setPasswordAuthenticated($authenticated = true)
+	{
+		$this->passwordAuthenticated = (boolean)$authenticated;
+	}
+	
+	public function isPasswordAuthenticated()
+	{
+		return $this->passwordAuthenticated;
 	}
 	
 }

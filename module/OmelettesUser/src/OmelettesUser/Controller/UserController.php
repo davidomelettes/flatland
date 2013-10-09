@@ -132,6 +132,7 @@ class UserController extends AbstractController
 			$changePasswordForm->setData($request->getPost());
 			if ($changePasswordForm->isValid()) {
 				$this->getUserMapper()->updatePassword($this->getAuthService()->getIdentity(), $changePasswordForm->getInputFilter()->getValue('password_new'));
+				$this->getAuthService()->getIdentity()->setPasswordAuthenticated();
 				$this->flashMessenger()->addSuccessMessage('Your password has been updated');
 				return $this->redirect()->toRoute('user');
 			}
