@@ -124,13 +124,15 @@ class Module
 		if ($auth->hasIdentity()) {
 			$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
 			$identity = $auth->getIdentity();
-			if (!$authMapper->find($identity->key)) {
+			if (false === ($id = $authMapper->find($identity->key))) {
 				// Can't find the user for some reason
 				$auth->clearIdentity();
 				$auth->getStorage()->forgetMe();
 				return $this->redirectToLogin($e);
 			}
-			$role = $identity->aclRole;
+			// Refresh the identity
+			$auth->getStorage()->write($id);
+			$role = $id->aclRole;
 		}
 		if ($resource === 'login') {
 			return;

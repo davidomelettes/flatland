@@ -102,10 +102,13 @@ class UserController extends AbstractController
 			if ($form->isValid()) {
 				$user->key = $identity->key;
 				$this->getUserMapper()->updateUser($user);
-				
 				$this->getLocalesMapper()->updateForUser($user, $form->getInputFilter()->getValue('secondary_locales'));
 				
 				$this->flashMessenger()->addSuccessMessage('User information updated');
+				
+				// The new identity is only written to the auth storage during the route phase
+				// So, we'll need to re-dispatch otherwise this page will render with the old details
+				return $this->redirect()->toRoute('user');
 			}
 		}
 		
