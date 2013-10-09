@@ -5,8 +5,10 @@ namespace OmelettesAuth\Controller;
 use Omelettes\Controller\AbstractController;
 use OmelettesAuth\Form,
 	OmelettesAuth\Model\User,
+	OmelettesAuth\Model\UserLoginsMapper,
 	OmelettesAuth\Model\UsersMapper;
-use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
+use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter,
+	Zend\Http\Header\SetCookie;
 
 class AuthController extends AbstractController
 {
@@ -39,6 +41,11 @@ class AuthController extends AbstractController
 	 * @var Form\ResetPasswordFilter
 	 */
 	protected $resetPasswordFilter;
+	
+	/**
+	 * @var UserLoginsMapper
+	 */
+	protected $userLoginsMapper;
 	
 	/**
 	 * @var UsersMapper
@@ -134,6 +141,20 @@ class AuthController extends AbstractController
 		return $this->loginFilter;
 	}
 	
+	protected function setRememberMeCookie()
+	{
+		if (!$this->getAuthService()->hasIdentity()) {
+			throw new \Exception('Expected an identity');
+		}
+		$user = $this->getAuthService()->getIdentity();
+		$setCookieHeader = new SetCookie(
+			'login',
+			$this->getUserLoginsMapper()->saveLogin($user->name),
+			(int)date('U', strtotime('+2 weeks'))
+		);
+		$this->getResponse()->getHeaders()->addHeader($setCookieHeader);
+	}
+	
 	public function loginAction()
 	{
 		if ($this->getAuthService()->hasIdentity()) {
@@ -161,7 +182,7 @@ class AuthController extends AbstractController
 					$userIdentity = new User((array)$this->getAuthService()->getAdapter()->getResultRowObject());
 					$this->getAuthService()->getStorage()->write($userIdentity);
 					if ($request->getPost('remember_me')) {
-						$this->getAuthService()->getStorage()->rememberMe();
+						$this->setRememberMeCookie();
 					}
 					$this->flashMessenger()->addSuccessMessage('Login successful');
 					return $this->redirect()->toRoute('home');
@@ -178,8 +199,12 @@ class AuthController extends AbstractController
 	
 	public function logoutAction()
 	{
-		$this->getAuthService()->clearIdentity();
-		$this->getAuthService()->getStorage()->forgetMe();
+		if ($this->getAuthService()->hasIdentity()) {
+			$user = $this->getAuthService()->getIdentity();
+			$this->getUserLoginsMapper()->deleteForName($user->name);
+			$this->getAuthService()->getStorage()->forgetMe();
+			$this->getAuthService()->clearIdentity();
+		}
 			
 		$this->flashMessenger()->addSuccessMessage('You have successfully logged out');
 		return $this->redirect()->toRoute('login');
@@ -251,6 +276,16 @@ class AuthController extends AbstractController
 			'user_key'				=> $passwordResetUser->key,
 			'password_reset_key'	=> $this->params('password_reset_key'),
 		);
+	}
+	
+	public function getUserLoginsMapper()
+	{
+		if (!$this->userLoginsMapper) {
+			$userLoginsMapper = $this->getServiceLocator()->get('OmelettesAuth\Model\UserLoginsMapper');
+			$this->userLoginsMapper = $userLoginsMapper;
+		}
+		
+		return $this->userLoginsMapper;
 	}
 	
 	public function getUsersMapper()

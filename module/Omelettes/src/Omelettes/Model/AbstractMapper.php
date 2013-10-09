@@ -43,6 +43,28 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 		$this->dependantTables = $dependantTables;
 	}
 	
+	/**
+	 * Returns the default clauses against which all queries must be run
+	 *
+	 * @return Predicate\PredicateSet
+	 */
+	abstract protected function getDefaultWhere();
+	
+	/**
+	 * Returns a single result row object, or false if none found
+	 *
+	 * @param string $id
+	 * @return ArrayObject|boolean
+	 */
+	abstract public function find($id);
+	
+	/**
+	 * Returns all results
+	 *
+	 * @return ResultSet
+	*/
+	abstract public function fetchAll();
+	
 	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
 	{
 		$this->serviceLocator = $serviceLocator;
@@ -83,13 +105,6 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	}
 	
 	/**
-	 * Returns the default clauses against which all queries must be run
-	 * 
-	 * @return Predicate\PredicateSet
-	 */
-	abstract protected function getDefaultWhere();
-	
-	/**
 	 * Returns a PredicateSet for use in Zend\Db\Sql selects
 	 * 
 	 * @return Predicate\PredicateSet
@@ -123,21 +138,6 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 		
 		return $row;
 	}
-	
-	/**
-	 * Returns a single result row object, or false if none found
-	 * 
-	 * @param string $id
-	 * @return ArrayObject|boolean 
-	 */
-	abstract public function find($id);
-	
-	/**
-	 * Returns all results
-	 * 
-	 * @return ResultSet
-	 */
-	abstract public function fetchAll();
 	
 	/**
 	 * Returns all results matching specified predicates

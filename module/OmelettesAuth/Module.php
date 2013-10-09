@@ -7,11 +7,13 @@ use OmelettesAuth\Form\ForgotPasswordFilter,
 	OmelettesAuth\Form\ResetPasswordFilter,
 	OmelettesAuth\Storage\Session as StorageSession,
 	OmelettesAuth\Model\User,
+	OmelettesAuth\Model\UserLoginsMapper,
 	OmelettesAuth\Model\UsersMapper;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter,
 	Zend\Authentication\AuthenticationService,
 	Zend\Db\ResultSet\ResultSet,
 	Zend\Db\TableGateway\TableGateway,
+	Zend\Http\Header\SetCookie,
 	Zend\Mvc\MvcEvent,
 	Zend\Permissions\Acl;
 
@@ -37,44 +39,6 @@ class Module
 	{
 		return array(
 			'factories' => array(
-				'OmelettesAuth\Storage\Session' => function($sm) {
-					return new StorageSession(StorageSession::STORAGE_NAMESPACE);
-				},
-				'AuthService' => function($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$dbTableAuthAdapter = new DbTableAuthAdapter(
-							$dbAdapter,
-							'users',
-							'name',
-							'password_hash',
-							"sha256(?||salt) AND acl_role = 'user'"
-					);
-						
-					$authService = new AuthenticationService();
-					$authService->setAdapter($dbTableAuthAdapter);
-					$authService->setStorage($sm->get('OmelettesAuth\Storage\Session'));
-						
-					return $authService;
-				},
-				'UsersTableGateway' => function($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new User());
-					return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
-				},
-				'OmelettesAuth\Model\UsersMapper' => function($sm) {
-					$gateway = $sm->get('UsersTableGateway');
-					$mapper = new UsersMapper($gateway);
-					return $mapper;
-				},
-				'OmelettesAuth\Form\LoginFilter' => function($sm) {
-					$filter = new LoginFilter();
-					return $filter;
-				},
-				'OmelettesAuth\Form\ForgotPasswordFilter' => function($sm) {
-					$filter = new ForgotPasswordFilter($sm->get('OmelettesAuth\Model\UsersMapper'));
-					return $filter;
-				},
 				'AclService' => function($sm) {
 					$acl = new Acl\Acl();
 					$config = $sm->get('config');
@@ -99,8 +63,57 @@ class Module
 							}
 						}
 					}
-						
+				
 					return $acl;
+				},
+				'AuthService' => function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$dbTableAuthAdapter = new DbTableAuthAdapter(
+							$dbAdapter,
+							'users',
+							'name',
+							'password_hash',
+							"sha256(?||salt) AND acl_role = 'user'"
+					);
+				
+					$authService = new AuthenticationService();
+					$authService->setAdapter($dbTableAuthAdapter);
+					$authService->setStorage($sm->get('OmelettesAuth\Storage\Session'));
+				
+					return $authService;
+				},
+				'OmelettesAuth\Form\ForgotPasswordFilter' => function($sm) {
+					$filter = new ForgotPasswordFilter($sm->get('OmelettesAuth\Model\UsersMapper'));
+					return $filter;
+				},
+				'OmelettesAuth\Form\LoginFilter' => function($sm) {
+					$filter = new LoginFilter();
+					return $filter;
+				},
+				'OmelettesAuth\Model\UserLoginsMapper' => function($sm) {
+					$gateway = $sm->get('UserLoginsTableGateway');
+					$mapper = new UserLoginsMapper($gateway);
+					return $mapper;
+				},
+				'OmelettesAuth\Model\UsersMapper' => function($sm) {
+					$gateway = $sm->get('UsersTableGateway');
+					$mapper = new UsersMapper($gateway);
+					return $mapper;
+				},
+				'OmelettesAuth\Storage\Session' => function($sm) {
+					$gateway = $sm->get('UserLoginsTableGateway');
+					return new StorageSession(StorageSession::STORAGE_NAMESPACE);
+				},
+				'UserLoginsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					return new TableGateway('user_logins', $dbAdapter, null, $resultSetPrototype);
+				},
+				'UsersTableGateway' => function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new User());
+					return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
 				},
 			),
 		);
@@ -109,9 +122,63 @@ class Module
 	public function onBootstrap(MvcEvent $e)
 	{
 		$em = $e->getApplication()->getEventManager();
+		$em->attach('route', array($this, 'checkAuth'));
 		$em->attach('route', array($this, 'checkAcl'));
 	}
 	
+	/**
+	 * Ensures that the auth identity is kept fresh
+	 * Handles cookie-based authentication
+	 * 
+	 * @param MvcEvent $e
+	 */
+	public function checkAuth(MvcEvent $e)
+	{
+		$app = $e->getApplication();
+		$sm = $app->getServiceManager();
+		$auth = $sm->get('AuthService');
+		
+		if ($auth->hasIdentity()) {
+			// User is logged in, session is fresh
+			$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
+			$currentIdentity = $auth->getIdentity();
+			if (false === ($freshIdentity = $authMapper->find($currentIdentity->key))) {
+				// Can't find the user for some reason
+				$auth->getStorage()->forgetMe();
+				$auth->clearIdentity();
+				return $this->redirectToRoute($e, 'login');
+			}
+			// Refresh the identity
+			$auth->getStorage()->write($freshIdentity);
+		} else {
+			// Perhaps the session has expired
+			// Can we authenticate via a login cookie?
+			$request = $e->getRequest();
+			$cookie = $request->getCookie();
+			if ($cookie->offsetExists('login')) {
+				// Attempt a cookie-based authentication
+				$userLoginsMapper = $sm->get('OmelettesAuth\Model\UserLoginsMapper');
+				if (FALSE !== ($cookieData = $userLoginsMapper->verifyCookie($cookie->login))) {
+					// Authenticated via cookie data
+					$setCookieHeader = new SetCookie(
+						'login',
+						$cookieData,
+						(int)date('U', strtotime('+2 weeks'))
+					);
+					$e->getResponse()->getHeaders()->addHeader($setCookieHeader);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Performs an ACL check, using the user's current role ('guest' if not logged in)
+	 * against the current resource (the route name). Configured via the 'acl' key in
+	 * the module config.
+	 * 
+	 * @param MvcEvent $e
+	 * @throws \Exception
+	 */
 	public function checkAcl(MvcEvent $e)
 	{
 		$app = $e->getApplication();
@@ -122,19 +189,10 @@ class Module
 		
 		$role = 'guest';
 		if ($auth->hasIdentity()) {
-			$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
-			$identity = $auth->getIdentity();
-			if (false === ($id = $authMapper->find($identity->key))) {
-				// Can't find the user for some reason
-				$auth->clearIdentity();
-				$auth->getStorage()->forgetMe();
-				return $this->redirectToLogin($e);
-			}
-			// Refresh the identity
-			$auth->getStorage()->write($id);
-			$role = $id->aclRole;
+			$role = $auth->getIdentity()->aclRole;
 		}
 		if ($resource === 'login') {
+			// Skip the check if we are attempting to access the login page
 			return;
 		}
 	
@@ -143,20 +201,25 @@ class Module
 		}
 		if (!$acl->isAllowed($role, $resource)) {
 			// ACL role is not allowed to access this resource
-			// (probably not logged in)
-			return $this->redirectToLogin($e);
+			if ('guest' === $role) {
+				// User is not logged in
+				return $this->redirectToRoute($e, 'login');
+			} else {
+				// User is logged in, probably tried to access an admin-only resource
+				return $this->redirectToRoute($e, 'home');
+			}
 		}
 	}
 	
-	protected function redirectToLogin(MvcEvent $e)
+	protected function redirectToRoute(MvcEvent $e, $routeName = 'login')
 	{
 		// Redirect to login page
-		$loginUrl = $e->getRouter()->assemble(array(), array('name'=>'login'));
+		$loginUrl = $e->getRouter()->assemble(array(), array('name' => $routeName));
 		$response = $e->getResponse();
 		$response->getHeaders()->addHeaderLine('Location', $e->getRequest()->getBaseUrl() . $loginUrl);
 		$response->setStatusCode('302');
 			
-		// Return a response now to short-circuit the event manger and prevent a dispatch
+		// Return a response to short-circuit the event manger and prevent a dispatch
 		return $response;
 	}
 	
