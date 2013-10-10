@@ -141,7 +141,7 @@ class AuthController extends AbstractController
 		return $this->loginFilter;
 	}
 	
-	protected function setRememberMeCookie()
+	protected function rememberMe()
 	{
 		if (!$this->getAuthService()->hasIdentity()) {
 			throw new \Exception('Expected an identity');
@@ -183,9 +183,8 @@ class AuthController extends AbstractController
 					// We've just authenticated with a password
 					$userIdentity->setPasswordAuthenticated();
 					$this->getAuthService()->getStorage()->write($userIdentity);
-					$this->getUserLoginsMapper()->deleteForName($userIdentity->name);
 					if ($request->getPost('remember_me')) {
-						$this->setRememberMeCookie();
+						$this->rememberMe();
 					}
 					$this->flashMessenger()->addSuccessMessage('Login successful');
 					return $this->redirect()->toRoute('home');
@@ -200,12 +199,28 @@ class AuthController extends AbstractController
 		);
 	}
 	
+	protected function unrememberMe()
+	{
+		$cookie = $this->getRequest()->getCookie();
+		if ($cookie && $cookie->offsetExists('login')) {
+			$data = $this->getUserLoginsMapper()->splitCookieData($cookie->login);
+			$name = $this->getAuthService()->getIdentity()->name;
+			$this->getUserLoginsMapper()->deleteForNameWithSeries($name, $data['series']);
+			// Remove the login cookie
+			$setCookieHeader = new SetCookie(
+				'login',
+				'',
+				(int)date('U', strtotime('-2 weeks'))
+			);
+			$this->getResponse()->getHeaders()->addHeader($setCookieHeader);
+		}
+	}
+	
 	public function logoutAction()
 	{
 		if ($this->getAuthService()->hasIdentity()) {
 			$user = $this->getAuthService()->getIdentity();
-			$this->getUserLoginsMapper()->deleteForName($user->name);
-			$this->getAuthService()->getStorage()->forgetMe();
+			$this->unrememberMe();
 			$this->getAuthService()->clearIdentity();
 		}
 			
@@ -299,6 +314,11 @@ class AuthController extends AbstractController
 		}
 		
 		return $this->usersMapper;
+	}
+	
+	public function loginTheftWarningAction()
+	{
+		return array();
 	}
 	
 }

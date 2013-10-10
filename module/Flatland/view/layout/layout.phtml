@@ -72,9 +72,9 @@
 					</li>
 					<li>
 						<?php if ($this->authService()->getIdentity()->isPasswordAuthenticated()): ?>
-						<a href="#" title="<?php echo $this->translate('You have recently authenticated with your password'); ?>"><span class="glyphicon glyphicon-lock text-success"></span></a>
+						<a href="#" title="<?php echo $this->translate('This session has been password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-success"></span></a>
 						<?php else: ?>
-						<a href="#" title="<?php echo $this->translate('You have not recently authenticated with your password'); ?>"><span class="glyphicon glyphicon-lock text-warning"></span></a>
+						<a href="#" title="<?php echo $this->translate('This session has not been password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-warning"></span></a>
 						<?php endif; ?>
 					</li>
 					<li class="dropdown">

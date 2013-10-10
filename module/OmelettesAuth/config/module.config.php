@@ -15,6 +15,7 @@ return array(
 				'logout',
 				'forgot-password',
 				'reset-password',
+				'login-theft-warning',
 			),
 		),
 	),
@@ -66,6 +67,16 @@ return array(
 					'constraints'	=> array(
 						'user_key'				=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
 						'passsword_reset_key'	=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+					),
+				),
+			),
+			'login-theft-warning' => array(
+				'type'		=> 'Literal',
+				'options'	=> array(
+					'route'			=> '/login-theft-warning',
+					'defaults'		=> array(
+						'controller'	=> 'Auth\Controller\Auth',
+						'action'		=> 'login-theft-warning',
 					),
 				),
 			),

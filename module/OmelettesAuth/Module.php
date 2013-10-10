@@ -2,7 +2,8 @@
 
 namespace OmelettesAuth;
 
-use OmelettesAuth\Form\ForgotPasswordFilter,
+use OmelettesAuth\Exception\UserLoginTheftException,
+	OmelettesAuth\Form\ForgotPasswordFilter,
 	OmelettesAuth\Form\LoginFilter,
 	OmelettesAuth\Form\ResetPasswordFilter,
 	OmelettesAuth\Storage\Session as StorageSession,
@@ -126,15 +127,25 @@ class Module
 		$em->attach('route', array($this, 'checkAcl'));
 	}
 	
+	protected function removeLoginCookie(MvcEvent $e)
+	{
+		$setCookieHeader = new SetCookie(
+			'login',
+			'',
+			(int)date('U', strtotime('-2 weeks'))
+		);
+		$e->getResponse()->getHeaders()->addHeader($setCookieHeader);
+	}
+	
 	/**
 	 * Ensures that the auth identity is kept fresh
 	 * Handles cookie-based authentication
 	 * 
 	 * @param MvcEvent $e
 	 */
-	public function checkAuth(MvcEvent $e)
+	public function checkAuth(MvcEvent $ev)
 	{
-		$app = $e->getApplication();
+		$app = $ev->getApplication();
 		$sm = $app->getServiceManager();
 		$auth = $sm->get('AuthService');
 		$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
@@ -144,9 +155,9 @@ class Module
 			$currentIdentity = $auth->getIdentity();
 			if (false === ($freshIdentity = $authMapper->find($currentIdentity->key))) {
 				// Can't find the user for some reason
-				$auth->getStorage()->forgetMe();
+				// Maybe they got deleted, so log them out
 				$auth->clearIdentity();
-				return $this->redirectToRoute($e, 'login');
+				return $this->redirectToRoute($ev, 'login');
 			}
 			// Refresh the identity
 			if ($currentIdentity->isPasswordAuthenticated()) {
@@ -156,26 +167,35 @@ class Module
 		} else {
 			// Perhaps the session has expired
 			// Can we authenticate via a login cookie?
-			$request = $e->getRequest();
+			$request = $ev->getRequest();
 			$cookie = $request->getCookie();
-			if ($cookie->offsetExists('login')) {
+			if ($cookie && $cookie->offsetExists('login')) {
 				// Attempt a cookie-based authentication
 				$userLoginsMapper = $sm->get('OmelettesAuth\Model\UserLoginsMapper');
-				if (FALSE !== ($cookieData = $userLoginsMapper->verifyCookie($cookie->login))) {
-					// Authenticated via cookie data
-					$setCookieHeader = new SetCookie(
-						'login',
-						$cookieData,
-						(int)date('U', strtotime('+2 weeks'))
-					);
-					$e->getResponse()->getHeaders()->addHeader($setCookieHeader);
-					
-					// Fetch id
-					$data = $userLoginsMapper->splitCookieData($cookieData);
-					if (FALSE !== ($user = $authMapper->findByName($data['name']))) {
-						// Authentication identity IS NOT password authenticated!
-						$auth->getStorage()->write($user);
+				try {
+					if (FALSE !== ($cookieData = $userLoginsMapper->verifyCookie($cookie->login))) {
+						// Authenticated via cookie data
+						$setCookieHeader = new SetCookie(
+							'login',
+							$cookieData,
+							(int)date('U', strtotime('+2 weeks'))
+						);
+						$ev->getResponse()->getHeaders()->addHeader($setCookieHeader);
+						
+						// Fetch id
+						$data = $userLoginsMapper->splitCookieData($cookieData);
+						if (FALSE !== ($user = $authMapper->findByName($data['name']))) {
+							// Authenticated identity IS NOT password authenticated!
+							$auth->getStorage()->write($user);
+						}
+					} else {
+						// Attempt to remove the cookie
+						$this->removeLoginCookie($ev);
 					}
+				} catch (UserLoginTheftException $e) {
+					// Attempt to remove the cookie
+					$this->removeLoginCookie($ev);
+					return $this->redirectToRoute($ev, 'login-theft-warning');
 				}
 			}
 		}
@@ -196,16 +216,15 @@ class Module
 		$acl = $sm->get('AclService');
 		$auth = $sm->get('AuthService');
 		$resource = $e->getRouteMatch()->getMatchedRouteName();
+		if ($resource === 'login') {
+			// Skip the check if we are attempting to access the login page
+			return;
+		}
 		
 		$role = 'guest';
 		if ($auth->hasIdentity()) {
 			$role = $auth->getIdentity()->aclRole;
 		}
-		if ($resource === 'login') {
-			// Skip the check if we are attempting to access the login page
-			return;
-		}
-	
 		if (!$acl->hasResource($resource)) {
 			throw new \Exception('Undefined ACL resource: ' . $resource);
 		}

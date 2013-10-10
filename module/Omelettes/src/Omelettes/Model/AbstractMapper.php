@@ -119,7 +119,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 			$this->defaultPredicateSet = $defaultWhere;
 		}
 		
-		return $this->defaultPredicateSet;
+		return clone $this->defaultPredicateSet;
 	}
 	
 	/**

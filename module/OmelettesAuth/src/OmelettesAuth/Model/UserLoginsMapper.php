@@ -4,6 +4,7 @@ namespace OmelettesAuth\Model;
 
 use Omelettes\Model\AbstractMapper, 
 	Omelettes\Uuid\V4 as Uuid;
+use OmelettesAuth\Exception\UserLoginTheftException;
 use Zend\Db\Sql\Predicate,
 	Zend\Validator\StringLength;
 
@@ -56,14 +57,15 @@ class UserLoginsMapper extends AbstractMapper
 	}
 	
 	/**
-	 * Removes all login tokens
-	 * Used when logging out, or in event of suspect cookie theft
+	 * Removes all login tokens for a given name and series
+	 * Used when logging out, or when a series has been suspected of theft
 	 * 
 	 * @param string $name
+	 * @throws UserLoginTheftException
 	 */
-	public function deleteForName($name)
+	public function deleteForNameWithSeries($name, $series)
 	{
-		$this->tableGateway->delete(array('name' => $name));
+		$this->tableGateway->delete(array('name' => $name, 'series' => $series));
 	}
 	
 	public function verifyCookie($cookieData)
@@ -91,15 +93,16 @@ class UserLoginsMapper extends AbstractMapper
 			
 		} else {
 			// Check for series theft
+			// If two parties attempt to use the same series, theft has occurred
 			$where = $this->getWhere();
 			$where->andPredicate(new Predicate\Operator('name', '=', $name));
 			$where->andPredicate(new Predicate\Operator('series', '=', $series));
 			
 			$result = $this->findOneWhere($where);
 			if ($result) {
-				// Panic! Delete all login tokens
-				// TODO: Alert user
-				$this->deleteForName($name);
+				// Panic! Delete all login tokens for this series
+				$this->deleteForNameWithSeries($name, $series);
+				throw new UserLoginTheftException();
 			}
 			
 			return false;
