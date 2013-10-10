@@ -2,7 +2,7 @@
 
 namespace FlatlandGame\Controller;
 
-use Zend\Mvc\Controller\AbstractRestfulController;
+use Omelettes\Controller\AbstractRestfulController;
 
 class GamesController extends AbstractRestfulController
 {
@@ -11,14 +11,24 @@ class GamesController extends AbstractRestfulController
 		return array();
 	}
 	
-	public function get()
+	public function get($id)
+	{
+		return array();
+	}
+	
+	public function create($data)
 	{
 		
 	}
 	
-	public function indexAction()
+	public function update($id, $data)
 	{
-		return array();
+		
+	}
+	
+	public function delete($id)
+	{
+		
 	}
 	
 }
