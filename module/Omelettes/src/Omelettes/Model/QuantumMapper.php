@@ -15,6 +15,13 @@ class QuantumMapper extends AbstractMapper
 		return $where;
 	}
 	
+	protected function getDefaultOrder()
+	{
+		return function ($select) {
+			$select->order('name');
+		};
+	}
+	
 	public function find($key)
 	{
 		$validator = new UuidValidator();

@@ -18,6 +18,13 @@ class UsersMapper extends QuantumMapper
 		return $where;
 	}
 	
+	protected function getDefaultOrder()
+	{
+		return function ($select) {
+			$select->order('name');
+		};
+	}
+	
 	public function findByName($name)
 	{
 		$validator = new StringLength(array('min' => 1, 'encoding' => 'UTF-8'));

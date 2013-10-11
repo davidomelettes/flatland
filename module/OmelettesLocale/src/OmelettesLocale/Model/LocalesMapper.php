@@ -15,6 +15,13 @@ class LocalesMapper extends AbstractMapper
 		return $where;
 	}
 	
+	protected function getDefaultOrder()
+	{
+		return function ($select) {
+			$select->order('name');
+		};
+	}
+	
 	public function find($code)
 	{
 		$validator = new StringLength(array('min' => 1, 'encoding' => 'UTF-8'));
@@ -30,7 +37,7 @@ class LocalesMapper extends AbstractMapper
 	
 	public function fetchAll()
 	{
-		return $this->select($this->getWhere());
+		return $this->select($this->getWhere(), $this->getOrder());
 	}
 	
 	public function fetchForUser(User $user)
@@ -38,13 +45,11 @@ class LocalesMapper extends AbstractMapper
 		$where = $this->getWhere();
 		$where->andPredicate(new Predicate\Operator('user_key', '=', $user->key));
 		
-		return $this->select(function ($select) use ($where) {
-			$select->join(
-				'user_secondary_locales',
-				'locales.code = user_secondary_locales.locale_code',
-				'*',
-				'right'
-			);
+		$order = $this->getOrder();
+		
+		return $this->getDependentTable('user_secondary_locales')->select(function ($select) use ($where, $order) {
+			$select->where($where);
+			$order($select);
 		});
 	}
 	
@@ -60,7 +65,7 @@ class LocalesMapper extends AbstractMapper
 			'user_key' => $user->key,
 		);
 		foreach ($locales as $code) {
-			$data['locale_code'] = $code;
+			$data['code'] = $code;
 			$this->getDependentTable('user_secondary_locales')->insert($data);
 		}
 		

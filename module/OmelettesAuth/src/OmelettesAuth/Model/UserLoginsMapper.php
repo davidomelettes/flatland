@@ -17,6 +17,13 @@ class UserLoginsMapper extends AbstractMapper
 		return $where;
 	}
 	
+	protected function getDefaultOrder()
+	{
+		return function ($select) {
+			$select->order('created');
+		};
+	}
+	
 	public function find($id)
 	{
 		throw new \Exception('Method not used');

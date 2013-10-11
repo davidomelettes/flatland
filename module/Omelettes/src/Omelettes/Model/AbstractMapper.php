@@ -25,6 +25,11 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	protected $defaultPredicateSet;
 	
 	/**
+	 * @var \Closure
+	 */
+	protected $defaultOrder;
+	
+	/**
 	 * Array of table_names => gateways
 	 * 
 	 * @var array
@@ -34,12 +39,6 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	public function __construct(TableGateway $tableGateway, array $dependantTables = array())
 	{
 		$this->tableGateway = $tableGateway;
-		
-		foreach ($dependantTables as $name => $gateway) {
-			if (!$gateway instanceof TableGateway) {
-				throw new \Exception('Expected a TableGateway for: ' . $name);
-			}
-		}
 		$this->dependantTables = $dependantTables;
 	}
 	
@@ -49,6 +48,13 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 * @return Predicate\PredicateSet
 	 */
 	abstract protected function getDefaultWhere();
+	
+	/**
+	 * Returns the default sort order for all queries executed by this mapper
+	 * 
+	 * @return \Closure
+	 */
+	abstract protected function getDefaultOrder();
 	
 	/**
 	 * Returns a single result row object, or false if none found
@@ -122,6 +128,11 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 		return clone $this->defaultPredicateSet;
 	}
 	
+	final public function getOrder()
+	{
+		return $this->getDefaultOrder();
+	}
+	
 	/**
 	 * Returns a single row object, or false if none found
 	 * 
@@ -156,13 +167,24 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 * @param Predicate\PredicateSet|Closure $where
 	 * @return ResultSet
 	 */
-	protected function select($where)
+	protected function select($where, $order = null)
 	{
 		if ($where instanceof Predicate\PredicateSet && count($where) < 1) {
 			// Prevent empty PredicateSets from generating bad SQL 
 			$where = null;
 		}
-		return $this->tableGateway->select($where);
+		
+		return $this->tableGateway->select(function ($select) use ($where, $order) {
+			if ($where instanceof Predicate\PredicateSet) {
+				$select->where($where);
+			}
+			if ($where instanceof \Clousure) {
+				$where($select);
+			}
+			if ($order instanceof \Closure) {
+				$order($select);
+			}
+		});
 	}
 	
 	/**
@@ -177,7 +199,11 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 		if (!isset($this->dependantTables[$name])) {
 			throw new \Exception($name . ' is not a dependent table');
 		}
-		return $this->dependantTables[$name];
+		$gateway = $this->getServiceLocator()->get($this->dependantTables[$name]);
+		if (!$gateway instanceof TableGateway) {
+			throw new \Exception('Expected a TableGateway');
+		}
+		return $gateway;
 	}
 	
 }
