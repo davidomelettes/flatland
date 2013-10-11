@@ -75,6 +75,7 @@ class SignupController extends AbstractController
 				// Create account
 				$this->getUsersMapper()->signupUser($user, $request->getPost('password'));
 				// Log in
+				$user->setPasswordAuthenticated();
 				$this->getAuthService()->getStorage()->write($user);
 				
 				return $this->redirect()->toRoute('home');
