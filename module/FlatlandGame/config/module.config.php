@@ -18,10 +18,13 @@ return array(
 			'games' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route'			=> '/games[/:id]',
-					'constraints'	=> array(),
+					'route'			=> '/games[/:action][/:key]',
+					'constraints'	=> array(
+						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+					),
 					'defaults'		=> array(
 						'controller'	=> 'Game\Controller\Games',
+						'action'		=> 'index',
 					),
 				),
 			),

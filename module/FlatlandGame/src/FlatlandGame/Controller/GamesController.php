@@ -2,33 +2,43 @@
 
 namespace FlatlandGame\Controller;
 
-use Omelettes\Controller\AbstractRestfulController;
+use FlatlandGame\Form;
+use Omelettes\Controller\AbstractController;
 
-class GamesController extends AbstractRestfulController
+class GamesController extends AbstractController
 {
-	public function getList()
+	/**
+	 * @var Form\GameForm
+	 */
+	protected $gameForm;
+	
+	public function getGameForm()
+	{
+		if (!$this->gameForm) {
+			$form = $this->getServiceLocator()->get('FormElementManager')->get('FlatlandGame\Form\GameForm');
+			$this->gameForm = $form;
+		}
+		
+		return $this->gameForm;
+	}
+	
+	public function indexAction()
 	{
 		return array();
 	}
 	
-	public function get($id)
+	public function addAction()
+	{
+		$form = $this->getGameForm();
+		
+		return array(
+			'form' => $form,
+		);
+	}
+	
+	public function viewAction()
 	{
 		return array();
-	}
-	
-	public function create($data)
-	{
-		
-	}
-	
-	public function update($id, $data)
-	{
-		
-	}
-	
-	public function delete($id)
-	{
-		
 	}
 	
 }
