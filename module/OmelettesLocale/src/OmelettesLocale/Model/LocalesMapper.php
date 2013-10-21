@@ -4,7 +4,8 @@ namespace OmelettesLocale\Model;
 
 use Omelettes\Model\AbstractMapper;
 use OmelettesAuth\Model\User;
-use Zend\Db\Sql\Predicate;
+use Zend\Db\Sql\Predicate,
+	Zend\Validator\StringLength;
 
 class LocalesMapper extends AbstractMapper
 {
@@ -30,7 +31,7 @@ class LocalesMapper extends AbstractMapper
 		}
 		
 		$where = $this->getWhere();
-		$where->andPredicate(new Predicate\Operator('code', '=', $$code));
+		$where->andPredicate(new Predicate\Operator('code', '=', $code));
 		
 		return $this->findOneWhere($where);
 	}

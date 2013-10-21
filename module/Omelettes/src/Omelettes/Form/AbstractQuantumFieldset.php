@@ -34,4 +34,20 @@ abstract class AbstractQuantumFieldset extends Fieldset implements ServiceLocato
 		return $this->getServiceLocator()->getServiceLocator();
 	}
 	
+	public function addNameElement($label = 'Name')
+	{
+		$this->add(array(
+			'name'		=> 'name',
+			'type'		=> 'Text',
+			'options'	=> array(
+				'label'		=> $label,
+			),
+			'attributes'=> array(
+				'id'		=> $this->getName() . 'Name',
+			),
+		));
+	
+		return $this;
+	}
+	
 }

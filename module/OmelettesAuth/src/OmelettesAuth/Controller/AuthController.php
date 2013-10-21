@@ -180,6 +180,7 @@ class AuthController extends AbstractController
 				$result = $this->getAuthService()->authenticate();
 				if ($result->isValid()) {
 					$userIdentity = new User((array)$this->getAuthService()->getAdapter()->getResultRowObject());
+					
 					// We've just authenticated with a password
 					$userIdentity->setPasswordAuthenticated();
 					$this->getAuthService()->getStorage()->write($userIdentity);
