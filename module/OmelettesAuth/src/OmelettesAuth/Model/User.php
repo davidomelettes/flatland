@@ -3,6 +3,7 @@
 namespace OmelettesAuth\Model;
 
 use Omelettes\Model\QuantumModel;
+use Zend\Permissions\Acl\Acl;
 
 class User extends QuantumModel
 {

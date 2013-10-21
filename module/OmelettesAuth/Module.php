@@ -215,11 +215,13 @@ class Module
 		$sm = $app->getServiceManager();
 		$acl = $sm->get('AclService');
 		$auth = $sm->get('AuthService');
+		$flash = $sm->get('ControllerPluginManager')->get('flashMessenger');
 		$resource = $e->getRouteMatch()->getMatchedRouteName();
 		if ($resource === 'login') {
 			// Skip the check if we are attempting to access the login page
 			return;
 		}
+		$privilege = $e->getRouteMatch()->getParam('action', 'index');
 		
 		$role = 'guest';
 		if ($auth->hasIdentity()) {
@@ -228,13 +230,14 @@ class Module
 		if (!$acl->hasResource($resource)) {
 			throw new \Exception('Undefined ACL resource: ' . $resource);
 		}
-		if (!$acl->isAllowed($role, $resource)) {
-			// ACL role is not allowed to access this resource
+		if (!$acl->isAllowed($role, $resource, $privilege)) {
+			// ACL role is not allowed to access this resource/privilege
 			if ('guest' === $role) {
 				// User is not logged in
 				return $this->redirectToRoute($e, 'login');
 			} else {
-				// User is logged in, probably tried to access an admin-only resource
+				// User is logged in, probably tried to access an admin-only resource/privilege
+				$flash->addErrorMessage('You do not have permission to access that resource');
 				return $this->redirectToRoute($e, 'home');
 			}
 		}

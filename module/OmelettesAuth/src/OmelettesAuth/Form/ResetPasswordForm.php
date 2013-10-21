@@ -19,6 +19,7 @@ class ResetPasswordForm extends AbstractQuantumForm
 			'attributes'=> array(
 				'id'			=> $this->getName() . 'NewPassword',
 				'placeholder'	=> 'New Password',
+				'autocomplete'	=> 'off',
 			),
 		));
 		$this->add(array(
@@ -30,6 +31,7 @@ class ResetPasswordForm extends AbstractQuantumForm
 			'attributes'=> array(
 				'id'			=> $this->getName() . 'VerifyPassword',
 				'placeholder'	=> 'Verify Password',
+				'autocomplete'	=> 'off',
 			),
 		));
 		
