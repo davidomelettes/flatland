@@ -6,6 +6,25 @@ use Omelettes\Model\AbstractModel;
 
 class QuantumModel extends AbstractModel
 {
+	/**
+	 * @var array
+	 */
+	protected $propertyMap;
+	
+	/**
+	 * Array of model properties => database columns
+	 * 
+	 * @var array
+	 */
+	protected $quantumPropertyMap = array(
+		'key'		=> 'key',
+		'name'		=> 'name',
+		'created'	=> 'created',
+		'updated'	=> 'updated',
+		'createdBy'	=> 'created_by',
+		'updatedBy'	=> 'updated_by',
+	);
+	
 	protected $key;
 	protected $name;
 	protected $created;
@@ -13,28 +32,80 @@ class QuantumModel extends AbstractModel
 	protected $createdBy;
 	protected $updatedBy;
 	
+	public function __construct($data = array())
+	{
+		if (!is_array($this->propertyMap)) {
+			throw new \Exception(get_class($this) . ' has missing property map');
+		}
+		
+		$this->exchangeArray($data);
+	}
+	
+	public function __get($name)
+	{
+		if (!isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
+			throw new \Exception('Invalid model property: ' . $name);
+		}
+		$getterMethodName = 'get' . ucfirst($name);
+		
+		return $this->$getterMethodName();
+	}
+	
+	public function __set($name, $value)
+	{
+		if (!isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
+			throw new \Exception('Invalid model property: ' . $name);
+		}
+		$method = 'set' . ucfirst($name);
+		
+		$this->$method($value);
+	}
+	
+	public function __call($function, array $args)
+	{
+		if (preg_match('/(get|set)(.+)/', $function, $m)) {
+			$property = lcfirst($m[2]);
+			if (isset($this->quantumPropertyMap[$property]) || isset($this->propertyMap[$property])) {
+				if ('get' === $m[1]) {
+					// Getting a model property
+					return $this->$property; 
+				} else {
+					// Setting a model property
+					$this->$property = $args[0];
+					
+					return $this;
+				}
+			}
+		}
+	}
+	
 	public function exchangeArray($data)
 	{
-		$this->setKey(isset($data['key']) ? $data['key'] : null)
-			->setName(isset($data['name']) ? $data['name'] : null)
-			->setCreated(isset($data['created']) ? $data['created'] : null)
-			->setUpdated(isset($data['updated']) ? $data['updated'] : null)
-			->setCreatedBy(isset($data['created_by']) ? $data['created_by'] : null)
-			->setUpdatedBy(isset($data['updated_by']) ? $data['updated_by'] : null);
-	
+		foreach ($this->quantumPropertyMap as $property => $column) {
+			$setterMethodName = 'set'.ucfirst($property);
+			$this->$setterMethodName(isset($data[$column]) ? $data[$column] : null);
+		}
+		foreach ($this->propertyMap as $property => $column) {
+			$setterMethodName = 'set'.ucfirst($property);
+			$this->$setterMethodName(isset($data[$column]) ? $data[$column] : null);
+		}
+		
 		return $this;
 	}
 	
 	public function getArrayCopy()
 	{
-		return array(
-			'key'		=> $this->key,
-			'name'		=> $this->name,
-			'created'	=> $this->created,
-			'updated'	=> $this->updated,
-			'created_by'=> $this->createdBy,
-			'updated_by'=> $this->updatedBy,
-		);
+		$copy = array();
+		foreach ($this->quantumPropertyMap as $property => $column) {
+			$getterMethodName = 'get'.ucfirst($property);
+			$copy[$column] = $this->$getterMethodName();
+		}
+		foreach ($this->propertyMap as $property => $column) {
+			$getterMethodName = 'get'.ucfirst($property);
+			$copy[$column] = $this->$getterMethodName();
+		}
+		
+		return $copy;
 	}
 	
 	public function setKey($key)
