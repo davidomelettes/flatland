@@ -72,4 +72,5 @@ abstract class AbstractQuantumForm extends Form implements ServiceLocatorAwareIn
 	
 		return $this;
 	}
+	
 }
