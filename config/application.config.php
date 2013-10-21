@@ -8,6 +8,7 @@ return array(
     	'OmelettesSignup',
     	'OmelettesUser',
     	'OmelettesLocale',
+    	'FlatlandAdmin',
         'FlatlandGame',
     ),
 
