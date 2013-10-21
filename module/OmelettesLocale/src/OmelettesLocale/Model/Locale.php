@@ -56,7 +56,6 @@ class Locale extends AbstractModel
 			'code'							=> $this->code,
 			'name'							=> $this->name,
 			'native'						=> $this->native,
-			'name'							=> $this->name,
 			'country_code'					=> $this->countryCode,
 			'country_name'					=> $this->countryName,
 			'country_native'				=> $this->countryNative,
