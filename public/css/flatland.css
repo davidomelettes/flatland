@@ -2,6 +2,24 @@ html body {
 	background-color: #eee;
 }
 
+.images .img-container {
+	position: relative;
+}
+.img-control {
+	position: absolute;
+	display: inline-box;
+	background-color: #fff;
+	padding: 3px 5px;
+}
+.img-control.img-thumbup {
+	top: 1px;
+	left: 1px;
+}
+.img-control.img-report {
+	bottom: 1px;
+	right: 1px;
+}
+
 .card {
 	background-color: #fff;
 	border-radius: 5px;

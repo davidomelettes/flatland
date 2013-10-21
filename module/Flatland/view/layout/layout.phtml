@@ -22,7 +22,8 @@
 		<?php
 			echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
 				->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
-				->prependStylesheet($this->basePath() . '/css/flatland.css');
+				->prependStylesheet($this->basePath() . '/css/flatland.css')
+				->prependStylesheet($this->basePath() . '/css/admin.css');
 		?>
 			
 	
@@ -36,6 +37,29 @@
 	
 	</head>
 	<body>
+		<?php if ($this->authService()->hasIdentity()): ?>
+		<nav class="navbar navbar-static-top admin" role="navigation">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/"><?php echo $this->translate('Admin'); ?></a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li>
+					<a href="<?php echo $this->url('admin/database'); ?>"><span class="glyphicon glyphicon-book"></span> <?php echo $this->translate('Database'); ?></a>
+				</li>
+				<li>
+					<a href="#"><span class="glyphicon glyphicon-user"></span> Users</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="#"><span class="badge">3</span> Reports</a>
+				</li>
+				<li>
+					<a href="#"><span class="badge">9</span> Queue</a>
+				</li>
+			</ul>
+		</nav>
+		<?php endif; ?>
 		<nav class="navbar navbar-static-top navbar-inverse" role="navigation">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
@@ -91,7 +115,7 @@
 				</ul>
 				<?php else: ?>
 				<div class="navbar-right">
-					<a class="btn btn-primary navbar-btn" href="<?php echo $this->url('signup'); ?>"><?php echo $this->translate('Create an account'); ?></a>
+					<a class="btn btn-info navbar-btn" href="<?php echo $this->url('signup'); ?>"><?php echo $this->translate('Create an account'); ?></a>
 					<a class="btn btn-primary navbar-btn" href="<?php echo $this->url('login'); ?>"><?php echo $this->translate('Sign in'); ?></a>
 				</div>
 				<?php endif; ?>
