@@ -3,23 +3,48 @@ BEGIN;
 CREATE TABLE games (
 	key UUID PRIMARY KEY,
 	name VARCHAR NOT NULL,
-	description TEXT,
-	home_locale VARCHAR NOT NULL REFERENCES locales(code),
+	created TIMESTAMP NOT NULL DEFAULT now(),
+	updated TIMESTAMP NOT NULL DEFAULT now(),
+	created_by UUID REFERENCES users(key),
+	updated_by UUID REFERENCES users(key)
+);
+
+CREATE TABLE game_publishers (
+	key UUID PRIMARY KEY,
+	name VARCHAR NOT NULL,
+	created TIMESTAMP NOT NULL DEFAULT now(),
+	updated TIMESTAMP NOT NULL DEFAULT now(),
+	created_by UUID REFERENCES users(key),
+	updated_by UUID REFERENCES users(key)
+);
+
+CREATE TABLE game_designers (
+	key UUID PRIMARY KEY,
+	name VARCHAR NOT NULL,
+	created TIMESTAMP NOT NULL DEFAULT now(),
+	updated TIMESTAMP NOT NULL DEFAULT now(),
+	created_by UUID REFERENCES users(key),
+	updated_by UUID REFERENCES users(key)
+);
+
+CREATE TABLE game_variants (
+	key UUID PRIMARY KEY,
+	game_key UUID NOT NULL REFERENCES games(key),
+	language_code CHAR(2) NOT NULL REFERENCES locale_languages(code),
+	edition INT NOT NULL DEFAULT 1,
+	name VARCHAR NOT NULL,
 	created TIMESTAMP NOT NULL DEFAULT now(),
 	updated TIMESTAMP NOT NULL DEFAULT now(),
 	created_by UUID REFERENCES users(key),
 	updated_by UUID REFERENCES users(key),
-	min_age INT,
-	max_age INT,
-	expansion_for UUID REFERENCES games(key)
+	description TEXT,
+	release_date DATE,
+	publisher_key UUID REFERENCES game_publishers(key)
 );
 
-CREATE TABLE game_players (
+CREATE TABLE game_variant_designers (
 	game_key UUID NOT NULL REFERENCES games(key),
-	players INTEGER NOT NULL,
-	with_custom_rules BOOLEAN NOT NULL DEFAULT true,
-	with_game UUID REFERENCES games(key),
-	PRIMARY KEY (game_key, players)
+	designer_key UUID NOT NULL REFERENCES game_designers(key)
 );
 
 COMMIT;
