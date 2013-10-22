@@ -43,22 +43,22 @@ class QuantumModel extends AbstractModel
 	
 	public function __get($name)
 	{
-		if (!isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
+		$getterMethodName = 'get' . ucfirst($name);
+		if (!method_exists($this, $getterMethodName) && !isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
 			throw new \Exception('Invalid model property: ' . $name);
 		}
-		$getterMethodName = 'get' . ucfirst($name);
 		
 		return $this->$getterMethodName();
 	}
 	
 	public function __set($name, $value)
 	{
-		if (!isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
+		$setterMethodName = 'set' . ucfirst($name);
+		if (!method_exists($this, $setterMethodName) && !isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
 			throw new \Exception('Invalid model property: ' . $name);
 		}
-		$method = 'set' . ucfirst($name);
 		
-		$this->$method($value);
+		return $this->$setterMethodName($value);
 	}
 	
 	public function __call($function, array $args)
