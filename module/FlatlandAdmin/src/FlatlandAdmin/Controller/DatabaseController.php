@@ -69,9 +69,6 @@ class DatabaseController extends AbstractController
 				
 			if ($form->isValid()) {
 				$this->getGamesMapper()->addGame($game);
-			} else {
-				$errors = $form->getInputFilter()->getMessages();
-				var_dump($errors);
 			}
 		}
 		

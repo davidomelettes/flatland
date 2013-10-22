@@ -20,9 +20,15 @@ class GameVariantFilter extends AbstractQuantumModelFilter
 				),
 			)));
 			
-			$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
-			$localesMapper = $this->getServiceLocator()->get('OmelettesLocale\Model\LocalesMapper');
-			$locale = $localesMapper->find($identity->locale);
+			$authService = $this->getServiceLocator()->get('AuthService');
+			$filterFormat = 'Y-m-d';
+			if ($authService->hasIdentity()) {
+				$localesMapper = $this->getServiceLocator()->get('OmelettesLocale\Model\LocalesMapper');
+				$locale = $localesMapper->find($authService->getIdentity()->locale);
+				if ($locale) {
+					$filterFormat = $locale->datePhpFormat;
+				}
+			}
 			$inputFilter->add($factory->createInput(array(
 				'name'			=> 'release_date',
 				'required'		=> false,
@@ -30,7 +36,15 @@ class GameVariantFilter extends AbstractQuantumModelFilter
 					array(
 						'name'		=> 'Date',
 						'options'	=> array(
-							'format'	=> $locale->datePhpFormat,
+							'format'	=> 'Y-m-d',
+						),
+					),
+				),
+				'filters'		=> array(
+					array(
+						'name'		=> 'OmelettesLocale\Filter\LocaleDate',
+						'options'	=> array(
+							'format' => $filterFormat,
 						),
 					),
 				),

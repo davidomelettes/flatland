@@ -3,6 +3,7 @@
 namespace FlatlandAdmin\Model;
 
 use Omelettes\Model\QuantumModel;
+use Zend\Validator\Date as DateValidator;
 
 class GameVariant extends QuantumModel
 {

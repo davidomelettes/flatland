@@ -13,6 +13,7 @@ class GameVariantsMapper extends QuantumMapper
 		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 		$variantData = array(
 			'key'			=> (string)$key,
+			'name'			=> $variant->name,
 			'created_by'	=> $identity->key,
 			'updated_by'	=> $identity->key,
 			'game_key'		=> $variant->game,
