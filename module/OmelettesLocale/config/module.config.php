@@ -5,6 +5,11 @@ return array(
 		'invokables' => array(
 		),
 	),
+	'filters' => array(
+		'invokables' => array(
+			'LocaleDate' => 'OmelettesLocale\Validator\LocaleDate',
+		),
+	),
 	'router' => array(
 		'routes' => array(
 		),
