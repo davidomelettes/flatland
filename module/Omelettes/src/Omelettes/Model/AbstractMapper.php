@@ -3,6 +3,7 @@
 namespace Omelettes\Model;
 
 use Zend\Db\Sql\Predicate,
+	Zend\Db\Sql\Select,
 	Zend\Db\TableGateway\TableGateway,
 	Zend\ServiceManager\ServiceLocatorAwareInterface,
 	Zend\ServiceManager\ServiceLocatorInterface;
@@ -141,7 +142,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected function findOneWhere(Predicate\PredicateSet $where)
 	{
-		$rowset = $this->select($where);
+		$rowset = $this->select($this->generateSqlSelect($where));
 		$row = $rowset->current();
 		if (!$row) {
 			return false;
@@ -158,33 +159,45 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected function fetchAllWhere(Predicate\PredicateInterface $where)
 	{
-		return $this->select($where);
+		return $this->select($this->generateSqlSelect($where));
+	}
+	
+	/**
+	 * Generates a Select instance
+	 * 
+	 * @param Predicate\PredicateSet|\Closure $where
+	 * @param \Closure $order
+	 * @return \Zend\Db\Sql\Select
+	 */
+	protected function generateSqlSelect($where, $order = null)
+	{
+		$select = $this->tableGateway->getSql()->select();
+		if ($where instanceof Predicate\PredicateSet) {
+			if (count($where) < 1) {
+				// Prevent empty PredicateSets from generating bad SQL
+				$where = null;
+			}
+			$select->where($where);
+		}
+		if ($where instanceof \Clousure) {
+			$where($select);
+		}
+		if ($order instanceof \Closure) {
+			$order($select);
+		}
+		
+		return $select;
 	}
 	
 	/**
 	 * Performs a select on the tableGateway
 	 * 
-	 * @param Predicate\PredicateSet|Closure $where
+	 * @param Select $select
 	 * @return ResultSet
 	 */
-	protected function select($where, $order = null)
+	protected function select(Select $select)
 	{
-		if ($where instanceof Predicate\PredicateSet && count($where) < 1) {
-			// Prevent empty PredicateSets from generating bad SQL 
-			$where = null;
-		}
-		
-		return $this->tableGateway->select(function ($select) use ($where, $order) {
-			if ($where instanceof Predicate\PredicateSet) {
-				$select->where($where);
-			}
-			if ($where instanceof \Clousure) {
-				$where($select);
-			}
-			if ($order instanceof \Closure) {
-				$order($select);
-			}
-		});
+		return $this->tableGateway->selectWith($select);
 	}
 	
 	/**
