@@ -77,4 +77,13 @@ class DatabaseController extends AbstractController
 		);
 	}
 	
+	public function indexAction()
+	{
+		$games = $this->getGamesMapper()->fetchAll(true);
+		
+		return array(
+			'games' => $games,
+		);
+	}
+	
 }

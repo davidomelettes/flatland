@@ -29,5 +29,4 @@ class GameVariantsMapper extends QuantumMapper
 		$variant->exchangeArray($variantData);
 	}
 	
-	
 }
