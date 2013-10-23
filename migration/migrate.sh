@@ -1,6 +1,6 @@
 #!/bin/bash
 
-psql flatland < 000.sql
-psql flatland < 001.sql
-psql flatland < 002.sql
-psql flatland < 003.sql
+psql flatland < 000_functions.sql
+psql flatland < 001_users.sql
+psql flatland < 002_locales.sql
+psql flatland < 003_games.sql

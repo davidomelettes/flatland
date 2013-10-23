@@ -5,8 +5,8 @@ CREATE TABLE games (
 	name VARCHAR NOT NULL,
 	created TIMESTAMP NOT NULL DEFAULT now(),
 	updated TIMESTAMP NOT NULL DEFAULT now(),
-	created_by UUID REFERENCES users(key),
-	updated_by UUID REFERENCES users(key)
+	created_by UUID NOT NULL REFERENCES users(key),
+	updated_by UUID NOT NULL REFERENCES users(key)
 );
 
 CREATE TABLE game_publishers (
@@ -14,8 +14,8 @@ CREATE TABLE game_publishers (
 	name VARCHAR NOT NULL,
 	created TIMESTAMP NOT NULL DEFAULT now(),
 	updated TIMESTAMP NOT NULL DEFAULT now(),
-	created_by UUID REFERENCES users(key),
-	updated_by UUID REFERENCES users(key)
+	created_by UUID NOT NULL REFERENCES users(key),
+	updated_by UUID NOT NULL REFERENCES users(key)
 );
 
 CREATE TABLE game_designers (
@@ -23,8 +23,8 @@ CREATE TABLE game_designers (
 	name VARCHAR NOT NULL,
 	created TIMESTAMP NOT NULL DEFAULT now(),
 	updated TIMESTAMP NOT NULL DEFAULT now(),
-	created_by UUID REFERENCES users(key),
-	updated_by UUID REFERENCES users(key)
+	created_by UUID NOT NULL REFERENCES users(key),
+	updated_by UUID NOT NULL REFERENCES users(key)
 );
 
 CREATE TABLE game_variants (
@@ -35,8 +35,8 @@ CREATE TABLE game_variants (
 	name VARCHAR NOT NULL,
 	created TIMESTAMP NOT NULL DEFAULT now(),
 	updated TIMESTAMP NOT NULL DEFAULT now(),
-	created_by UUID REFERENCES users(key),
-	updated_by UUID REFERENCES users(key),
+	created_by UUID NOT NULL REFERENCES users(key),
+	updated_by UUID NOT NULL REFERENCES users(key),
 	description TEXT,
 	release_date DATE,
 	publisher_key UUID REFERENCES game_publishers(key)

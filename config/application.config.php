@@ -4,6 +4,7 @@ return array(
     'modules' => array(
     	'Flatland',
     	'Omelettes',
+    	'OmelettesConsole',
     	'OmelettesAuth',
     	'OmelettesSignup',
     	'OmelettesUser',

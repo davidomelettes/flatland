@@ -12,6 +12,7 @@ use OmelettesAuth\Exception\UserLoginTheftException,
 	OmelettesAuth\Model\UsersMapper;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter,
 	Zend\Authentication\AuthenticationService,
+	Zend\Console\Request as ConsoleRequest,
 	Zend\Db\ResultSet\ResultSet,
 	Zend\Db\TableGateway\TableGateway,
 	Zend\Http\Header\SetCookie,
@@ -147,6 +148,7 @@ class Module
 	{
 		$app = $ev->getApplication();
 		$sm = $app->getServiceManager();
+		$config = $sm->get('config');
 		$flash = $sm->get('ControllerPluginManager')->get('flashMessenger');
 		$auth = $sm->get('AuthService');
 		$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
@@ -159,6 +161,7 @@ class Module
 				// Maybe they got deleted, so log them out
 				$auth->clearIdentity();
 				$flash->addErrorMessage('Your authentication idenitity was not found');
+				die('argh');
 				return $this->redirectToRoute($ev, 'login');
 			}
 			// Refresh the identity
@@ -170,6 +173,16 @@ class Module
 			// Perhaps the session has expired
 			// Can we authenticate via a login cookie?
 			$request = $ev->getRequest();
+			if ($request instanceof ConsoleRequest) {
+				// We're using the console
+				// Log in as system user
+				$systemIdentity = $authMapper->getSystemIdentity($config['user_keys']['SYSTEM_CONSOLE']);
+				if (!$systemIdentity) {
+					throw new \Exception('Missing console identity!');
+				}
+				$auth->getStorage()->write($systemIdentity);
+				return;
+			}
 			$cookie = $request->getCookie();
 			if ($cookie && $cookie->offsetExists('login')) {
 				// Attempt a cookie-based authentication
@@ -237,6 +250,7 @@ class Module
 			if ('guest' === $role) {
 				// User is not logged in
 				$flash->addErrorMessage('You must be logged in to access that page');
+				die('blarg');
 				return $this->redirectToRoute($e, 'login');
 			} else {
 				// User is logged in, probably tried to access an admin-only resource/privilege

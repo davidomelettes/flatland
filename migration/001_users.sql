@@ -16,8 +16,8 @@ CREATE TABLE users (
 	key UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
 	name VARCHAR NOT NULL UNIQUE,
 	full_name VARCHAR NOT NULL,
-	password_hash VARCHAR NOT NULL,
 	salt VARCHAR NOT NULL DEFAULT uuid_generate_v4(),
+	password_hash VARCHAR NOT NULL,
 	name_reset_value VARCHAR,
 	name_reset_key UUID,
 	name_reset_requested TIMESTAMP,
@@ -39,8 +39,8 @@ CREATE TABLE user_logins (
 
 COPY users (key, name, full_name, salt, password_hash, acl_role) FROM stdin;
 deadbeef7a6940e789848d3de3bedc0b	SYSTEM_SYSTEM	System Account	deadbeef7a6940e789848d3de3bedc0b	SYSTEM_SYSTEM	system
+bedabb1e66ff47f0a3f01f3f45b5c94d	SYSTEM_CONSOLE	System Console Account	bedabb1e66ff47f0a3f01f3f45b5c94d	SYSTEM_CONSOLE	system
 feedfacead3e4cc6bd9c501224e24359	SYSTEM_SIGNUP	System Signup Account	feedfacead3e4cc6bd9c501224e24359	SYSTEM_SIGNUP	system
-52eb818797564fbea112319d50dc46d0	david@omelett.es	David Edwards	f989b2036a0c4f23aa75ef1c20ed8cc8	30c3478f9cdb04955243dd1971d029795f6337c6ebbf9cf077c7292edca794ac	super
 \.
 
 ALTER TABLE users ADD COLUMN created_by uuid REFERENCES users(key);

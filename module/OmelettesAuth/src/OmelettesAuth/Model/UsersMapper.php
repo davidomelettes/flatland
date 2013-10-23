@@ -40,4 +40,14 @@ class UsersMapper extends SignupMapper
 		$this->tableGateway->update($data, array('key' => $user->key));
 	}
 	
+	public function getSystemIdentity($systemIdentityKey)
+	{
+		// Don't use the default WHERE predicates
+		$predicateSet = new Predicate\PredicateSet();
+		$predicateSet->addPredicate(new Predicate\Operator('acl_role', '=', 'system'));
+		$predicateSet->addPredicate(new Predicate\Operator('key', '=', $systemIdentityKey));
+		
+		return $this->findOneWhere($predicateSet);
+	}
+	
 }
