@@ -121,21 +121,21 @@ class Module
 		);
 	}
 	
-	public function onBootstrap(MvcEvent $e)
+	public function onBootstrap(MvcEvent $ev)
 	{
-		$em = $e->getApplication()->getEventManager();
-		$em->attach('route', array($this, 'checkAuth'));
-		$em->attach('route', array($this, 'checkAcl'));
+		$em = $ev->getApplication()->getEventManager();
+		$em->attach(MvcEvent::EVENT_ROUTE, array($this, 'checkAuth'));
+		$em->attach(MvcEvent::EVENT_ROUTE, array($this, 'checkAcl'));
 	}
 	
-	protected function removeLoginCookie(MvcEvent $e)
+	protected function removeLoginCookie(MvcEvent $ev)
 	{
 		$setCookieHeader = new SetCookie(
 			'login',
 			'',
 			(int)date('U', strtotime('-2 weeks'))
 		);
-		$e->getResponse()->getHeaders()->addHeader($setCookieHeader);
+		$ev->getResponse()->getHeaders()->addHeader($setCookieHeader);
 	}
 	
 	/**
