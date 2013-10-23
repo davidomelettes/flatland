@@ -13,7 +13,7 @@ class UsersMapper extends QuantumMapper
 	protected function getDefaultWhere()
 	{
 		$where = new Predicate\PredicateSet();
-		$where->addPredicate(new Predicate\Operator('acl_role', '!=', 'signup'));
+		$where->addPredicate(new Predicate\Operator('acl_role', '!=', 'system'));
 	
 		return $where;
 	}
