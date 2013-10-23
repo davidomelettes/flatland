@@ -147,6 +147,7 @@ class Module
 	{
 		$app = $ev->getApplication();
 		$sm = $app->getServiceManager();
+		$flash = $sm->get('ControllerPluginManager')->get('flashMessenger');
 		$auth = $sm->get('AuthService');
 		$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
 		
@@ -157,6 +158,7 @@ class Module
 				// Can't find the user for some reason
 				// Maybe they got deleted, so log them out
 				$auth->clearIdentity();
+				$flash->addErrorMessage('Your authentication idenitity was not found');
 				return $this->redirectToRoute($ev, 'login');
 			}
 			// Refresh the identity
@@ -234,10 +236,11 @@ class Module
 			// ACL role is not allowed to access this resource/privilege
 			if ('guest' === $role) {
 				// User is not logged in
+				$flash->addErrorMessage('You must be logged in to access that page');
 				return $this->redirectToRoute($e, 'login');
 			} else {
 				// User is logged in, probably tried to access an admin-only resource/privilege
-				$flash->addErrorMessage('You do not have permission to access that resource');
+				$flash->addErrorMessage('You do not have permission to access that page');
 				return $this->redirectToRoute($e, 'home');
 			}
 		}
