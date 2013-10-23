@@ -1,6 +1,7 @@
 <?php
 
 return array(
+	'acl' => array(),
 	'controllers' => array(
 		'invokables' => array(
 		),
