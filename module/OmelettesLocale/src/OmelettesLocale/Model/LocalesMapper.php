@@ -38,7 +38,7 @@ class LocalesMapper extends AbstractMapper
 	
 	public function fetchAll()
 	{
-		return $this->select($this->getWhere(), $this->getOrder());
+		return $this->select($this->generateSqlSelect($this->getWhere(), $this->getOrder()));
 	}
 	
 	public function fetchForUser(User $user)
