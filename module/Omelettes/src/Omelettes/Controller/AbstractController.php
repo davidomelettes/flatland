@@ -3,6 +3,7 @@
 namespace Omelettes\Controller;
 
 use Zend\Authentication\AuthenticationService,
+	Zend\Log\Logger,
 	Zend\Mvc\Controller\AbstractActionController;
 use OmelettesLocale\Model\LocalesMapper;
 
@@ -17,6 +18,11 @@ abstract class AbstractController extends AbstractActionController
 	 * @var LocalesMapper
 	 */
 	protected $localesMapper;
+	
+	/**
+	 * @var Logger
+	 */
+	protected $logger;
 	
 	public function getAuthService()
 	{
@@ -36,6 +42,16 @@ abstract class AbstractController extends AbstractActionController
 		}
 		
 		return $this->localesMapper;
+	}
+	
+	public function getLogger()
+	{
+		if (!$this->logger) {
+			$logger = $this->getServiceLocator()->get('Omelettes/Logger');
+			$this->logger = $logger;
+		}
+		
+		return $this->logger;
 	}
 	
 }

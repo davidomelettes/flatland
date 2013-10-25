@@ -2,10 +2,13 @@
 
 namespace OmelettesConsole;
 
-use Zend\Console\Request as ConsoleRequest,
+use Zend\Console\Adapter\AdapterInterface as Console,
+	Zend\Console\Request as ConsoleRequest,
+	Zend\ModuleManager\Feature\ConsoleBannerProviderInterface,
+	Zend\ModuleManager\Feature\ConsoleUsageProviderInterface,
 	Zend\Mvc\MvcEvent;
 
-class Module
+class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInterface
 {
 	public function getConfig()
 	{
@@ -27,38 +30,35 @@ class Module
 	{
 		return array(
 			'factories' => array(
+				'OmelettesConsole\Migration\Sql' => function ($sm) {
+					$migration = new Migration\Sql();
+					$migration->setDbAdapter($sm->get('Zend\Db\Adapter\Adapter'));
+					return $migration;
+				},
 			),
+		);
+	}
+	
+	public function getConsoleBanner(Console $console)
+	{
+		return
+			"==------------------------------------------------------==\n" .
+			"==        OMELETT.ES QUANTUM APPLICATION CONSOLE        ==\n" .
+			"==------------------------------------------------------=="
+		;
+	}
+	
+	public function getConsoleUsage(Console $console)
+	{
+		return array(
+			'db migrate [--test] <version>'	=> 'Execute migration file',
 		);
 	}
 	
 	public function onBootstrap(MvcEvent $ev)
 	{
 		$em = $ev->getApplication()->getEventManager();
-		$em->attach(MvcEvent::EVENT_DISPATCH, array($this, 'consoleInfo'));
-		$em->attach(MvcEvent::EVENT_FINISH, array($this, 'consoleFlash'));
-	}
-	
-	public function consoleInfo(MvcEvent $ev)
-	{
-		$request = $ev->getRequest();
-		if (!$request instanceof ConsoleRequest) {
-			return;
-		}
-		
-		echo "-- OMELETT.ES CONSOLE --\n";
-		
-		$app = $ev->getApplication();
-		$sm = $app->getServiceManager();
-		
-		$auth = $sm->get('AuthService');
-		if (!$auth->hasIdentity()) {
-			echo "Not authenticated\n";
-		} else {
-			$id = $auth->getIdentity();
-			printf("Authenticated as %s (Full Name: %s; key: %s)\n", $id->name, $id->fullName, $id->key);
-		}
-		
-		echo "\n";
+		//$em->attach(MvcEvent::EVENT_FINISH, array($this, 'consoleFlash'));
 	}
 	
 	public function consoleFlash(MvcEvent $ev)

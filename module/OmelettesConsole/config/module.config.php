@@ -4,7 +4,7 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'system' => array(
-				'hello',
+				'migrate',
 			),
 		),
 	),
@@ -16,12 +16,12 @@ return array(
 	'console' => array(
 		'router' => array(
 			'routes' => array(
-				'hello' => array(
+				'migrate' => array(
 					'options' => array(
-						'route' => 'migrate hello',
+						'route' => 'db migrate [--test] <sequence>',
 						'defaults' => array(
 							'controller' => 'Console\Controller\Migration',
-							'action' => 'hello',
+							'action' => 'migrate',
 						),
 					),
 				),

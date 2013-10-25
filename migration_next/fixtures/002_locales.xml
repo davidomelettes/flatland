@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<locale_countries code="au" name="Australia" native="Australia" />
+	<locale_countries code="ca" name="Canada" native="Canada" />
+	<locale_countries code="de" name="Germany" native="Deutschland" />
+	<locale_countries code="es" name="Spain" native="España" />
+	<locale_countries code="fr" name="France" native="France" />
+	<locale_countries code="gb" name="United Kingdom" native="United Kingdom" />
+	<locale_countries code="it" name="Italy" native="Italia" />
+	<locale_countries code="jp" name="Japan" native="日本" />
+	<locale_countries code="us" name="United States" native="United States" />
+	<locale_languages code="de" name="German" native="Deutsch" />
+	<locale_languages code="en" name="English" native="English" />
+	<locale_languages code="es" name="Spanish" native="Español" />
+	<locale_languages code="fr" name="French" native="Français" />
+	<locale_languages code="it" name="Italian" native="Italiano" />
+	<locale_languages code="ja" name="Japanese" native="日本語" />
+	<locale_currencies code="AUD" name="Australian Dollar" symbol="$" decimals="2" decimal_separator="." thousands_separator="," />
+	<locale_currencies code="CAD" name="Canadian Dollar" symbol="$" decimals="2" decimal_separator="." thousands_separator="," />
+	<locale_currencies code="EUR" name="Euro" symbol="€" decimals="2" decimal_separator="," thousands_separator="." />
+	<locale_currencies code="GBP" name="Pound Sterling" symbol="£" decimals="2" decimal_separator="." thousands_separator="," />
+	<locale_currencies code="JPY" name="Japanese Yen" symbol="¥" decimals="0" decimal_separator="." thousands_separator="," />
+	<locale_currencies code="USD" name="United States Dollar" symbol="$" decimals="2" decimal_separator="." thousands_separator="," />
+	<locale_date_formats code="DMY" format="dd/mm/yyyy" php_format="d/m/Y" />
+	<locale_date_formats code="MDY" format="mm/dd/yyyy" php_format="m/d/Y" />
+	<locale_date_formats code="YMD" format="yyyy-mm-ddd" php_format="Y-m-d" />
+	<locales code="de_DE" country_code="de" language_code="de" currency_code="EUR" date_code="DMY" />
+	<locales code="en_AU" country_code="au" language_code="en" currency_code="AUD" date_code="DMY" />
+	<locales code="en_CA" country_code="ca" language_code="en" currency_code="CAD" date_code="MDY" />
+	<locales code="en_GB" country_code="gb" language_code="en" currency_code="GBP" date_code="DMY" />
+	<locales code="en_US" country_code="us" language_code="en" currency_code="USD" date_code="MDY" />
+	<locales code="es_ES" country_code="es" language_code="es" currency_code="EUR" date_code="DMY" />
+	<locales code="fr_CA" country_code="ca" language_code="fr" currency_code="CAD" date_code="DMY" />
+	<locales code="fr_FR" country_code="fr" language_code="fr" currency_code="EUR" date_code="DMY" />
+	<locales code="it_IT" country_code="it" language_code="it" currency_code="EUR" date_code="DMY" />
+	<locales code="ja_JP" country_code="jp" language_code="ja" currency_code="JPY" date_code="YMD" />
+</dataset>

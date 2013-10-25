@@ -103,7 +103,7 @@ class Module
 					return $mapper;
 				},
 				'OmelettesAuth\Storage\Session' => function($sm) {
-					$gateway = $sm->get('UserLoginsTableGateway');
+					//$gateway = $sm->get('UserLoginsTableGateway');
 					return new StorageSession(StorageSession::STORAGE_NAMESPACE);
 				},
 				'UserLoginsTableGateway' => function ($sm) {
@@ -153,6 +153,18 @@ class Module
 		$auth = $sm->get('AuthService');
 		$authMapper = $sm->get('OmelettesAuth\Model\UsersMapper');
 		
+		$request = $ev->getRequest();
+		if ($request instanceof ConsoleRequest) {
+			// We're using the console
+			// Log in as system user
+			$systemIdentity = $authMapper->getSystemIdentity($config['user_keys']['SYSTEM_CONSOLE']);
+			if (!$systemIdentity) {
+				throw new \Exception('Missing console identity!');
+			}
+			$auth->getStorage()->write($systemIdentity);
+			return;
+		}
+		
 		if ($auth->hasIdentity()) {
 			// User is logged in, session is fresh
 			$currentIdentity = $auth->getIdentity();
@@ -172,17 +184,6 @@ class Module
 		} else {
 			// Perhaps the session has expired
 			// Can we authenticate via a login cookie?
-			$request = $ev->getRequest();
-			if ($request instanceof ConsoleRequest) {
-				// We're using the console
-				// Log in as system user
-				$systemIdentity = $authMapper->getSystemIdentity($config['user_keys']['SYSTEM_CONSOLE']);
-				if (!$systemIdentity) {
-					throw new \Exception('Missing console identity!');
-				}
-				$auth->getStorage()->write($systemIdentity);
-				return;
-			}
 			$cookie = $request->getCookie();
 			if ($cookie && $cookie->offsetExists('login')) {
 				// Attempt a cookie-based authentication
@@ -224,19 +225,20 @@ class Module
 	 * @param MvcEvent $e
 	 * @throws \Exception
 	 */
-	public function checkAcl(MvcEvent $e)
+	public function checkAcl(MvcEvent $ev)
 	{
-		$app = $e->getApplication();
+		$app = $ev->getApplication();
 		$sm = $app->getServiceManager();
 		$acl = $sm->get('AclService');
 		$auth = $sm->get('AuthService');
 		$flash = $sm->get('ControllerPluginManager')->get('flashMessenger');
-		$resource = $e->getRouteMatch()->getMatchedRouteName();
+		
+		$resource = $ev->getRouteMatch()->getMatchedRouteName();
 		if ($resource === 'login') {
 			// Skip the check if we are attempting to access the login page
 			return;
 		}
-		$privilege = $e->getRouteMatch()->getParam('action', 'index');
+		$privilege = $ev->getRouteMatch()->getParam('action', 'index');
 		
 		$role = 'guest';
 		if ($auth->hasIdentity()) {
@@ -251,21 +253,21 @@ class Module
 				// User is not logged in
 				$flash->addErrorMessage('You must be logged in to access that page');
 				die('blarg');
-				return $this->redirectToRoute($e, 'login');
+				return $this->redirectToRoute($ev, 'login');
 			} else {
 				// User is logged in, probably tried to access an admin-only resource/privilege
 				$flash->addErrorMessage('You do not have permission to access that page');
-				return $this->redirectToRoute($e, 'home');
+				return $this->redirectToRoute($ev, 'home');
 			}
 		}
 	}
 	
-	protected function redirectToRoute(MvcEvent $e, $routeName = 'login')
+	protected function redirectToRoute(MvcEvent $ev, $routeName = 'login')
 	{
 		// Redirect to login page
-		$loginUrl = $e->getRouter()->assemble(array(), array('name' => $routeName));
-		$response = $e->getResponse();
-		$response->getHeaders()->addHeaderLine('Location', $e->getRequest()->getBaseUrl() . $loginUrl);
+		$loginUrl = $ev->getRouter()->assemble(array(), array('name' => $routeName));
+		$response = $ev->getResponse();
+		$response->getHeaders()->addHeaderLine('Location', $ev->getRequest()->getBaseUrl() . $loginUrl);
 		$response->setStatusCode('302');
 			
 		// Return a response to short-circuit the event manger and prevent a dispatch

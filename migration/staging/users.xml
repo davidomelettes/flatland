@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<users key="deadbeef7a6940e789848d3de3bedc0b" name="SYSTEM_SYSTEM" created_by="deadbeef7a6940e789848d3de3bedc0b" updated_by="deadbeef7a6940e789848d3de3bedc0b" full_name="System Account" salt="deadbeef7a6940e789848d3de3bedc0b" password_hash="SYSTEM_SYSTEM"	acl_role="system" />
+	<users key="bedabb1e66ff47f0a3f01f3f45b5c94d" name="SYSTEM_CONSOLE" created_by="deadbeef7a6940e789848d3de3bedc0b" updated_by="deadbeef7a6940e789848d3de3bedc0b" full_name="System Console Account" salt="bedabb1e66ff47f0a3f01f3f45b5c94d" password_hash="SYSTEM_CONSOLE" acl_role="system" />
+	<users key="feedfacead3e4cc6bd9c501224e24359" name="SYSTEM_SIGNUP" created_by="deadbeef7a6940e789848d3de3bedc0b" updated_by="deadbeef7a6940e789848d3de3bedc0b" full_name="System Signup Account" salt="feedfacead3e4cc6bd9c501224e24359" password_hash="SYSTEM_SIGNUP" acl_role="system" />
+	<users key="52eb818797564fbea112319d50dc46d0" name="david@omelett.es" created_by="deadbeef7a6940e789848d3de3bedc0b" updated_by="deadbeef7a6940e789848d3de3bedc0b" full_name="David Edwards" salt="f989b2036a0c4f23aa75ef1c20ed8cc8" password_hash="30c3478f9cdb04955243dd1971d029795f6337c6ebbf9cf077c7292edca794ac" acl_role="super" />
+</dataset>
