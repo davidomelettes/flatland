@@ -14,7 +14,7 @@
 return array(
 	'db'				=> array(
 		'driver'			=> 'Pdo',
-		'dsn'				=> 'pgsql:host=localhost;port=5433;dbname=flatland',
+		'dsn'				=> 'pgsql:host=localhost;port=5432;dbname=test',
 	),
 	'service_manager'	=> array(
 		'factories'			=> array(
@@ -22,16 +22,17 @@ return array(
 		),
 	),
 	'user_keys'			=> array(
-		'SYSTEM_SYSTEM' => '',
-		'SYSTEM_SIGNUP' => '',
+		'SYSTEM_SYSTEM'		=> '',
+		'SYSTEM_CONSOLE'	=> 'bedabb1e66ff47f0a3f01f3f45b5c94d',
+		'SYSTEM_SIGNUP'		=> '',
 	),
 	'email_addresses'	=> array(
 		'SYSTEM_NOREPLY' => array(
-			'email'		=> 'noreply@localhost',
-			'name'		=> 'Flatland',
+			'email'			=> 'noreply@localhost',
+			'name'			=> 'Flatland',
 		),
 	),
 	'view_manager' => array(
-		'base_path'	=> 'http://localhost:8888',
+		'base_path'			=> 'http://localhost:8888',
 	),
 );
