@@ -21,6 +21,22 @@ return array(
 			'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
 		),
 	),
+	'session'			=> array(
+		'config'			=> array(
+			'class'				=> 'Zend\Session\Config\SessionConfig',
+			'options'			=> array(
+				'name'				=> 'Omelettes',
+				'use_cookies'		=> true,
+				'cookie_httponly'	=> true,
+			),
+		),
+		'storage'			=> 'Zend\Session\Storage\SessionArrayStorage',
+		'save_handler'		=> 'Omelettes\Session\SaveHandler\DbTableGateway',
+		'validators'		=> array(
+			'Zend\Session\Validator\RemoteAddr',
+			'Zend\Session\Validator\HttpUserAgent',
+		),
+	),
 	'user_keys'			=> array(
 		'SYSTEM_SYSTEM'		=> '',
 		'SYSTEM_CONSOLE'	=> 'bedabb1e66ff47f0a3f01f3f45b5c94d',

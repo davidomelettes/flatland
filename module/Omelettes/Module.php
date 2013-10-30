@@ -2,7 +2,14 @@
 
 namespace Omelettes;
 
-use Zend\Log\Writer;
+use Omelettes\Session\SaveHandler\DbTableGateway as SessionSaveHandlerDb;
+use Zend\Console\Request as ConsoleRequest,
+	Zend\Db\TableGateway\TableGateway,
+	Zend\Log\Writer,
+	Zend\Mvc\MvcEvent,
+	Zend\Session\Container,
+	Zend\Session\SaveHandler\DbTableGatewayOptions,
+	Zend\Session\SessionManager;
 
 class Module
 {
@@ -47,8 +54,91 @@ class Module
 					$logger->addWriter($logWriter);
 					return $logger;
 				},
+				'SessionsTableGateway'			=> function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					return new TableGateway('sessions', $dbAdapter);
+				},
+				'Omelettes\Session\SaveHandler\DbTableGateway'	=> function ($sm) {
+					$config = $sm->get('config');
+					if (isset($config['session'])) {
+						$session = $config['session'];
+				
+						$tableGateway = $sm->get('SessionsTableGateway');
+						$sessionSaveHandler = new SessionSaveHandlerDb($tableGateway, new DbTableGatewayOptions());
+					} else {
+						throw new \Exception('Missing session config');
+					}
+					return $sessionSaveHandler;
+				},
+				'Zend\Session\SessionManager'	=> function ($sm) {
+					$config = $sm->get('config');
+					if (isset($config['session'])) {
+						$session = $config['session'];
+						
+						$sessionConfig = null;
+						if (isset($session['config'])) {
+							$class = isset($session['config']['class']) ?
+								$session['config']['class'] :
+								'Zend\Session\Config\SessionConfig';
+							$options = isset($session['config']['options']) ?
+								$session['config']['options'] :
+								array();
+							$sessionConfig = new $class();
+							$sessionConfig->setOptions($options);
+						}
+						
+						$sessionStorage = null;
+						if (isset($session['storage'])) {
+							$class = $session['storage'];
+							$sessionStorage = new $class();
+						}
+						
+						$sessionSaveHandler = null;
+						if (isset($session['save_handler'])) {
+							// class should be fetched from service manager since it will require constructor arguments
+							$sessionSaveHandler = $sm->get($session['save_handler']);
+						}
+						
+						$sessionManager = new SessionManager($sessionConfig, $sessionStorage, $sessionSaveHandler);
+						
+						if (isset($session['validator'])) {
+							$chain = $sessionManager->getValidatorChain();
+							foreach ($session['validator'] as $validator) {
+								$validator = new $validator();
+								$chain->attach('session.validate', array($validator, 'isValid'));
+						
+							}
+						}
+					} else {
+						$sessionManager = new SessionManager();
+					}
+					Container::setDefaultManager($sessionManager);
+					return $sessionManager;
+				},
 			),
 		);
+	}
+	
+	public function onBootstrap(MvcEvent $ev)
+	{
+		$this->bootstrapSession($ev);
+	}
+	
+	public function bootstrapSession(MvcEvent $ev)
+	{
+		if ($ev->getRequest() instanceof ConsoleRequest) {
+			// Use PHP default session handling for console requests
+			return;
+		}
+		
+		$session = $ev->getApplication()->getServiceManager()->get('Zend\Session\SessionManager');
+		$session->start();
+		
+		$container = new Container('initialized');
+		if (!isset($container->init)) {
+			$session->regenerateId(true);
+			$container->init = 1;
+		}
 	}
 	
 }
