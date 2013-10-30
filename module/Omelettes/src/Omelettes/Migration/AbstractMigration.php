@@ -165,4 +165,49 @@ abstract class AbstractMigration
 		return $this;
 	}
 	
+	protected function ruleExists($ruleName)
+	{
+		$this->logger->debug("Checking for $ruleName rule");
+		
+		$select = $this->getSql()->select('pg_rules')->where(array('schemaname' => 'public', 'rulename' => $ruleName));
+		$statement = $this->getSql()->prepareStatementForSqlObject($select);
+		$results = $statement->execute();
+		
+		return (count($results) > 0);
+	}
+	
+	protected function ruleCreate($ruleName, $on, $to, $doInstead, $replace = false)
+	{
+		if ($this->ruleExists($ruleName) && !$replace) {
+			throw new \Exception("Rule $ruleName already exists");
+		}
+		if (!$this->viewExists($to) && !$this->tableExists($to)) {
+			throw new \Exception("Unable to find table or view with name: " . $on);
+		}
+		$this->logger->info("Creating $ruleName rule");
+		
+		$validOns = array('INSERT', 'UPDATE', 'DELETE');
+		$on = strtoupper($on);
+		if (!in_array($on, $validOns)) {
+			throw new \Exception('Invalid ON condition: ' . $on);
+		}
+		$sql = sprintf("CREATE OR REPLACE RULE %s AS ON %s TO %s DO INSTEAD %s", $ruleName, strtoupper($on), $to, $doInstead);
+		$statement = $this->getAdapter()->query($sql);
+		$statement->execute();
+		
+		return $this;
+	}
+	
+	protected function getQuantumTableColumns()
+	{
+		return array(
+			'key'			=> 'UUID PRIMARY KEY',
+			'name'			=> 'VARCHAR NOT NULL',
+			'created'		=> 'TIMESTAMP NOT NULL DEFAULT now()',
+			'updated'		=> 'TIMESTAMP NOT NULL DEFAULT now()',
+			'created_by'	=> 'UUID NOT NULL REFERENCES users(key)',
+			'updated_by'	=> 'UUID NOT NULL REFERENCES users(key)',
+		);
+	}
+	
 }

@@ -25,3 +25,4 @@ if [ "$?" -ne "0" ]; then
 fi
 
 echo "Application is now ready to accept console commands"
+echo "Execute public/index.php for console command help"

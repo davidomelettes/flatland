@@ -18,7 +18,7 @@ return array(
 			'routes' => array(
 				'migrate' => array(
 					'options' => array(
-						'route' => 'db migrate [--test] <sequence>',
+						'route' => 'db migrate [--commit] [--all]',
 						'defaults' => array(
 							'controller' => 'Console\Controller\Migration',
 							'action' => 'migrate',

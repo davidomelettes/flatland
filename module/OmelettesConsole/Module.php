@@ -51,7 +51,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 	public function getConsoleUsage(Console $console)
 	{
 		return array(
-			'db migrate [--test] <version>'	=> 'Execute migration file',
+			'db migrate [--commit] [--all]'	=> 'Execute next database migration (or --all of them)',
 		);
 	}
 	

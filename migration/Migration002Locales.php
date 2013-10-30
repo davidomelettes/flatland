@@ -13,6 +13,9 @@ class Migration002Locales extends AbstractMigration
 			$this->logger->debug('Migration has already been run; skipping');
 			return true;
 		}
+		if (!$this->tableExists('')) {
+			
+		}
 		
 		$this->tableCreate('locale_countries', array(
 			'code'		=> 'CHAR(2) PRIMARY KEY',
@@ -68,6 +71,25 @@ class Migration002Locales extends AbstractMigration
 			'user_key'		=> 'UUID NOT NULL REFERENCES users(key)',
 			'locale_code'	=> 'VARCHAR NOT NULL REFERENCES locales(code)',
 		), array('user_key', 'locale_code'));
+		
+		$this->viewCreate('user_locales_view', "SELECT user_secondary_locales.user_key, locales_view.*
+			FROM user_secondary_locales
+			LEFT JOIN locales_view ON locales_view.code = user_secondary_locales.locale_code"
+		);
+		
+		$this->ruleCreate(
+			'user_locales_insert',
+			'INSERT',
+			'user_locales_view',
+			"INSERT INTO user_secondary_locales (user_key, locale_code) VALUES (NEW.user_key, NEW.code)"
+		);
+		
+		$this->ruleCreate(
+			'user_locales_delete',
+			'DELETE',
+			'user_locales_view',
+			"DELETE FROM user_secondary_locales WHERE user_key = OLD.user_key AND locale_code = OLD.code"
+		);
 		
 		return true;
 	}

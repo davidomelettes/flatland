@@ -8,7 +8,10 @@ class Migration001Users extends AbstractMigration
 {
 	public function migrate()
 	{
-		if ($this->tableHasColumn('users', 'name_reset_name')) {
+		if (!$this->tableExists('migration_history')) {
+			throw new \Exception('Unable to confirm existence of migration_history table; has database been correctly initialised?');
+		}
+		if ($this->tableExists('log')) {
 			// Skip this migration
 			$this->logger->debug('Migration has already been run; skipping');
 			return true;
@@ -23,6 +26,14 @@ class Migration001Users extends AbstractMigration
 		));
 		
 		$this->insertFixture('migration_next/fixtures/001_users.xml');
+		
+		$this->tableCreate('sessions', array(
+			'id'		=> 'CHAR(32) NOT NULL',
+			'name'		=> 'CHAR(32) NOT NULL',
+			'modified'	=> 'INT NOT NULL',
+			'lifetime'	=> 'INT NOT NULL',
+			'data'		=> 'TEXT',
+		), array('id', 'name'));
 		
 		$this->tableCreate('user_logins', array(
 			'name'		=> 'VARCHAR NOT NULL REFERENCES users(name)',
