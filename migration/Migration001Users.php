@@ -8,15 +8,6 @@ class Migration001Users extends AbstractMigration
 {
 	public function migrate()
 	{
-		if (!$this->tableExists('migration_history')) {
-			throw new \Exception('Unable to confirm existence of migration_history table; has database been correctly initialised?');
-		}
-		if ($this->tableExists('log')) {
-			// Skip this migration
-			$this->logger->debug('Migration has already been run; skipping');
-			return true;
-		}
-		
 		$this->tableAddColumns('users', array(
 			'name_reset_name'			=> 'VARCHAR',
 			'name_reset_key'			=> 'UUID',
@@ -25,7 +16,7 @@ class Migration001Users extends AbstractMigration
 			'password_reset_requested'	=> 'TIMESTAMP',
 		));
 		
-		$this->insertFixture('migration_next/fixtures/001_users.xml');
+		$this->insertFixture('migration/fixtures/001_users.xml');
 		
 		$this->tableCreate('sessions', array(
 			'id'		=> 'CHAR(32) NOT NULL',

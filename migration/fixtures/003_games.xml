@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<game_publishers key="56818110ba2444d18093e1a5d15644e0" name="Asmodée Éditions" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="f8cde3b0cee64b43a89bd84c40efdf80" name="Avalon Hill" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="7cbfb0e2ad1c4717984104ed4c616ecb" name="Cheapass Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="40b637a0c08b4f8ea627f4e016bb187e" name="Days of Wonder" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="add8ccb8010d41eaa46108e545a14a29" name="Fantasy Flight Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="3b155b9dadd1473bb1d90319340ac2d8" name="Games Workshop" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="2bbd9544339f47f2867e09dc87dbdf4f" name="Mayfair Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="72f1f8d56bf2455390121abe4e5cf239" name="Paizo Publishing" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="d4de24710b7e40078ee23487c90f53d3" name="Parker Brothers" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="7d5fa60bd57b44f4bc08c7ddd118bc14" name="Public Domain" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="0fb8f6fb610e46c3ad266793b54dcd93" name="Queen Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="68e3479a1b8b4424b387df4789714f67" name="Ravensburger" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="607d22c582074c879d8fb279bde271d3" name="Rio Grande Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="ce011492f9c64bc586b3944a3cee3140" name="Steve Jackson Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_publishers key="6e60b8b149e24ce3b52ed747aa342bd1" name="Z-Man Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="4f58ae17f10448aa856729bb11036b14" name="Antoine Bauza" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="a4e05ef596b74794af4008e5856f4c1e" name="Uwe Rosenberg" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="ab14dd8fe1ac4a9ead69f0ed855b25f1" name="Richard Garfield" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="ad915ae53edf486fbbc77c4a594be6f1" name="Richard Launius" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="f9ed5b23fafb47b0928770b2a1c9f35b" name="Kevin Wilson" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="7e678206dd894775945775d3b1be94c6" name="Lukas Litzsinger" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="ed247bc8f06d4123a3530b790379ca95" name="KlausJürgen Wrede" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="4caa9a8f2ed54bca947f24381b64b951" name="Donald X. Vaccarino" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="d34a2270dfac4524812f44da9fc0c958" name="Matt Leacock" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="5c6733e2867847f995026320916e6897" name="Mike Selinker" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="e7a338cbc18b4b4bb3e9993a787fa7be" name="Andreas Seyfarth" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="1055a3fc94bc42c4b7a007e6e277a647" name="Don Eskridge" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="64c611d35ba44aa1a951ebe548ab1115" name="Klaus Teuber" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="a731607381d042339d9b4c4402a3b494" name="Alan R. Moon" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="4e7758eec2964e109c75cb90d34f69a0" name="林尚志" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<designers key="6a6580348a0149549caabf96a679efaf" name="Todd Breitenstein" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="56818110ba2444d18093e1a5d15644e0" name="Asmodée Éditions" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="f8cde3b0cee64b43a89bd84c40efdf80" name="Avalon Hill" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="7cbfb0e2ad1c4717984104ed4c616ecb" name="Cheapass Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="40b637a0c08b4f8ea627f4e016bb187e" name="Days of Wonder" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="add8ccb8010d41eaa46108e545a14a29" name="Fantasy Flight Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="3b155b9dadd1473bb1d90319340ac2d8" name="Games Workshop" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="2bbd9544339f47f2867e09dc87dbdf4f" name="Mayfair Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="72f1f8d56bf2455390121abe4e5cf239" name="Paizo Publishing" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="d4de24710b7e40078ee23487c90f53d3" name="Parker Brothers" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="7d5fa60bd57b44f4bc08c7ddd118bc14" name="Public Domain" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="0fb8f6fb610e46c3ad266793b54dcd93" name="Queen Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="68e3479a1b8b4424b387df4789714f67" name="Ravensburger" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="607d22c582074c879d8fb279bde271d3" name="Rio Grande Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="ce011492f9c64bc586b3944a3cee3140" name="Steve Jackson Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<publishers key="6e60b8b149e24ce3b52ed747aa342bd1" name="Z-Man Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<games key="7a348c7b0def42a9bc53494daabe1b3a" name="7 Wonders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<games key="69e37265ddc6401690d181be6185108b" name="7 Wonders: Leaders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<games key="57c366d050434d8e9cbcd854064cd974" name="Agricola" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
@@ -37,26 +53,26 @@
 	<games key="54c33a1c1b2e4b9a804c5c46f645cc39" name="Ticket to Ride: Europe" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<games key="e44a924e03bc41d7826c5986ddfbef00" name="Trains" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<games key="3cbc4820f935426baa70068d9d9a711c" name="Zombies!!!" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="0e53e525199b498e806663358e65988c" game_key="7a348c7b0def42a9bc53494daabe1b3a" language_code="en" edition="1" name="7 Wonders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="7c24ee740ecc4a6b8096d14ee1861996" game_key="69e37265ddc6401690d181be6185108b" language_code="en" edition="1" name="7 Wonders: Leaders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="a880b0ae063e430eb13b258616b48ae7" game_key="57c366d050434d8e9cbcd854064cd974" language_code="en" edition="1" name="Agricola" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="62f83b2063db49ec963f318debcf8bdf" game_key="a82b20080671417388509518d8938a50" language_code="en" edition="1" name="Android: Netrunner" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="7cadbdedfa3341cbb05bf5ab8299d3c2" game_key="71edf543ae06438f954b57037cd58c14" language_code="en" edition="1" name="Arkham Horror" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="82e125697a61488b838330900e320724" game_key="6631d43e0e8f4c96bcb79ebc992f9300" language_code="en" edition="1" name="Carcassonne" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="6862830f5a1a4b529687edd76fa9e69f" game_key="d9a180ac379c4c99bd90e76d2893422a" language_code="en" edition="1" name="Chess" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="ad68237f05f84b72ac5845d215a9b9f9" game_key="de6df735e5114191948995963788bc54" language_code="en" edition="1" name="Dominion" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="d221c29c9f044a17bdad1e6cb8ba4ac6" game_key="8b2c2fa5f93b41129835d526743b0552" language_code="en" edition="1" name="Elder Sign" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="cf349feb56fe4e95a7a710587056ac36" game_key="ac1790a6055b4f219aa4872176f68d9e" language_code="en" edition="1" name="A Game of Thrones: The Card Game" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="1450afbb12154730bbc1ed4435471ecd" game_key="bb80d405245b4cf99a7ed705c67a7d35" language_code="en" edition="1" name="Go" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="c291ce3ac8b845c687cf2000d887456b" game_key="324c4797810041e5b90ee151d89c0191" language_code="en" edition="1" name="The Lord of the Rings: The Card Game" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="e0bdfe6c28434fa5b89747ef7a2d4741" game_key="84e0b435772844309518cd30b309b692" language_code="en" edition="1" name="Othello" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="6443474bdcd84c3db56dbe3fa7c75f00" game_key="d8b461ea05a044598daacf66e0d54ca2" language_code="en" edition="1" name="Pandemic" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="a3f293f2187f424bbc2e56da6f27c014" game_key="c7bfe58c83c44b7fae652e4241db4373" language_code="en" edition="1" name="Pathfinder Adventure Card Game: Rise of the Runelords - Base Set" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="a4c4f59cb301476e801886b639e55fbb" game_key="9056d8a9451449bcb3658906ea1d9ede" language_code="en" edition="1" name="Puerto Rico" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="607b23e512a64c4da0deb14c1b50f351" game_key="dd13e8611cc1499aa8130d080b841fd2" language_code="en" edition="1" name="The Resistance" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="d15a601f85a64b7cbc13398c68bf7f50" game_key="956acdb9a05846b7a319d0c21da14b2c" language_code="en" edition="1" name="The Settlers of Catan" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="a98e670b7c9f4c668d77d54b94659de7" game_key="a63c770d68c840309ba81cdc1b205356" language_code="en" edition="1" name="Ticket to Ride" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="7ba2d85d76f4418d8cff4691a7979472" game_key="54c33a1c1b2e4b9a804c5c46f645cc39" language_code="en" edition="1" name="Ticket to Ride: Europe" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="25100ec0da6b4d3e9067badd957ae146" game_key="e44a924e03bc41d7826c5986ddfbef00" language_code="en" edition="1" name="Trains" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<game_variants key="df1ee599ab11456895f30964de021469" game_key="3cbc4820f935426baa70068d9d9a711c" language_code="en" edition="1" name="Zombies!!!" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="0e53e525199b498e806663358e65988c" game_key="7a348c7b0def42a9bc53494daabe1b3a" edition="1" name="7 Wonders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="7c24ee740ecc4a6b8096d14ee1861996" game_key="69e37265ddc6401690d181be6185108b" edition="1" name="7 Wonders: Leaders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="a880b0ae063e430eb13b258616b48ae7" game_key="57c366d050434d8e9cbcd854064cd974" edition="1" name="Agricola" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="62f83b2063db49ec963f318debcf8bdf" game_key="a82b20080671417388509518d8938a50" edition="1" name="Android: Netrunner" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="7cadbdedfa3341cbb05bf5ab8299d3c2" game_key="71edf543ae06438f954b57037cd58c14" edition="1" name="Arkham Horror" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="82e125697a61488b838330900e320724" game_key="6631d43e0e8f4c96bcb79ebc992f9300" edition="1" name="Carcassonne" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="6862830f5a1a4b529687edd76fa9e69f" game_key="d9a180ac379c4c99bd90e76d2893422a" edition="1" name="Chess" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="ad68237f05f84b72ac5845d215a9b9f9" game_key="de6df735e5114191948995963788bc54" edition="1" name="Dominion" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="d221c29c9f044a17bdad1e6cb8ba4ac6" game_key="8b2c2fa5f93b41129835d526743b0552" edition="1" name="Elder Sign" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="cf349feb56fe4e95a7a710587056ac36" game_key="ac1790a6055b4f219aa4872176f68d9e" edition="1" name="A Game of Thrones: The Card Game" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="1450afbb12154730bbc1ed4435471ecd" game_key="bb80d405245b4cf99a7ed705c67a7d35" edition="1" name="Go" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="c291ce3ac8b845c687cf2000d887456b" game_key="324c4797810041e5b90ee151d89c0191" edition="1" name="The Lord of the Rings: The Card Game" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="e0bdfe6c28434fa5b89747ef7a2d4741" game_key="84e0b435772844309518cd30b309b692" edition="1" name="Othello" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="6443474bdcd84c3db56dbe3fa7c75f00" game_key="d8b461ea05a044598daacf66e0d54ca2" edition="1" name="Pandemic" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="a3f293f2187f424bbc2e56da6f27c014" game_key="c7bfe58c83c44b7fae652e4241db4373" edition="1" name="Pathfinder Adventure Card Game: Rise of the Runelords - Base Set" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="a4c4f59cb301476e801886b639e55fbb" game_key="9056d8a9451449bcb3658906ea1d9ede" edition="1" name="Puerto Rico" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="607b23e512a64c4da0deb14c1b50f351" game_key="dd13e8611cc1499aa8130d080b841fd2" edition="1" name="The Resistance" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="d15a601f85a64b7cbc13398c68bf7f50" game_key="956acdb9a05846b7a319d0c21da14b2c" edition="1" name="The Settlers of Catan" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="a98e670b7c9f4c668d77d54b94659de7" game_key="a63c770d68c840309ba81cdc1b205356" edition="1" name="Ticket to Ride" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="7ba2d85d76f4418d8cff4691a7979472" game_key="54c33a1c1b2e4b9a804c5c46f645cc39" edition="1" name="Ticket to Ride: Europe" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="25100ec0da6b4d3e9067badd957ae146" game_key="e44a924e03bc41d7826c5986ddfbef00" edition="1" name="Trains" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<game_products key="df1ee599ab11456895f30964de021469" game_key="3cbc4820f935426baa70068d9d9a711c" edition="1" name="Zombies!!!" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 </dataset>

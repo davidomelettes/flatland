@@ -12,7 +12,7 @@ use Zend\Console\Request as ConsoleRequest,
 
 class MigrationController extends AbstractController
 {
-	protected $migrationPath = 'migration_next/';
+	protected $migrationPath = 'migration/';
 	protected $migrationFilePattern = '/^(Migration(\d{3}).+)\.php$/';
 	protected $migrationFiles;
 	

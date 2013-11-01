@@ -8,15 +8,6 @@ class Migration002Locales extends AbstractMigration
 {
 	public function migrate()
 	{
-		if ($this->tableExists('locale_countries')) {
-			// Skip this migration
-			$this->logger->debug('Migration has already been run; skipping');
-			return true;
-		}
-		if (!$this->tableExists('')) {
-			
-		}
-		
 		$this->tableCreate('locale_countries', array(
 			'code'		=> 'CHAR(2) PRIMARY KEY',
 			'name'		=> 'VARCHAR NOT NULL',
@@ -53,7 +44,7 @@ class Migration002Locales extends AbstractMigration
 			'date_code'		=> 'CHAR(3) NOT NULL REFERENCES locale_date_formats(code)',
 		));
 		
-		$this->insertFixture('migration_next/fixtures/002_locales.xml');
+		$this->insertFixture('migration/fixtures/002_locales.xml');
 
 		$this->viewCreate('locales_view', "SELECT locales.*, locale_countries.name as country_name, locale_countries.native as country_native, locale_languages.name as language_name, locale_languages.native as language_native, locale_currencies.name as currency_name, locale_currencies.symbol as currency_symbol, locale_currencies.decimals as currency_decimals, locale_currencies.decimal_separator as currency_decimal_separator, locale_currencies.thousands_separator as currency_thousands_separator, locale_date_formats.format as date_format, locale_date_formats.php_format as date_php_format, locale_languages.name || ' (' || locale_countries.name || ')' as name, locale_languages.native || ' (' || locale_countries.native || ')' as native
 			FROM locales
