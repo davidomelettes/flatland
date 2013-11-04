@@ -53,7 +53,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	/**
 	 * Returns the default sort order for all queries executed by this mapper
 	 * 
-	 * @return \Closure
+	 * @return string|array
 	 */
 	abstract protected function getDefaultOrder();
 	
@@ -129,6 +129,9 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 		return clone $this->defaultPredicateSet;
 	}
 	
+	/**
+	 * @return string|array
+	 */
 	final public function getOrder()
 	{
 		return $this->getDefaultOrder();
@@ -166,7 +169,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 * Generates a Select instance
 	 * 
 	 * @param Predicate\PredicateSet|\Closure $where
-	 * @param \Closure $order
+	 * @param string|array $order
 	 * @return \Zend\Db\Sql\Select
 	 */
 	protected function generateSqlSelect($where, $order = null)
@@ -182,8 +185,8 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 		if ($where instanceof \Clousure) {
 			$where($select);
 		}
-		if ($order instanceof \Closure) {
-			$order($select);
+		if (!is_null($order)) {
+			$select->order($order);
 		}
 		
 		return $select;

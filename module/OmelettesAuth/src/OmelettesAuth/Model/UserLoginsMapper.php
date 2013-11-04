@@ -19,9 +19,7 @@ class UserLoginsMapper extends AbstractMapper
 	
 	protected function getDefaultOrder()
 	{
-		return function ($select) {
-			$select->order('created');
-		};
+		return 'created';
 	}
 	
 	public function find($id)

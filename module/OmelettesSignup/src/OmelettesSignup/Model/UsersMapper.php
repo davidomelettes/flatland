@@ -20,9 +20,7 @@ class UsersMapper extends QuantumMapper
 	
 	protected function getDefaultOrder()
 	{
-		return function ($select) {
-			$select->order('name');
-		};
+		return 'name';
 	}
 	
 	public function findByName($name)

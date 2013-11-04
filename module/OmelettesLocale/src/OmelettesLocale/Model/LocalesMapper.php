@@ -18,9 +18,7 @@ class LocalesMapper extends AbstractMapper
 	
 	protected function getDefaultOrder()
 	{
-		return function ($select) {
-			$select->order('name');
-		};
+		return 'name';
 	}
 	
 	public function find($code)
@@ -50,7 +48,7 @@ class LocalesMapper extends AbstractMapper
 		
 		return $this->getDependentTable('user_secondary_locales')->select(function ($select) use ($where, $order) {
 			$select->where($where);
-			$order($select);
+			$select->order($order);
 		});
 	}
 	

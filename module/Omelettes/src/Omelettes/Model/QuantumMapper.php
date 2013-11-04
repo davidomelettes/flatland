@@ -3,10 +3,10 @@
 namespace Omelettes\Model;
 
 use Omelettes\Model\AbstractMapper,
+	Omelettes\Paginator\Adapter\DbTableGateway as DbTableGatewayAdapter,
 	Omelettes\Validator\Uuid\V4 as UuidValidator;
 use Zend\Db\Sql\Predicate,
 	Zend\Db\Sql\Select,
-	Zend\Paginator\Adapter\DbSelect as PaginatorDbAdapter,
 	Zend\Paginator\Paginator;
 
 class QuantumMapper extends AbstractMapper
@@ -25,9 +25,7 @@ class QuantumMapper extends AbstractMapper
 	
 	protected function getDefaultOrder()
 	{
-		return function ($select) {
-			$select->order('name');
-		};
+		return 'name';
 	}
 	
 	public function find($key)
@@ -43,13 +41,16 @@ class QuantumMapper extends AbstractMapper
 		return $this->findOneWhere($where);
 	}
 	
-	protected function getPaginator(Select $select)
+	protected function getPaginator($where, $order = null)
 	{
 		if (!$this->paginator) {
-			$paginationAdapter = new PaginatorDbAdapter(
-				$select,
-				$this->tableGateway->getAdapter(),
-				$this->tableGateway->getResultSetPrototype()
+			if ($where instanceof Predicate\PredicateSet && count($where) < 1) {
+				$where = null;
+			}
+			$paginationAdapter = new DbTableGatewayAdapter(
+				$this->tableGateway,
+				$where,
+				$order
 			);
 			$paginator = new Paginator($paginationAdapter);
 			$this->paginator = $paginator;
@@ -61,8 +62,7 @@ class QuantumMapper extends AbstractMapper
 	public function fetchAll($paginated = false)
 	{
 		if ($paginated) {
-			$select = $this->generateSqlSelect($this->getWhere(), $this->getOrder());
-			return $this->getPaginator($select);
+			return $this->getPaginator($this->getWhere(), $this->getOrder());
 		}
 		
 		return $this->select($this->generateSqlSelect($this->getWhere(), $this->getOrder()));

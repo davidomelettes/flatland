@@ -17,9 +17,7 @@ class LocaleLanguagesMapper extends AbstractMapper
 	
 	protected function getDefaultOrder()
 	{
-		return function ($select) {
-			$select->order('name');
-		};
+		return 'name';
 	}
 	
 	public function find($code)
