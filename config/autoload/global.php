@@ -12,12 +12,12 @@
  */
 
 return array(
-	'db'				=> array(
+	'db' => array(
 		'driver'			=> 'Pdo',
 		'dsn'				=> 'pgsql:host=localhost;port=5432;dbname=test',
 	),
-	'service_manager'	=> array(
-		'factories'			=> array(
+	'service_manager' => array(
+		'factories' => array(
 			'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
 		),
 	),
@@ -50,5 +50,8 @@ return array(
 	),
 	'view_manager' => array(
 		'base_path'			=> 'http://localhost:8888',
+	),
+	'log_levels' => array(
+		'stream' => Zend\Log\Logger::WARN,
 	),
 );

@@ -5,6 +5,7 @@ namespace Omelettes;
 use Omelettes\Session\SaveHandler\DbTableGateway as SessionSaveHandlerDb;
 use Zend\Console\Request as ConsoleRequest,
 	Zend\Db\TableGateway\TableGateway,
+	Zend\Log\Filter,
 	Zend\Log\Writer,
 	Zend\Mvc\MvcEvent,
 	Zend\Session\Container,
@@ -49,7 +50,12 @@ class Module
 					return $mailer;
 				},
 				'Omelettes\Logger' => function ($sm) {
+					$config = $sm->get('config');
 					$logWriter = new Writer\Stream('php://output');
+					if (isset($config['log_levels']['stream'])) {
+						$filter = new Filter\Priority($config['log_levels']['stream']);
+						$logWriter->addFilter($filter);
+					}
 					$logger = new Logger();
 					$logger->addWriter($logWriter);
 					return $logger;
