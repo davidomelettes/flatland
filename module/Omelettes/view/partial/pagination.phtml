@@ -11,13 +11,13 @@ $pages = $paginator->getPages();
 
 ?>
 <ul class="pagination">
-	<?php if ($pages->previous): ?>
+	<?php if (isset($pages->previous)): ?>
 	<li><a href="<?php echo $this->url(null, array(), array('query'=>array('page'=>$pages->previous)), true); ?>"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
 	<?php else: ?>
 	<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
 	<?php endif; ?>
 	<li><a href=""><?php echo $currentItemStart?> - <?php echo $currentItemEnd; ?> of <?php echo $totalItemCount; ?></a></li>
-	<?php if ($pages->next): ?>
+	<?php if (isset($pages->next)): ?>
 	<li><a href="<?php echo $this->url(null, array(), array('query'=>array('page'=>$paginator->getPages()->next)), true); ?>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
 	<?php else: ?>
 	<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>

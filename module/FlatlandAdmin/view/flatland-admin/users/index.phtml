@@ -1,0 +1,11 @@
+<div class="pull-right">
+	<?php echo $this->partial('pagination', array('paginator' => $this->users)); ?>
+</div>
+<div class="pull-right">
+	<ul class="crud nav nav-pills">
+		<li><a href="<?php echo $this->url(null, array('action'=>'add')); ?>">Add</a></li>
+	</ul>
+</div>
+<h2>Users</h2>
+
+<?php echo $this->tabulate($this->users); ?>

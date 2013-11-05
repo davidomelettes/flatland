@@ -4,13 +4,15 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'admin' => array(
-				'admin/database'
+				'admin/database',
+				'admin/users',
 			),
 		),
 	),
 	'controllers' => array(
 		'invokables' => array(
 			'Admin\Controller\Database' => 'FlatlandAdmin\Controller\DatabaseController',
+			'Admin\Controller\Users' => 'FlatlandAdmin\Controller\UsersController',
 		),
 	),
 	'router' => array(
@@ -36,6 +38,19 @@ return array(
 							),
 							'defaults'		=> array(
 								'controller'	=> 'Admin\Controller\Database',
+								'action'		=> 'index',
+							),
+						),
+					),
+					'users' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route'			=> '/users[/:action][/:key]',
+							'constraints'	=> array(
+								'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+							),
+							'defaults'		=> array(
+								'controller'	=> 'Admin\Controller\Users',
 								'action'		=> 'index',
 							),
 						),

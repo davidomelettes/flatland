@@ -26,16 +26,16 @@ class GameVariantFieldset extends AbstractQuantumFieldset
 		));
 	
 		$editionOptions = array(
-			'0'		=> 'First/Only Edition',
-			'1'		=> 'Second Edition',
-			'2'		=> 'Third Edition',
-			'3'		=> 'Fourth Edition',
-			'4'		=> 'Fifth Edition',
-			'5'		=> 'Sixth Edition',
-			'6'		=> 'Seventh Edition',
-			'7'		=> 'Eighth Edition',
-			'8'		=> 'Ninth Edition',
-			'9'		=> 'Tenth Edition',
+			'1'		=> 'First/Only Edition',
+			'2'		=> 'Second Edition',
+			'3'		=> 'Third Edition',
+			'4'		=> 'Fourth Edition',
+			'5'		=> 'Fifth Edition',
+			'6'		=> 'Sixth Edition',
+			'7'		=> 'Seventh Edition',
+			'8'		=> 'Eighth Edition',
+			'9'		=> 'Ninth Edition',
+			'10'	=> 'Tenth Edition',
 		);
 		$this->add(array(
 			'name'		=> 'edition',
