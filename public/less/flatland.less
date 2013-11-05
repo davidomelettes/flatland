@@ -1,8 +1,11 @@
 // Get me some bootstrap
 @import "bootstrap/bootstrap.less";
 
-// Magic stuffs
+// Override bootstrap variables
+@import "variables.less";
+
+// Base styles
 @import "quantum.less";
 
-// Go!
-body { color: #fcc !important; }
+// Admin-specific content
+@import "admin.less";

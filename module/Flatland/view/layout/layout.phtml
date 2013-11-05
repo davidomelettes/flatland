@@ -21,9 +21,7 @@
 		<!-- Styles and links -->
 		<?php
 			echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
-				->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
-				->prependStylesheet($this->basePath() . '/css/flatland.css')
-				->prependStylesheet($this->basePath() . '/css/admin.css');
+				->prependStylesheet($this->basePath() . '/css/compileLess.php');
 		?>
 			
 	
@@ -47,7 +45,7 @@
 					<a href="<?php echo $this->url('admin/database'); ?>"><span class="glyphicon glyphicon-book"></span> <?php echo $this->translate('Database'); ?></a>
 				</li>
 				<li>
-					<a href="#"><span class="glyphicon glyphicon-user"></span> Users</a>
+					<a href="<?php echo $this->url('admin/users'); ?>"><span class="glyphicon glyphicon-user"></span> Users</a>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
