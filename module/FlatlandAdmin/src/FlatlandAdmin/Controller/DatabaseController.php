@@ -6,7 +6,6 @@ use FlatlandAdmin\Form,
 	FlatlandAdmin\Model\Game,
 	FlatlandAdmin\Model\GamesMapper;
 use Omelettes\Controller\AbstractController;
-use FlatlandAdmin\Form\AddGameFilter;
 
 class DatabaseController extends AbstractController
 {
@@ -79,10 +78,11 @@ class DatabaseController extends AbstractController
 	
 	public function indexAction()
 	{
-		$games = $this->getGamesMapper()->fetchAll(true);
+		$paginator = $this->getGamesMapper()->fetchAll(true);
+		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
 		
 		return array(
-			'games' => $games,
+			'games' => $paginator,
 		);
 	}
 	

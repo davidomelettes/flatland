@@ -1,0 +1,27 @@
+<?php
+
+use Omelettes\Model\Tabulatable;
+use Zend\Paginator\Paginator;
+
+?>
+		
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<?php foreach ($this->mock->getTableHeadings() as $property => $label): ?>
+			<th>
+				<?php echo $this->translate($label); ?>
+			</th>
+			<?php endforeach; ?>
+		</tr>
+	</thead>
+	<tfoot>
+	</tfoot>
+	<tbody>
+		<?php foreach ($this->data as $datum): ?>
+		<tr>
+			<?php echo $this->partial($this->mock->getTableRowPartial(), array('data' => $datum)); ?>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>

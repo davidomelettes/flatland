@@ -4,7 +4,7 @@ namespace Omelettes\Model;
 
 use Omelettes\Model\AbstractModel;
 
-class QuantumModel extends AbstractModel
+class QuantumModel extends AbstractModel implements Tabulatable
 {
 	/**
 	 * @var array
@@ -178,6 +178,18 @@ class QuantumModel extends AbstractModel
 	public function getUpdatedBy()
 	{
 		return $this->updatedBy;
+	}
+	
+	public function getTableRowPartial()
+	{
+		return 'tabulate/quantum';
+	}
+	
+	public function getTableHeadings()
+	{
+		return array(
+			'name'	=> 'Name',
+		);
 	}
 	
 }
