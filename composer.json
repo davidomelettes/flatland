@@ -7,15 +7,15 @@
         {
             "type": "package",
             "package": {
-                "version": "3.0.1",
-                "name": "twitter/bootstrap",
+                "version": "3.0.0",
+                "name": "twbs/bootstrap",
                 "source": {
-                    "url": "https://github.com/twitter/bootstrap.git",
+                    "url": "https://github.com/twbs/bootstrap.git",
                     "type": "git",
                     "reference": "master"
                 },
                 "dist": {
-                    "url": "https://github.com/twitter/bootstrap/zipball/master",
+                    "url": "https://github.com/twbs/bootstrap/zipball/v3.0.0",
                     "type": "zip"
                 }
             }
@@ -25,7 +25,7 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.2.*",
         "leafo/lessphp": "*",
-        "twitter/bootstrap": "*"
+        "twbs/bootstrap": "3.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
