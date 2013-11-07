@@ -2,11 +2,11 @@
 
 namespace Omelettes\Validator\Model;
 
-use Omelettes\Model\QuantumMapper;
+use Omelettes\Model\AbstractMapper;
 use Zend\Validator\AbstractValidator,
 	Zend\Validator\Exception;
 
-abstract class AbstractQuantumModel extends AbstractValidator
+abstract class AbstractModel extends AbstractValidator
 {
 	/**
 	 * @var QuantumMapper
@@ -42,7 +42,7 @@ abstract class AbstractQuantumModel extends AbstractValidator
 		parent::__construct($options);
 	}
 	
-	public function setMapper(QuantumMapper $mapper)
+	public function setMapper(AbstractMapper $mapper)
 	{
 		$this->mapper = $mapper;
 		

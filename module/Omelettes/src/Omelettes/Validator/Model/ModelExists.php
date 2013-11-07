@@ -9,12 +9,12 @@ use Zend\Validator\Exception;
  *
  * @author dave
  */
-class QuantumExists extends AbstractQuantumModel
+class ModelExists extends AbstractModel
 {
 	/**
 	 * Error constants
 	 */
-	const ERROR_MODEL_DOES_NOT_EXIST = 'quantumModelDoesNotExist';
+	const ERROR_MODEL_DOES_NOT_EXIST = 'modelDoesNotExist';
 	
 	/**
 	 * @var array Message templates
