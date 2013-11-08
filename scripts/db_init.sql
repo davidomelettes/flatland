@@ -11,6 +11,14 @@ CREATE OR REPLACE FUNCTION sha256(text) returns text AS $$
 	SELECT encode(digest($1, 'sha256'), 'hex')
 	$$ LANGUAGE SQL STRICT IMMUTABLE;
 
+-- Create log table
+CREATE TABLE log (
+	level INT NOT NULL DEFAULT '7',
+	created TIMESTAMP NOT NULL DEFAULT now(),
+	tag VARCHAR NOT NULL,
+	message TEXT
+);
+
 -- Create acl and user tables so console users have an authentication identity to work with
 CREATE TABLE acl_roles (
 	role VARCHAR PRIMARY KEY,
@@ -56,5 +64,6 @@ CREATE TABLE migration_history (
 	created TIMESTAMP NOT NULL DEFAULT now()
 );
 INSERT INTO migration_history (sequence, name) VALUES ('0', 'Migration000Init');
+INSERT INTO log (level, tag, message) VALUES ('7', 'init', 'Database initialised');
 
 COMMIT;

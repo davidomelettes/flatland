@@ -1,0 +1,7 @@
+<?php echo $this->partial('tabulate/quantum', array('data' => $this->data)); ?>
+<td>
+	<?php echo $this->prettyText($this->data->fullName); ?>
+</td>
+<td>
+	<?php echo $this->prettyUuid($this->data->key); ?>
+</td>

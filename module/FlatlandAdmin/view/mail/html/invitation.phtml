@@ -1,0 +1,5 @@
+<p>You have been invited to join Flatland!</p>
+
+<p>Click the following link to sign up:</p>
+
+<p><?php echo $this->basePath(); ?><?php echo $this->url('signup', array(), array('query' => array('email' => $this->email_address, 'name' => $this->full_name, 'code' => $this->code))); ?></p>

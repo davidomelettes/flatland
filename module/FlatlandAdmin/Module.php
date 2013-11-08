@@ -33,8 +33,15 @@ class Module
 					$filter = new Form\AddGameFilter();
 					return $filter;
 				},
-				'FlatlandAdmin\Form\GameVariantFilter' => function ($sm) {
-					$filter = new Form\GameVariantFilter();
+				'FlatlandAdmin\Form\AddUserFilter' => function ($sm) {
+					$filter = new Form\AddUserFilter($sm->get('OmelettesSignup\Model\UsersMapper'));
+					return $filter;
+				},
+				'FlatlandAdmin\Form\InviteUserFilter' => function ($sm) {
+					$filter = new Form\InviteUserFilter(
+						$sm->get('OmelettesSignup\Model\UsersMapper'),
+						$sm->get('OmelettesSignup\Model\InvitationCodesMapper')
+					);
 					return $filter;
 				},
 				'FlatlandAdmin\Model\GamesMapper' => function ($sm) {

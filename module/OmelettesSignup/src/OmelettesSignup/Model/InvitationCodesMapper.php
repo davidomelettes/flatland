@@ -32,4 +32,11 @@ class InvitationCodesMapper extends QuantumMapper
 		return $this->findOneWhere($where);
 	}
 	
+	public function deleteInvitation($code)
+	{
+		$this->tableGateway->delete(array('key' => $code));
+		
+		return $this;
+	}
+	
 }

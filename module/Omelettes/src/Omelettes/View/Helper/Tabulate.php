@@ -15,8 +15,20 @@ class Tabulate extends AbstractHelper
 	 */
 	protected $mock;
 	
-	public function __invoke($data)
+	protected $options = array(
+		'formulate'	=> true,
+		'primary_action' => 'view',
+	);
+	
+	public function __invoke($data, array $specifiedOptions = array())
 	{
+		$options = $this->options;
+		foreach ($specifiedOptions as $k => $v) {
+			if (isset($options[$k])) {
+				$options[$k] = $v;
+			}
+		}
+		
 		if ($data instanceof ResultSet) {
 			$mock = $data->getArrayObjectPrototype();
 			
@@ -37,8 +49,9 @@ class Tabulate extends AbstractHelper
 		$partialHelper = $this->view->plugin('partial');
 		
 		return $partialHelper('tabulate/tabulate', array(
-			'data'	=> $data,
-			'mock'	=> $this->mock,
+			'data'		=> $data,
+			'mock'		=> $this->mock,
+			'options'	=> $options,
 		));
 	}
 	

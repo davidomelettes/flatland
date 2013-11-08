@@ -3658,6 +3658,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
     margin-left: 0;
   }
 }
+.navbar-form input {
+  width: 400px;
+}
 @media (max-width: 767px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
@@ -5786,4 +5789,7 @@ table.table .cb {
 }
 .navbar.admin {
   margin-bottom: 0;
+}
+.form-inline input {
+  width: 400px;
 }

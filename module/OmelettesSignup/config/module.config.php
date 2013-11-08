@@ -28,6 +28,9 @@ return array(
 		),
 	),
 	'view_manager' => array(
+		'template_map' => array(
+			'tabulate/invitation'		=> __DIR__ . '/../view/partial/tabulate/invitation.phtml',
+		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',
 		),

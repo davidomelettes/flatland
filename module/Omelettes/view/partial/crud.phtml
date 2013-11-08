@@ -1,0 +1,5 @@
+<ul class="crud list-inline">
+	<?php foreach ($this->actions as $action => $icon): ?>
+	<li><a class="btn btn-default" href="<?php echo $this->url(null, array('action' => $action)); ?>"><span class="glyphicon glyphicon-<?php echo $icon; ?>"></span> <?php echo $this->translate(ucwords($action)); ?></a></li>
+	<?php endforeach; ?>
+</ul>

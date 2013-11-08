@@ -23,14 +23,18 @@ return array(
 	),
 	'view_helpers'	=> array(
 		'invokables'	=> array(
-			'tabulate' => 'Omelettes\View\Helper\Tabulate',
+			'tabulate'		=> 'Omelettes\View\Helper\Tabulate',
+			'prettyText'	=> 'Omelettes\View\Helper\PrettyText',
+			'prettyUuid'	=> 'Omelettes\View\Helper\PrettyUuid',
 		),
 	),
 	'view_manager' => array(
 		'template_map' => array(
 			'flash-messenger'		=> __DIR__ . '/../view/partial/flash-messenger.phtml',
+			'crud'					=> __DIR__ . '/../view/partial/crud.phtml',
 			'form/friendly'			=> __DIR__ . '/../view/partial/form/friendly.phtml',
 			'form/horizontal'		=> __DIR__ . '/../view/partial/form/horizontal.phtml',
+			'form/inline'			=> __DIR__ . '/../view/partial/form/inline.phtml',
 			'mail/layout/text'		=> __DIR__ . '/../view/mail/layout/text.phtml',
 			'mail/layout/html'		=> __DIR__ . '/../view/mail/layout/html.phtml',
 			'pagination'			=> __DIR__ . '/../view/partial/pagination.phtml',

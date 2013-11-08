@@ -180,16 +180,16 @@ class QuantumModel extends AbstractModel implements Tabulatable
 		return $this->updatedBy;
 	}
 	
-	public function getTableRowPartial()
-	{
-		return 'tabulate/quantum';
-	}
-	
 	public function getTableHeadings()
 	{
 		return array(
 			'name'	=> 'Name',
 		);
+	}
+	
+	public function getTableRowPartial()
+	{
+		return 'tabulate/quantum';
 	}
 	
 }

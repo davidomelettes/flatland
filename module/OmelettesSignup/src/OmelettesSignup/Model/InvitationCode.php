@@ -12,4 +12,18 @@ class InvitationCode extends QuantumModel
 	
 	protected $fullName;
 	
+	public function getTableHeadings()
+	{
+		return array(
+			'name'		=> 'Email Address',
+			'fullName'	=> 'Full Name',
+			'key'		=> 'Invitation Code',
+		);
+	}
+	
+	public function getTableRowPartial()
+	{
+		return 'tabulate/invitation';
+	}
+	
 }

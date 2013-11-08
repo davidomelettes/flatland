@@ -4,10 +4,18 @@ use Omelettes\Model\Tabulatable;
 use Zend\Paginator\Paginator;
 
 ?>
-		
-<table class="table table-bordered">
+
+<?php if ($this->options['formulate']): ?>
+<form action="" method="post">
+<?php endif; ?>
+<table class="table table-bordered table-hover">
 	<thead>
 		<tr>
+			<?php if ($this->options['formulate']): ?>
+			<th class="cb">
+				<input type="checkbox">
+			</th>
+			<?php endif; ?>
 			<?php foreach ($this->mock->getTableHeadings() as $property => $label): ?>
 			<th>
 				<?php echo $this->translate($label); ?>
@@ -18,10 +26,31 @@ use Zend\Paginator\Paginator;
 	<tfoot>
 	</tfoot>
 	<tbody>
+		<?php if (count($this->data) < 1): ?>
+		<tr>
+			<?php
+				$colspan = count($this->mock->getTableHeadings());
+				if ($this->options['formulate']) {
+					$colspan++;
+				}
+			?>
+			<td colspan="<?php echo $colspan; ?>">
+				<em><?php echo $this->translate('No results'); ?></em>
+			</td>
+		</tr>
+		<?php endif; ?>
 		<?php foreach ($this->data as $datum): ?>
 		<tr>
-			<?php echo $this->partial($this->mock->getTableRowPartial(), array('data' => $datum)); ?>
+			<?php if ($this->options['formulate']): ?>
+			<td class="cb">
+				<input type="checkbox">
+			</td>
+			<?php endif; ?>
+			<?php echo $this->partial($this->mock->getTableRowPartial(), array('data' => $datum, 'options' => $this->options)); ?>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
 </table>
+<?php if ($this->options['formulate']): ?>
+</form>
+<?php endif; ?>
