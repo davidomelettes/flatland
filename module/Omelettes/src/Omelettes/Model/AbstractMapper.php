@@ -145,13 +145,13 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected function findOneWhere(Predicate\PredicateSet $where)
 	{
-		$rowset = $this->select($this->generateSqlSelect($where));
-		$row = $rowset->current();
-		if (!$row) {
+		$resultSet = $this->select($this->generateSqlSelect($where));
+		$result = $resultSet->current();
+		if (!$result) {
 			return false;
 		}
 		
-		return $row;
+		return $result;
 	}
 	
 	/**

@@ -30,8 +30,13 @@ class Migration001Users extends AbstractMigration
 			'name'		=> 'VARCHAR NOT NULL REFERENCES users(name)',
 			'series'	=> 'UUID NOT NULL',
 			'token'		=> 'UUID NOT NULL',
+			'expiry'	=> 'INT NOT NULL',
 			'created'	=> 'TIMESTAMP NOT NULL DEFAULT now()',
 		), array('name', 'series', 'token'));
+		
+		$this->tableCreate('invitation_codes', array_merge($this->getQuantumTableColumns(), array(
+			'full_name'	=> 'VARCHAR',
+		)));
 		
 		return true;
 	}

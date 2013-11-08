@@ -147,12 +147,8 @@ class AuthController extends AbstractController
 			throw new \Exception('Expected an identity');
 		}
 		$user = $this->getAuthService()->getIdentity();
-		$setCookieHeader = new SetCookie(
-			'login',
-			$this->getUserLoginsMapper()->saveLogin($user->name),
-			(int)date('U', strtotime('+2 weeks'))
-		);
-		$this->getResponse()->getHeaders()->addHeader($setCookieHeader);
+		$cookieData = $this->getUserLoginsMapper()->saveLogin($user->name);
+		$this->getAuthService()->setLoginCookie($this->getResponse(), $cookieData);
 	}
 	
 	public function loginAction()

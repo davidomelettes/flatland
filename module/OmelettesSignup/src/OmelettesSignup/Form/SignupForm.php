@@ -6,9 +6,9 @@ use Omelettes\Form\AbstractQuantumForm;
 
 class SignupForm extends AbstractQuantumForm
 {
-	public function __construct()
+	public function __construct($name = 'form-signup')
 	{
-		parent::__construct('form-signup');
+		parent::__construct($name);
 		
 		$this->addNameElement('Email Address');
 		$this->get('name')->setAttribute('placeholder', 'Email Address');
@@ -25,6 +25,7 @@ class SignupForm extends AbstractQuantumForm
 				'placeholder'	=> 'Full Name',
 			),
 		));
+		
 		$this->add(array(
 			'name'		=> 'password',
 			'type'		=> 'Password',
@@ -35,6 +36,19 @@ class SignupForm extends AbstractQuantumForm
 				'id'			=> $this->getName() . 'Password',
 				'autocomplete'	=> 'off',
 				'placeholder'	=> 'Password',
+			),
+		));
+		
+		$this->add(array(
+			'name'		=> 'invitation_code',
+			'type'		=> 'Text',
+			'options'	=> array(
+				'label'		=> 'Invitation Code',
+			),
+			'attributes'=> array(
+				'id'			=> $this->getName() . 'InvitationCode',
+				'autocomplete'	=> 'off',
+				'placeholder'	=> 'Invitation Code',
 			),
 		));
 		

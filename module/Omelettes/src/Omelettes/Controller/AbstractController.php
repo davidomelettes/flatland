@@ -2,10 +2,10 @@
 
 namespace Omelettes\Controller;
 
-use Zend\Authentication\AuthenticationService,
-	Zend\Log\Logger,
-	Zend\Mvc\Controller\AbstractActionController;
+use OmelettesAuth\Authentication\AuthenticationService;
 use OmelettesLocale\Model\LocalesMapper;
+use Zend\Log\Logger,
+	Zend\Mvc\Controller\AbstractActionController;
 
 abstract class AbstractController extends AbstractActionController
 {

@@ -3,17 +3,29 @@
 namespace OmelettesSignup\Form;
 
 use Omelettes\Form\AbstractQuantumModelFilter,
-	Omelettes\Validator\Model\QuantumDoesNotExist;
-use OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
+	Omelettes\Validator\Model\ModelDoesNotExist,
+	Omelettes\Validator\Model\ModelExists,
+	Omelettes\Validator\Uuid\V4 as UuidValidator;
+use OmelettesSignup\Model\InvitationCodesMapper,
+	OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
 use Zend\Validator\EmailAddress;
 
 class SignupFilter extends AbstractQuantumModelFilter
 {
+	/**
+	 * @var SignupUsersMapper
+	 */
 	protected $usersMapper;
 	
-	public function __construct(SignupUsersMapper $usersMapper)
+	/**
+	 * @var InvitationCodesMapper
+	 */
+	protected $invitationCodesMapper;
+	
+	public function __construct(SignupUsersMapper $usersMapper, InvitationCodesMapper $invitationCodesMapper)
 	{
 		$this->usersMapper = $usersMapper;
+		$this->invitationCodesMapper = $invitationCodesMapper;
 	}
 	
 	public function getInputFilter()
@@ -39,6 +51,7 @@ class SignupFilter extends AbstractQuantumModelFilter
 					),
 				),
 			)));
+			
 			$inputFilter->add($factory->createInput(array(
 				'name'			=> 'name',
 				'required'		=> 'true',
@@ -55,19 +68,18 @@ class SignupFilter extends AbstractQuantumModelFilter
 						),
 					),
 					array(
-						'name'		=> 'Omelettes\Validator\Model\QuantumDoesNotExist',
+						'name'		=> 'Omelettes\Validator\Model\ModelDoesNotExist',
 						'options'	=> array(
-							'table'		=> 'users',
-							'field'		=> 'name',
 							'mapper'	=> $this->usersMapper,
 							'method'	=> 'findByName',
 							'messages'	=> array(
-								QuantumDoesNotExist::ERROR_MODEL_EXISTS => 'A user with that email address already exists',
+								ModelDoesNotExist::ERROR_MODEL_EXISTS => 'A user with that email address already exists',
 							),
 						),
 					),
 				),
 			)));
+			
 			$inputFilter->add($factory->createInput(array(
 				'name'			=> 'password',
 				'required'		=> 'true',
@@ -81,6 +93,35 @@ class SignupFilter extends AbstractQuantumModelFilter
 							'encoding'	=> 'UTF-8',
 							'min'		=> 6,
 							'max'		=> 255,
+						),
+					),
+				),
+			)));
+			
+			$inputFilter->add($factory->createInput(array(
+				'name'			=> 'invitation_code',
+				'required'		=> 'true',
+				'filters'		=> array(
+					array('name' => 'StringTrim'),
+				),
+				'validators'	=> array(
+					array(
+						'name'						=> 'Omelettes\Validator\Uuid\V4',
+						'break_chain_on_failure'	=> true,
+						'options'					=> array(
+							'messages'	=> array(
+								UuidValidator::NOT_MATCH => 'Invalid invitation code',
+							),
+						),
+					),
+					array(
+						'name'		=> 'Omelettes\Validator\Model\ModelExists',
+						'options'	=> array(
+							'mapper'	=> $this->invitationCodesMapper,
+							'method'	=> 'find',
+							'messages'	=> array(
+								ModelExists::ERROR_MODEL_DOES_NOT_EXIST => 'Invitation code not found',
+							),
 						),
 					),
 				),

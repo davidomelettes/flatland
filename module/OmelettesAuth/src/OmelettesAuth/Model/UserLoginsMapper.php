@@ -10,6 +10,8 @@ use Zend\Db\Sql\Predicate,
 
 class UserLoginsMapper extends AbstractMapper
 {
+	const EXPIRY_STRING = '+2 weeks';
+	
 	protected function getDefaultWhere()
 	{
 		$where = new Predicate\PredicateSet();
@@ -35,30 +37,40 @@ class UserLoginsMapper extends AbstractMapper
 	public function splitCookieData($string)
 	{
 		$data = explode(',', $string);
-		if (3 !== count($data)) {
+		if (4 !== count($data)) {
 			return false;
 		}
 		return array(
 			'name'		=> $data[0],
 			'series'	=> $data[1],
 			'token'		=> $data[2],
+			'expiry'	=> $data[3],
 		);
 	}
 	
-	public function saveLogin($name, $series = null)
+	/**
+	 * @param string $name
+	 * @param string $series
+	 * @return string
+	 */
+	public function saveLogin($name, $series = null, $expiry = null)
 	{
 		$token = new Uuid();
 		if (null === $series) {
 			$series = new Uuid();
 		}
+		if (null === $expiry) {
+			$expiry = date('U', strtotime(self::EXPIRY_STRING));
+		}
 		$data = array(
 			'name'		=> $name,
 			'series'	=> (string)$series,
 			'token'		=> (string)$token,
+			'expiry'	=> (int)$expiry,
 		);
 		$this->tableGateway->insert($data);
 		
-		return implode(',', array($data['name'], $data['series'], $data['token']));
+		return implode(',', array($data['name'], $data['series'], $data['token'], $data['expiry']));
 	}
 	
 	/**
@@ -73,15 +85,21 @@ class UserLoginsMapper extends AbstractMapper
 		$this->tableGateway->delete(array('name' => $name, 'series' => $series));
 	}
 	
+	/**
+	 * @param string $cookieData
+	 * @throws UserLoginTheftException
+	 * @return boolean|string
+	 */
 	public function verifyCookie($cookieData)
 	{
 		$data = explode(',', $cookieData);
-		if (3 !== count($data)) {
+		if (4 !== count($data)) {
 			return false;
 		}
 		$name = $data[0];
 		$series = $data[1];
 		$token = $data[2];
+		$expiry = $data[3];
 		
 		$where = $this->getWhere();
 		$where->andPredicate(new Predicate\Operator('name', '=', $name));
@@ -94,7 +112,7 @@ class UserLoginsMapper extends AbstractMapper
 			$this->tableGateway->delete(array('name' => $name, 'series' => $series, 'token' => $token));
 			
 			// Issue a new token in this series
-			return $this->saveLogin($name, $series);
+			return $this->saveLogin($name, $series, $expiry);
 			
 		} else {
 			// Check for series theft

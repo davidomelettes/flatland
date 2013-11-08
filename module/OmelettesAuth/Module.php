@@ -2,20 +2,10 @@
 
 namespace OmelettesAuth;
 
-use OmelettesAuth\Exception\UserLoginTheftException,
-	OmelettesAuth\Form\ForgotPasswordFilter,
-	OmelettesAuth\Form\LoginFilter,
-	OmelettesAuth\Form\ResetPasswordFilter,
-	OmelettesAuth\Storage\Session as StorageSession,
-	OmelettesAuth\Model\User,
-	OmelettesAuth\Model\UserLoginsMapper,
-	OmelettesAuth\Model\UsersMapper;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter,
-	Zend\Authentication\AuthenticationService,
 	Zend\Console\Request as ConsoleRequest,
 	Zend\Db\ResultSet\ResultSet,
 	Zend\Db\TableGateway\TableGateway,
-	Zend\Http\Header\SetCookie,
 	Zend\Mvc\MvcEvent,
 	Zend\Permissions\Acl;
 
@@ -78,33 +68,32 @@ class Module
 						"sha256(?||salt) AND acl_role != 'system'"
 					);
 				
-					$authService = new AuthenticationService();
+					$authService = new Authentication\AuthenticationService();
 					$authService->setAdapter($dbTableAuthAdapter);
 					$authService->setStorage($sm->get('OmelettesAuth\Storage\Session'));
 				
 					return $authService;
 				},
 				'OmelettesAuth\Form\ForgotPasswordFilter' => function($sm) {
-					$filter = new ForgotPasswordFilter($sm->get('OmelettesAuth\Model\UsersMapper'));
+					$filter = new Form\ForgotPasswordFilter($sm->get('OmelettesAuth\Model\UsersMapper'));
 					return $filter;
 				},
 				'OmelettesAuth\Form\LoginFilter' => function($sm) {
-					$filter = new LoginFilter();
+					$filter = new Form\LoginFilter();
 					return $filter;
 				},
 				'OmelettesAuth\Model\UserLoginsMapper' => function($sm) {
 					$gateway = $sm->get('UserLoginsTableGateway');
-					$mapper = new UserLoginsMapper($gateway);
+					$mapper = new Model\UserLoginsMapper($gateway);
 					return $mapper;
 				},
 				'OmelettesAuth\Model\UsersMapper' => function($sm) {
 					$gateway = $sm->get('UsersTableGateway');
-					$mapper = new UsersMapper($gateway);
+					$mapper = new Model\UsersMapper($gateway);
 					return $mapper;
 				},
 				'OmelettesAuth\Storage\Session' => function($sm) {
-					//$gateway = $sm->get('UserLoginsTableGateway');
-					return new StorageSession(StorageSession::STORAGE_NAMESPACE);
+					return new Storage\Session(Storage\Session::STORAGE_NAMESPACE);
 				},
 				'UserLoginsTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
@@ -114,7 +103,7 @@ class Module
 				'UsersTableGateway' => function($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new User());
+					$resultSetPrototype->setArrayObjectPrototype(new Model\User());
 					return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
 				},
 			),
@@ -126,16 +115,6 @@ class Module
 		$em = $ev->getApplication()->getEventManager();
 		$em->attach(MvcEvent::EVENT_ROUTE, array($this, 'checkAuth'));
 		$em->attach(MvcEvent::EVENT_ROUTE, array($this, 'checkAcl'));
-	}
-	
-	protected function removeLoginCookie(MvcEvent $ev)
-	{
-		$setCookieHeader = new SetCookie(
-			'login',
-			'',
-			(int)date('U', strtotime('-2 weeks'))
-		);
-		$ev->getResponse()->getHeaders()->addHeader($setCookieHeader);
 	}
 	
 	/**
@@ -165,6 +144,9 @@ class Module
 			return;
 		}
 		
+		// HTTP requests might provide a cookie
+		$cookie = $request->getCookie();
+		
 		if ($auth->hasIdentity()) {
 			// User is logged in, session is fresh
 			$currentIdentity = $auth->getIdentity();
@@ -173,7 +155,6 @@ class Module
 				// Maybe they got deleted, so log them out
 				$auth->clearIdentity();
 				$flash->addErrorMessage('Your authentication idenitity was not found');
-				die('argh');
 				return $this->redirectToRoute($ev, 'login');
 			}
 			// Refresh the identity
@@ -181,39 +162,40 @@ class Module
 				$freshIdentity->setPasswordAuthenticated();
 			}
 			$auth->getStorage()->write($freshIdentity);
-		} else {
-			// Perhaps the session has expired
-			// Can we authenticate via a login cookie?
-			$cookie = $request->getCookie();
-			if ($cookie && $cookie->offsetExists('login')) {
-				// Attempt a cookie-based authentication
-				$userLoginsMapper = $sm->get('OmelettesAuth\Model\UserLoginsMapper');
-				try {
-					if (FALSE !== ($cookieData = $userLoginsMapper->verifyCookie($cookie->login))) {
-						// Authenticated via cookie data
-						$setCookieHeader = new SetCookie(
-							'login',
-							$cookieData,
-							(int)date('U', strtotime('+2 weeks'))
-						);
-						$ev->getResponse()->getHeaders()->addHeader($setCookieHeader);
-						
-						// Fetch id
-						$data = $userLoginsMapper->splitCookieData($cookieData);
-						if (FALSE !== ($user = $authMapper->findByName($data['name']))) {
-							// Authenticated identity IS NOT password authenticated!
-							$auth->getStorage()->write($user);
-						}
+			
+		} elseif ($cookie && $cookie->offsetExists('login')) {
+			// No auth identity in the current session, but we have a login lookie
+			// Attempt a cookie-based authentication
+			$userLoginsMapper = $sm->get('OmelettesAuth\Model\UserLoginsMapper');
+			try {
+				if (FALSE !== ($refreshedCookieData = $userLoginsMapper->verifyCookie($cookie->login))) {
+					// Authenticated via cookie data
+					$data = $userLoginsMapper->splitCookieData($refreshedCookieData);
+					
+					// Refresh the cookie
+					$auth->setLoginCookie($ev->getResponse(), $refreshedCookieData, $data['expiry']);
+					
+					// Fetch authentication identity
+					if (FALSE !== ($user = $authMapper->findByName($data['name']))) {
+						// Authenticated identity IS NOT password authenticated!
+						$auth->getStorage()->write($user);
 					} else {
-						// Attempt to remove the cookie
-						$this->removeLoginCookie($ev);
+						$auth->removeLoginCookie($ev->getResponse());
+						throw new \Exception('Failed to authenticate using cookie data');
 					}
-				} catch (UserLoginTheftException $e) {
-					// Attempt to remove the cookie
-					$this->removeLoginCookie($ev);
-					return $this->redirectToRoute($ev, 'login-theft-warning');
+				} else {
+					$auth->removeLoginCookie($ev->getResponse());
+					return;
 				}
+			} catch (Exception\UserLoginTheftException $e) {
+				// The provided login cookie has a known series but an unknown token; possible cookie theft
+				// Attempt to remove the cookie
+				$auth->removeLoginCookie($ev->getResponse());
+				// Give the user some warning
+				return $this->redirectToRoute($ev, 'login-theft-warning');
 			}
+		} else {
+			// No identity in session or cookie; user is not logged in
 		}
 	}
 	
@@ -252,7 +234,6 @@ class Module
 			if ('guest' === $role) {
 				// User is not logged in
 				$flash->addErrorMessage('You must be logged in to access that page');
-				die('blarg');
 				return $this->redirectToRoute($ev, 'login');
 			} else {
 				// User is logged in, probably tried to access an admin-only resource/privilege

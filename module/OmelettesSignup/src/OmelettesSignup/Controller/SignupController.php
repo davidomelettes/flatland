@@ -6,7 +6,8 @@ use Omelettes\Controller\AbstractController;
 use OmelettesAuth\Model\User as SignupUser;
 use OmelettesSignup\Form,
 	OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
-use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Form\FormInterface,
+	Zend\Mvc\Controller\AbstractActionController;
 
 class SignupController extends AbstractController
 {
@@ -67,13 +68,19 @@ class SignupController extends AbstractController
 		$user = new SignupUser();
 		$form->bind($user);
 		
+		$prePopulate = array('email' => 'name', 'name' => 'full_name', 'code' => 'invitation_code');
+		foreach ($prePopulate as $param => $input) {
+			$form->get($input)->setValue($this->params()->fromQuery($param));
+		}
+		
 		if ($request->isPost()) {
 			$form->setInputFilter($this->getSignupFilter()->getInputFilter());
 			$form->setData($request->getPost());
 		
 			if ($form->isValid()) {
 				// Create account
-				$this->getUsersMapper()->signupUser($user, $request->getPost('password'));
+				$formData = $form->getData(FormInterface::VALUES_AS_ARRAY);
+				$this->getUsersMapper()->signupUser($user, $formData['password']);
 				// Log in
 				$user->setPasswordAuthenticated();
 				$this->getAuthService()->getStorage()->write($user);
