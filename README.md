@@ -6,6 +6,16 @@ Introduction
 This app is cool; and by cool, I mean totally sweet.
 
 
+Environment Configuration
+-------------------------
+
+In order to install and run this application, you will need PHP5, with the following modules:
+
+JSON (php5-json)
+An appropriate PDO database drive (e.g. php5-pgsql)
+
+
+
 Installation using Composer
 ---------------------------
 This application uses Composer for dependency management. Project dependencies are specified in composer.json, and installed by executing the Composer binary:
@@ -18,6 +28,7 @@ If Composer gives you shit about missing a missing json_decode() function, you m
     sudo apt-get install php5-json
 
 The vendor directory should now contain the project dependencies.
+
 
 Virtual Host
 ------------
