@@ -13,6 +13,35 @@ return array(
 			'Flatland\Controller\Home' => 'Flatland\Controller\HomeController',
 		),
 	),
+	'navigation' => array(
+		'default' => array(
+			array(
+				'label' => 'Games',
+				'route' => 'games',
+				'icon'	=> 'tower',
+			),
+			array(
+				'label' => 'Forums',
+				'route' => 'home',
+				'icon'	=> 'comment',
+			),
+			array(
+				'label' => 'Trading',
+				'route' => 'home',
+				'icon'	=> 'shopping-cart',
+			),
+			array(
+				'label' => 'Groups & Events',
+				'route' => 'home',
+				'icon'	=> 'calendar',
+			),
+			array(
+				'label' => 'Lists',
+				'route' => 'home',
+				'icon'	=> 'list',
+			),
+		),
+	),
 	'router' => array(
 		'routes' => array(
 			'home' => array(
@@ -28,23 +57,6 @@ return array(
 		),
 	),
 	'service_manager' => array(
-		'abstract_factories' => array(
-			'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-			'Zend\Log\LoggerAbstractServiceFactory',
-		),
-		'aliases' => array(
-			'translator' => 'MvcTranslator',
-		),
-	),
-	'translator' => array(
-		'locale'					=> 'en_GB',
-		'translation_file_patterns' => array(
-			array(
-				'type'		=> 'gettext',
-				'base_dir'	=> __DIR__ . '/../language',
-				'pattern'	=> '%s.mo',
-			),
-		),
 	),
 	'view_manager' => array(
 		'display_not_found_reason' => true,

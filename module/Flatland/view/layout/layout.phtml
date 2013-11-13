@@ -37,18 +37,11 @@
 	</head>
 	<body>
 		<?php if ($this->authService()->hasIdentity()): ?>
-		<nav class="navbar navbar-static-top admin" role="navigation">
+		<nav class="navbar navbar-static-top navbar-default admin" role="navigation">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/"><?php echo $this->translate('Admin'); ?></a>
 			</div>
-			<ul class="nav navbar-nav">
-				<li>
-					<a href="<?php echo $this->url('admin/database'); ?>"><span class="glyphicon glyphicon-book"></span> <?php echo $this->translate('Database'); ?></a>
-				</li>
-				<li>
-					<a href="<?php echo $this->url('admin/users'); ?>"><span class="glyphicon glyphicon-user"></span> Users</a>
-				</li>
-			</ul>
+			<?php echo $this->navigation('admin_navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('navigation'); ?>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<a href="#"><span class="badge">3</span> Reports</a>
@@ -68,23 +61,7 @@
 			</div>
 			
 			<div class="collapse navbar-collapse navbar-top-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active">
-						<a href="<?php echo $this->url('games'); ?>"><span class="glyphicon glyphicon-tower"></span> Games</a>
-					</li>
-					<li>
-						<a href="#"><span class="glyphicon glyphicon-comment"></span> Forums</a>
-					</li>
-					<li>
-						<a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Trading</a>
-					</li>
-					<li>
-						<a href="#"><span class="glyphicon glyphicon-calendar"></span> Groups &amp; Events</a>
-					</li>
-					<li>
-						<a href="#"><span class="glyphicon glyphicon-list"></span> Lists</a>
-					</li>
-				</ul>
+				<?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('navigation'); ?>
 				<?php if ($this->authService()->hasIdentity()): ?>
 				<ul class="nav navbar-nav navbar-right">
 					<li>

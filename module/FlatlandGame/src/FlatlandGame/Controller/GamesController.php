@@ -8,7 +8,12 @@ class GamesController extends AbstractController
 {
 	public function indexAction()
 	{
-		return array();
+		$paginator = $this->getGamesMapper()->fetchAll(true);
+		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+		
+		return array(
+			'games' => $paginator,
+		);
 	}
 	
 	public function viewAction()
