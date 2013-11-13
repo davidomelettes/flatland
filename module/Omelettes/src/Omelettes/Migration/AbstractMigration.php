@@ -207,6 +207,7 @@ abstract class AbstractMigration
 			'updated'		=> 'TIMESTAMP NOT NULL DEFAULT now()',
 			'created_by'	=> 'UUID NOT NULL REFERENCES users(key)',
 			'updated_by'	=> 'UUID NOT NULL REFERENCES users(key)',
+			'deleted'		=> 'TIMESTAMP',
 		);
 	}
 	

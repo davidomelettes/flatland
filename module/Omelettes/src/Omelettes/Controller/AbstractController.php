@@ -2,6 +2,7 @@
 
 namespace Omelettes\Controller;
 
+use Omelettes\Form;
 use OmelettesAuth\Authentication\AuthenticationService;
 use OmelettesLocale\Model\LocalesMapper;
 use Zend\Log\Logger,
@@ -23,6 +24,11 @@ abstract class AbstractController extends AbstractActionController
 	 * @var Logger
 	 */
 	protected $logger;
+	
+	/**
+	 * @var Form\ConfirmDeleteForm
+	 */
+	protected $confirmDeleteForm;
 	
 	public function getAuthService()
 	{
@@ -52,6 +58,16 @@ abstract class AbstractController extends AbstractActionController
 		}
 		
 		return $this->logger;
+	}
+	
+	public function getConfirmDeleteForm()
+	{
+		if (!$this->confirmDeleteForm) {
+			$form = new Form\ConfirmDeleteForm();
+			$this->confirmDeleteForm = $form;
+		}
+		
+		return $this->confirmDeleteForm;
 	}
 	
 }

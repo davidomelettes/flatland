@@ -15,6 +15,21 @@ return array(
 			'Admin\Controller\Users' => 'FlatlandAdmin\Controller\UsersController',
 		),
 	),
+	'navigation' => array(
+		'default' => array(),
+		'admin_navigation' => array(
+			array(
+				'label' => 'Database',
+				'route' => 'admin/database',
+				'icon'	=> 'book',
+			),
+			array(
+				'label' => 'Users',
+				'route' => 'admin/users',
+				'icon'	=> 'user',
+			),
+		),
+	),
 	'router' => array(
 		'routes' => array(
 			'admin' => array(
@@ -60,6 +75,9 @@ return array(
 		),
 	),
 	'service_manager' => array(
+		'factories' => array(
+			'admin_navigation' => 'FlatlandAdmin\Navigation\Service\AdminNavigationFactory',
+		),
 	),
 	'view_helpers'	=> array(
 		'invokables'	=> array(

@@ -1,19 +1,42 @@
 <?php
 
 return array(
+	'controllers' => array(
+		'invokables' => array(
+		),
+	),
 	'form_elements' => array(
 		'invokables' => array(
 			'staticValue' => 'Omelettes\Form\Element\StaticValue',
 		),
+	),
+	'navigation' => array(
+		'default' => array(),
 	),
 	'router' => array(
 		'routes' => array(
 		),
 	),
 	'service_manager' => array(
+		'abstract_factories' => array(
+			'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
+			'Zend\Log\LoggerAbstractServiceFactory',
+		),
+		'aliases' => array(
+			'translator' => 'MvcTranslator',
+		),
+		'factories' => array(
+			'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+		),
 	),
-	'controllers' => array(
-		'invokables' => array(
+	'translator' => array(
+		'locale'					=> 'en_GB',
+		'translation_file_patterns' => array(
+			array(
+				'type'		=> 'gettext',
+				'base_dir'	=> __DIR__ . '/../language',
+				'pattern'	=> '%s.mo',
+			),
 		),
 	),
 	'validators' => array(
@@ -37,6 +60,7 @@ return array(
 			'form/inline'			=> __DIR__ . '/../view/partial/form/inline.phtml',
 			'mail/layout/text'		=> __DIR__ . '/../view/mail/layout/text.phtml',
 			'mail/layout/html'		=> __DIR__ . '/../view/mail/layout/html.phtml',
+			'navigation'			=> __DIR__ . '/../view/partial/navigation.phtml',
 			'pagination'			=> __DIR__ . '/../view/partial/pagination.phtml',
 			'tabulate/tabulate'		=> __DIR__ . '/../view/partial/tabulate.phtml',
 			'tabulate/quantum'		=> __DIR__ . '/../view/partial/tabulate/quantum.phtml',

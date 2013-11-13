@@ -1,0 +1,14 @@
+<?php if (count($this->container) > 0): ?>
+<ul class="nav navbar-nav">
+	<?php foreach ($this->container->getPages() as $page): ?>
+	<li class="<?php echo $page->isActive() ? 'active' : ''; ?>">
+		<a href="<?php echo $this->url($page->route); ?>">
+			<?php if ($page->icon): ?>
+			<span class="glyphicon glyphicon-<?php echo $page->icon; ?>"></span>
+			<?php endif; ?>
+			<?php echo $this->translate($page->label); ?>
+		</a>
+	</li>
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>

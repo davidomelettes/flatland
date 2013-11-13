@@ -54,7 +54,7 @@ class DatabaseController extends AbstractController
 		return $this->gamesMapper;
 	}
 	
-	public function addGameAction()
+	public function addAction()
 	{
 		$form = $this->getAddGameForm();
 		
@@ -83,6 +83,41 @@ class DatabaseController extends AbstractController
 		
 		return array(
 			'games' => $paginator,
+		);
+	}
+	
+	public function viewAction()
+	{
+		$game = $this->getGamesMapper()->find($this->params('key'));
+		if (!$game) {
+			$this->flashMessenger()->addErrorMessage('Failed to find game with key: ' . $this->params('key'));
+			return $this->redirect()->toRoute('admin/database');
+		}
+		
+		return array(
+			'game' => $game,
+		);
+	}
+	
+	public function deleteAction()
+	{
+		$game = $this->getGamesMapper()->find($this->params('key'));
+		if (!$game) {
+			$this->flashMessenger()->addErrorMessage('Failed to find game with key: ' . $this->params('key'));
+			return $this->redirect()->toRoute('admin/database');
+		}
+		
+		$form = $this->getConfirmDeleteForm();
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$this->getGamesMapper()->deleteGame($game);
+			$this->flashMessenger()->addSuccessMessage($game->name . ' deleted');
+			return $this->redirect()->toRoute('admin/database');
+		}
+		
+		return array(
+			'game' => $game,
+			'form' => $form,
 		);
 	}
 	

@@ -23,6 +23,7 @@ class QuantumMapper extends AbstractMapper
 	protected function getDefaultWhere()
 	{
 		$where = new Predicate\PredicateSet();
+		$where->addPredicate(new Predicate\IsNull('deleted'));
 		
 		return $where;
 	}

@@ -4,6 +4,7 @@ namespace FlatlandAdmin\Model;
 
 use Omelettes\Model\QuantumMapper,
 	Omelettes\Uuid\V4 as Uuid;
+use Zend\Db\Sql\Expression;
 
 class GamesMapper extends QuantumMapper
 {
@@ -13,22 +14,22 @@ class GamesMapper extends QuantumMapper
 		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 		$gameData = array(
 			'key'				=> (string)$key,
-			'name'				=> $game->variant->name,
+			'name'				=> $game->name,
 			'created_by'		=> $identity->key,
 			'updated_by'		=> $identity->key,
 		);
 		
-		$variantsMapper = $this->getServiceLocator()->get('FlatlandAdmin\Model\GameVariantsMapper');
-		
-		$this->beginTransaction();
-		
-		$this->tableGateway->insert($gameData);
-		$game->variant->game = (string)$key;
-		$variantsMapper->addVariant($game->variant);
-		
-		$this->commitTransaction();
+		$affectedRows = $this->tableGateway->insert($gameData);
 		
 		$game->exchangeArray($gameData);
+	}
+	
+	public function deleteGame(Game $game)
+	{
+		$data = array(
+			'deleted' => new Expression('now()'),
+		);
+		$this->tableGateway->update($data, array('key'=> $game->key));
 	}
 	
 }
