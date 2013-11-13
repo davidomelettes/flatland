@@ -26,7 +26,7 @@ class InviteUserForm extends AbstractQuantumForm
 			),
 		));
 		
-		$this->addSubmitElement('Invite');
+		$this->addSubmitFieldset('Invite');
 	}
 	
 }

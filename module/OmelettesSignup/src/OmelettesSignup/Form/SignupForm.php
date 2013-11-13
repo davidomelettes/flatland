@@ -52,7 +52,7 @@ class SignupForm extends AbstractQuantumForm
 			),
 		));
 		
-		$this->addSubmitElement('Sign up for free');
+		$this->addSubmitFieldset('Sign up for free');
 	}
 	
 }

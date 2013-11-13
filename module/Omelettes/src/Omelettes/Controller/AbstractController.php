@@ -3,6 +3,7 @@
 namespace Omelettes\Controller;
 
 use Omelettes\Form;
+use Omelettes\Model;
 use OmelettesAuth\Authentication\AuthenticationService;
 use OmelettesLocale\Model\LocalesMapper;
 use Zend\Log\Logger,
@@ -60,10 +61,25 @@ abstract class AbstractController extends AbstractActionController
 		return $this->logger;
 	}
 	
-	public function getConfirmDeleteForm()
+	public function getConfirmDeleteForm($model = null, $route = null, $routeOptions = array())
 	{
 		if (!$this->confirmDeleteForm) {
 			$form = new Form\ConfirmDeleteForm();
+			if ($model instanceof Model\QuantumModel) {
+				$submitFieldset = $form->get('submit');
+				$submitFieldset->add(array(
+					'name'		=> 'cancel',
+					'type'		=> 'Omelettes\Form\Element\Url',
+					'attributes'=> array(
+						'value'		=> 'Cancel',
+					),
+					'options' => array(
+						'route' => $route,
+						'route_options' => $routeOptions,
+						'anchor_class' => 'btn btn-default',
+					),
+				));
+			}
 			$this->confirmDeleteForm = $form;
 		}
 		

@@ -97,7 +97,7 @@ class UserInfoForm extends AbstractQuantumForm
 			),
 		));
 		
-		$this->addSubmitElement();
+		$this->addSubmitFieldset();
 	}
 	
 }

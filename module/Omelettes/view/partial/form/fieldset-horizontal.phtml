@@ -1,23 +1,15 @@
-<?php
-
-use Zend\Form\Fieldset;
-
-$fieldset = $this->fieldset;
-//$form->prepare();
-
-?>
-<?php foreach ($fieldset as $element): ?>
-<?php if ($element instanceof Fieldset): ?>
-<?php echo $this->partial(
-		'partial/form/sub-fieldset.phtml',
-		array('fieldset' => $element)); ?>
-<?php else: ?>
-<?php echo $this->partial(
-		'partial/form/element-horizontal.phtml',
-		array(
-			'element'		=> $element,
-			'leftColWidth'	=> 2,
-			'rightColWidth'	=> 4,
-		)); ?>
-<?php endif; ?>
-<?php endforeach; ?>
+<div class="form-group">
+	<fieldset class="<?php echo $unwrap ? "col-lg-offset-$leftColWidth col-lg-$rightColWidth" : ''; ?>">
+		<?php foreach ($fieldset as $element): ?>
+		<?php echo $this->partial(
+				'partial/form/element-horizontal.phtml',
+				array(
+					'element'		=> $element,
+					'leftColWidth'	=> 2,
+					'rightColWidth'	=> 4,
+					'unwrap'		=> $unwrap,
+				)); ?>
+		<?php endforeach; ?>
+		</div>
+	</fieldset>
+</div>

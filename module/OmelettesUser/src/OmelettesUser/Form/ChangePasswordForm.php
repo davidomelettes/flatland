@@ -44,7 +44,7 @@ class ChangePasswordForm extends AbstractQuantumForm
 			),
 		));
 		
-		$this->addSubmitElement('Change Password');
+		$this->addSubmitFieldset('Change Password');
 	}
 	
 }

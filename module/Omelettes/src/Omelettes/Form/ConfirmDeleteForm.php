@@ -8,7 +8,7 @@ class ConfirmDeleteForm extends AbstractQuantumForm
 	{
 		parent::__construct($name);
 		
-		$this->addSubmitElement('Delete');
+		$this->addSubmitFieldset('Delete');
 	}
 	
 }

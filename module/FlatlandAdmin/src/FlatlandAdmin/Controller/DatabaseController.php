@@ -107,7 +107,7 @@ class DatabaseController extends AbstractController
 			return $this->redirect()->toRoute('admin/database');
 		}
 		
-		$form = $this->getConfirmDeleteForm();
+		$form = $this->getConfirmDeleteForm($game, 'admin/database', array('action' => 'view', 'key' => $game->key));
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 			$this->getGamesMapper()->deleteGame($game);

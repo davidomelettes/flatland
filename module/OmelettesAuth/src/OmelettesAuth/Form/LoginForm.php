@@ -35,7 +35,7 @@ class LoginForm extends AbstractQuantumForm
 			),
 		));
 		
-		$this->addSubmitElement('Sign in');
+		$this->addSubmitFieldset('Sign in');
 	}
 	
 }

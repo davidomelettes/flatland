@@ -60,15 +60,11 @@ abstract class AbstractQuantumForm extends Form implements ServiceLocatorAwareIn
 		return $this;
 	}
 	
-	public function addSubmitElement($buttonText = 'Save')
+	public function addSubmitFieldset($buttonText = 'Save', $buttonClass = '')
 	{
-		$this->add(array(
-			'name'		=> 'submit',
-			'type'		=> 'Submit',
-			'attributes'=> array(
-				'value'		=> $buttonText,
-			),
-		));
+		$fieldset = new Fieldset\SubmitFieldset();
+		$fieldset->addSubmitElement($buttonText);
+		$this->add($fieldset);
 	
 		return $this;
 	}

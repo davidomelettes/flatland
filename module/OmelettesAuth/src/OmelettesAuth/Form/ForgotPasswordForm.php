@@ -13,7 +13,7 @@ class ForgotPasswordForm extends AbstractQuantumForm
 		$this->addNameElement('Email Address');
 		$this->get('name')->setAttribute('placeholder', 'Email Address');
 		
-		$this->addSubmitElement('Reset password');
+		$this->addSubmitFieldset('Reset password');
 	}
 	
 }

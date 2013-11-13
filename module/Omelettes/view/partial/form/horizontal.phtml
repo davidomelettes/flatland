@@ -15,7 +15,12 @@ echo $this->form()->openTag($form);
 <?php if ($element instanceof Fieldset): ?>
 <?php echo $this->partial(
 		'partial/form/fieldset-horizontal.phtml',
-		array('fieldset' => $element)); ?>
+		array(
+			'fieldset' => $element,
+			'leftColWidth'	=> 2,
+			'rightColWidth'	=> 4,
+			'unwrap' => true,
+		)); ?>
 <?php else: ?>
 <?php echo $this->partial(
 		'partial/form/element-horizontal.phtml',
@@ -23,6 +28,7 @@ echo $this->form()->openTag($form);
 			'element'		=> $element,
 			'leftColWidth'	=> 2,
 			'rightColWidth'	=> 4,
+			'unwrap'		=> false,
 		)); ?>
 <?php endif; ?>
 <?php endforeach; ?>

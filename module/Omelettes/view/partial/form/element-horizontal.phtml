@@ -1,10 +1,20 @@
-<?php $element->setAttribute('class', 'form-control'); ?>
+<?php
+	$elementType = $element->getAttribute('type');
+	if (!in_array($elementType, array('submit'))) {
+		$element->setAttribute('class', 'form-control ' . $element->getAttribute('class'));
+	}
+?>
+<?php if (!$unwrap): ?>
 <div class="form-group<?php if ($this->formElementErrors($element)) echo " has-error"; ?>">
+<?php endif; ?>
 	<?php echo $this->partial(
-			'partial/form/element-horizontal/' . $element->getAttribute('type') . '.phtml',
+			'partial/form/element-horizontal/' . $elementType . '.phtml',
 			array(
 				'element'		=> $element,
-				'leftColWidth'	=> $this->leftColWidth,
-				'rightColWidth'	=> $this->rightColWidth,
+				'leftColWidth'	=> $leftColWidth,
+				'rightColWidth'	=> $rightColWidth,
+				'unwrap'		=> $unwrap,
 			)); ?>
+<?php if (!$unwrap): ?>
 </div>
+<?php endif; ?>

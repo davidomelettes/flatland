@@ -37,7 +37,7 @@ class AddGameForm extends AbstractQuantumForm
 			),
 		));
 		
-		$this->addSubmitElement();
+		$this->addSubmitFieldset();
 	}
 	
 }
