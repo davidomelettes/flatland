@@ -2,7 +2,8 @@
 
 namespace FlatlandGame;
 
-use Zend\Mvc\MvcEvent;
+use Zend\Db\ResultSet\ResultSet,
+	Zend\Db\TableGateway\TableGateway;
 
 class Module
 {
@@ -18,6 +19,37 @@ class Module
 				'namespaces' => array(
 					__NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
 				),
+			),
+		);
+	}
+	
+	public function getServiceConfig()
+	{
+		return array(
+			'factories' => array(
+				'GamesTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					return new TableGateway('games', $dbAdapter, null, $resultSetPrototype);
+				},
+				'DesignersTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					return new TableGateway('designers', $dbAdapter, null, $resultSetPrototype);
+				},
+				'PublishersTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					return new TableGateway('publishers', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FlatlandGame\Model\GamesMapper' => function ($sm) {
+					$gateway = $sm->get('GamesTableGateway');
+					$mapper = new Model\GamesMapper($gateway);
+					return $mapper;
+				},
 			),
 		);
 	}

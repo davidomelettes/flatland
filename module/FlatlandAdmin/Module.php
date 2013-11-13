@@ -2,8 +2,6 @@
 
 namespace FlatlandAdmin;
 
-use FlatlandAdmin\Form,
-	FlatlandAdmin\Model;
 use Zend\Db\ResultSet\ResultSet,
 	Zend\Db\TableGateway\TableGateway;
 
@@ -49,22 +47,10 @@ class Module
 					$mapper = new Model\GamesMapper($gateway);
 					return $mapper;
 				},
-				'GamesTableGateway' => function ($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
-					return new TableGateway('games', $dbAdapter, null, $resultSetPrototype);
-				},
 				'FlatlandAdmin\Model\GamesMapper' => function ($sm) {
 					$gateway = $sm->get('GamesTableGateway');
 					$mapper = new Model\GamesMapper($gateway);
 					return $mapper;
-				},
-				'PublishersTableGateway' => function ($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
-					return new TableGateway('publishers', $dbAdapter, null, $resultSetPrototype);
 				},
 				'FlatlandAdmin\Model\PublishersMapper' => function ($sm) {
 					$gateway = $sm->get('PublishersTableGateway');
@@ -74,12 +60,6 @@ class Module
 				'FlatlandAdmin\Form\AddPublisherFilter' => function ($sm) {
 					$filter = new Form\AddPublisherFilter();
 					return $filter;
-				},
-				'DesignersTableGateway' => function ($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
-					return new TableGateway('designers', $dbAdapter, null, $resultSetPrototype);
 				},
 				'FlatlandAdmin\Model\DesignersMapper' => function ($sm) {
 					$gateway = $sm->get('DesignersTableGateway');

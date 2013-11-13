@@ -2,23 +2,20 @@
 
 namespace FlatlandGame\Controller;
 
-use Omelettes\Controller\AbstractController;
+use Omelettes\Controller\QuantumController;
 
-class GamesController extends AbstractController
+class GamesController extends QuantumController
 {
-	public function indexAction()
-	{
-		$paginator = $this->getGamesMapper()->fetchAll(true);
-		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
-		
-		return array(
-			'games' => $paginator,
-		);
-	}
+	protected $addQuantumFilterClass = 'FlatlandGame\Form\AddGameFilter';
 	
-	public function viewAction()
-	{
-		return array();
-	}
+	protected $addQuantumFormClass = 'FlatlandGame\Form\AddGameForm';
+	
+	protected $editQuantumFilterClass = 'FlatlandGame\Form\AddGameFilter';
+	
+	protected $editQuantumFormClass = 'FlatlandGame\Form\AddGameForm';
+	
+	protected $quantumMapperClass = 'FlatlandGame\Model\GamesMapper';
+	
+	protected $quantumModelClass = 'FlatlandGame\Model\Game';
 	
 }

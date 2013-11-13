@@ -45,7 +45,7 @@ class QuantumModel extends AbstractModel implements Tabulatable
 	{
 		$getterMethodName = 'get' . ucfirst($name);
 		if (!method_exists($this, $getterMethodName) && !isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
-			throw new \Exception('Invalid model property: ' . $name);
+			throw new \Exception('Invalid ' . get_class($this) . ' property: ' . $name);
 		}
 		
 		return $this->$getterMethodName();
@@ -55,7 +55,7 @@ class QuantumModel extends AbstractModel implements Tabulatable
 	{
 		$setterMethodName = 'set' . ucfirst($name);
 		if (!method_exists($this, $setterMethodName) && !isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
-			throw new \Exception('Invalid model property: ' . $name);
+			throw new \Exception('Invalid ' . get_class($this) . ' property: ' . $name);
 		}
 		
 		return $this->$setterMethodName($value);

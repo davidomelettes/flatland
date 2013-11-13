@@ -1,19 +1,7 @@
-<h2>Pathfinder Adventure Card Game: Rise of the Runelords - Base Set</h2>
-<p class="rating pull-right">
-	Rating:
-	<span class="glyphicon glyphicon-star"></span>
-	<span class="glyphicon glyphicon-star"></span>
-	<span class="glyphicon glyphicon-star"></span>
-	<span class="glyphicon glyphicon-star"></span>
-	<span class="glyphicon glyphicon-starhalf"></span>
-	(<a href="#">Yours: 3.5</a>)
-</p>
-<dl class="dl-inline">
-	<dt>Designed by</dt>
-	<dd><a href="#">Mike Selinker</a>, <a href="#">Gaby Weidling</a></dd>
-	<dt>Published</dt>
-	<dd><a href="#">2013</a> - <a href="#">Paizo Publishing</a></dd>
-</dl>
+<?php echo $this->partial('page-title', array(
+	'title' => $this->model->name,
+	'model' => $this->model,
+)); ?>
 
 <nav class="navbar navbar-default">
 	<ul class="nav navbar-nav">
@@ -116,23 +104,7 @@
 	</div> <!-- left col -->
 	<div class="col-md-8">
 		<div class="well description">
-			<p>An Adventure Like No Other!</p>
-	
-			<p>A forgotten evil stirs in the ancient land of Varisia.
-			Dark magic once more thrums amid crumbling ruins, giants gather in titanic armies,
-			cultists murder in the name of foul deities,
-			and maniacal goblins plot a fiery end for the peaceful town of Sandpoint.</p>
-	
-			<p>Launch a campaign to strike back against the evils plaguing Varisia
-			with the Pathfinder Adventure Card Game: Rise of the Runelords Base Set.
-			This complete cooperative strategy card game pits 1 to 4 heroes against the traps,
-			monsters, deadly magic, and despicable foes of the Pathfinder Roleplaying Game’s award-winning
-			Rise of the Runelords Adventure Path. Choose your character’s class; build a deck of allies,
-			equipment, and magic; and explore lethal locations as you journey through
-			multiple scenarios in an exciting fantasy adventure. Characters grow stronger after each game,
-			adding unique gear and awesome magic to their decks, and gaining incredible powers,
-			all of which they’ll need to challenge greater threats in a complete
-			Pathfinder Adventure Card Game Adventure Path.</p>
+			<?php echo $this->escapehtml($this->model->description); ?>
 		</div> <!-- description -->
 		<div class="info text-center">
 			<div class="row">
