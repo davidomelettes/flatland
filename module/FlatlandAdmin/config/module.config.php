@@ -4,6 +4,7 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'admin' => array(
+				'admin/designers',
 				'admin/games',
 				'admin/publishers',
 				'admin/users',
@@ -12,6 +13,7 @@ return array(
 	),
 	'controllers' => array(
 		'invokables' => array(
+			'Admin\Controller\Designers' => 'FlatlandAdmin\Controller\DesignersController',
 			'Admin\Controller\Games' => 'FlatlandAdmin\Controller\GamesController',
 			'Admin\Controller\Publishers' => 'FlatlandAdmin\Controller\PublishersController',
 			'Admin\Controller\Users' => 'FlatlandAdmin\Controller\UsersController',
@@ -28,6 +30,10 @@ return array(
 					array(
 						'label' => 'Games',
 						'route' => 'admin/games',
+					),
+					array(
+						'label' => 'Designers',
+						'route' => 'admin/designers',
 					),
 					array(
 						'label' => 'Publishers',
@@ -65,6 +71,19 @@ return array(
 							),
 							'defaults'		=> array(
 								'controller'	=> 'Admin\Controller\Games',
+								'action'		=> 'index',
+							),
+						),
+					),
+					'designers' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route'			=> '/designers[/:action][/:key]',
+							'constraints'	=> array(
+								'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+							),
+							'defaults'		=> array(
+								'controller'	=> 'Admin\Controller\Designers',
 								'action'		=> 'index',
 							),
 						),

@@ -75,6 +75,21 @@ class Module
 					$filter = new Form\AddPublisherFilter();
 					return $filter;
 				},
+				'DesignersTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					return new TableGateway('designers', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FlatlandAdmin\Model\DesignersMapper' => function ($sm) {
+					$gateway = $sm->get('DesignersTableGateway');
+					$mapper = new Model\DesignersMapper($gateway);
+					return $mapper;
+				},
+				'FlatlandAdmin\Form\AddDesignerFilter' => function ($sm) {
+					$filter = new Form\AddDesignerFilter();
+					return $filter;
+				},
 			),
 		);
 	}
