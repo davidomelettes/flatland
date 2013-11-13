@@ -62,6 +62,7 @@ return array(
 			'mail/layout/html'		=> __DIR__ . '/../view/mail/layout/html.phtml',
 			'navigation'			=> __DIR__ . '/../view/partial/navigation.phtml',
 			'pagination'			=> __DIR__ . '/../view/partial/pagination.phtml',
+			'page-title'			=> __DIR__ . '/../view/partial/page-title.phtml',
 			'tabulate/tabulate'		=> __DIR__ . '/../view/partial/tabulate.phtml',
 			'tabulate/quantum'		=> __DIR__ . '/../view/partial/tabulate/quantum.phtml',
 		),

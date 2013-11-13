@@ -1,5 +1,7 @@
 <?php
 
+use Zend\Form\Fieldset;
+
 $form = $this->form;
 $form->setAttributes(array(
 	'action'	=> $this->url(null, array(), array(), true),
@@ -11,11 +13,18 @@ echo $this->form()->openTag($form);
 
 ?>
 <?php foreach ($form as $element): ?>
+<?php if ($element instanceof Fieldset): ?>
+<?php echo $this->partial(
+		'partial/form/fieldset-inline.phtml',
+		array(
+			'fieldset'		=> $element,
+		)); ?>
+<?php else: ?>
 <?php echo $this->partial(
 		'partial/form/element-inline.phtml',
 		array(
 			'element'		=> $element,
 		)); ?>
-		
+<?php endif; ?>
 <?php endforeach; ?>
 <?php echo $this->form()->closeTag($form); ?>

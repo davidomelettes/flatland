@@ -1,4 +1,5 @@
-<div class="row">
-	<h2><?php echo $this->translate('Sign up to Flatland'); ?></h2>
-	<?php echo $this->partial('form/horizontal', array('form' => $this->form)); ?>
-</div>
+<?php echo $this->partial('page-title', array(
+	'title' => 'Add User',
+)); ?>
+
+<?php echo $this->partial('form/horizontal', array('form' => $this->form)); ?>

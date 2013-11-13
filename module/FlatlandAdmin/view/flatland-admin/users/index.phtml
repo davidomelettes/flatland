@@ -1,9 +1,7 @@
-<div class="pull-right">
-	<?php echo $this->partial('pagination', array('paginator' => $this->users)); ?>
-</div>
-<div class="pull-right">
-	<?php echo $this->partial('crud', array('actions' => array('add' => 'plus', 'invite' => 'bullhorn'))); ?>
-</div>
-<h2>Users</h2>
+<?php echo $this->partial('page-title', array(
+	'title' => 'Users',
+	'paginator' => $this->users,
+	'crud' => array('add' => 'plus', 'invite' => 'bullhorn'),
+)); ?>
 
 <?php echo $this->tabulate($this->users); ?>

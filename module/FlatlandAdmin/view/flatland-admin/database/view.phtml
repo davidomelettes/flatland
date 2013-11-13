@@ -1,22 +1,8 @@
-<div class="pull-right">
-	<?php echo $this->partial('crud', array('model' => $this->game, 'actions' => array('edit' => 'pencil', 'delete' => 'trash'))); ?>
-</div>
-<h2>Pathfinder Adventure Card Game: Rise of the Runelords - Base Set</h2>
-<p class="rating pull-right">
-	Rating:
-	<span class="glyphicon glyphicon-star"></span>
-	<span class="glyphicon glyphicon-star"></span>
-	<span class="glyphicon glyphicon-star"></span>
-	<span class="glyphicon glyphicon-star"></span>
-	<span class="glyphicon glyphicon-starhalf"></span>
-	(<a href="#">Yours: 3.5</a>)
-</p>
-<dl class="dl-inline">
-	<dt>Designed by</dt>
-	<dd><a href="#">Mike Selinker</a>, <a href="#">Gaby Weidling</a></dd>
-	<dt>Published</dt>
-	<dd><a href="#">2013</a> - <a href="#">Paizo Publishing</a></dd>
-</dl>
+<?php echo $this->partial('page-title', array(
+	'title' => $game->name,
+	'model' => $game,
+	'crud' => array('edit' => 'pencil', 'delete' => 'trash'),
+)); ?>
 
 <nav class="navbar navbar-default">
 	<ul class="nav navbar-nav">
