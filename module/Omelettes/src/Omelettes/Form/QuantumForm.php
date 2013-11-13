@@ -6,7 +6,7 @@ use Zend\Form\Form,
 	Zend\ServiceManager\ServiceLocatorAwareInterface,
 	Zend\ServiceManager\ServiceLocatorInterface;
 
-abstract class AbstractQuantumForm extends Form implements ServiceLocatorAwareInterface
+class QuantumForm extends Form implements ServiceLocatorAwareInterface
 {
 	/**
 	 * @var ServiceLocatorInterface
@@ -67,6 +67,13 @@ abstract class AbstractQuantumForm extends Form implements ServiceLocatorAwareIn
 		$this->add($fieldset);
 	
 		return $this;
+	}
+	
+	public function init()
+	{
+		$this->addNameElement('Name');
+	
+		$this->addSubmitFieldset();
 	}
 	
 }

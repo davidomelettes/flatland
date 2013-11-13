@@ -4,14 +4,16 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'admin' => array(
-				'admin/database',
+				'admin/games',
+				'admin/publishers',
 				'admin/users',
 			),
 		),
 	),
 	'controllers' => array(
 		'invokables' => array(
-			'Admin\Controller\Database' => 'FlatlandAdmin\Controller\DatabaseController',
+			'Admin\Controller\Games' => 'FlatlandAdmin\Controller\GamesController',
+			'Admin\Controller\Publishers' => 'FlatlandAdmin\Controller\PublishersController',
 			'Admin\Controller\Users' => 'FlatlandAdmin\Controller\UsersController',
 		),
 	),
@@ -20,8 +22,18 @@ return array(
 		'admin_navigation' => array(
 			array(
 				'label' => 'Database',
-				'route' => 'admin/database',
+				'route' => 'admin/games',
 				'icon'	=> 'book',
+				'pages' => array(
+					array(
+						'label' => 'Games',
+						'route' => 'admin/games',
+					),
+					array(
+						'label' => 'Publishers',
+						'route' => 'admin/publishers',
+					),
+				),
 			),
 			array(
 				'label' => 'Users',
@@ -38,21 +50,34 @@ return array(
 					'route'			=> '/admin',
 					'constraints'	=> array(),
 					'defaults'		=> array(
-						'controller'	=> 'Admin\Controller\Database',
+						'controller'	=> 'Admin\Controller\Games',
 						'action'		=> 'index',
 					),
 				),
 				'may_terminate' => true,
 				'child_routes' => array(
-					'database' => array(
+					'games' => array(
 						'type' => 'Segment',
 						'options' => array(
-							'route'			=> '/database[/:action][/:key]',
+							'route'			=> '/games[/:action][/:key]',
 							'constraints'	=> array(
 								'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
 							),
 							'defaults'		=> array(
-								'controller'	=> 'Admin\Controller\Database',
+								'controller'	=> 'Admin\Controller\Games',
+								'action'		=> 'index',
+							),
+						),
+					),
+					'publishers' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route'			=> '/publishers[/:action][/:key]',
+							'constraints'	=> array(
+								'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+							),
+							'defaults'		=> array(
+								'controller'	=> 'Admin\Controller\Publishers',
 								'action'		=> 'index',
 							),
 						),

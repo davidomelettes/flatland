@@ -49,22 +49,31 @@ class Module
 					$mapper = new Model\GamesMapper($gateway);
 					return $mapper;
 				},
-				'FlatlandAdmin\Model\GameVariantsMapper' => function ($sm) {
-					$gateway = $sm->get('GameVariantsTableGateway');
-					$mapper = new Model\GameVariantsMapper($gateway);
-					return $mapper;
-				},
 				'GamesTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
 					return new TableGateway('games', $dbAdapter, null, $resultSetPrototype);
 				},
-				'GameVariantsTableGateway' => function ($sm) {
+				'FlatlandAdmin\Model\GamesMapper' => function ($sm) {
+					$gateway = $sm->get('GamesTableGateway');
+					$mapper = new Model\GamesMapper($gateway);
+					return $mapper;
+				},
+				'PublishersTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\GameVariant());
-					return new TableGateway('game_variants', $dbAdapter, null, $resultSetPrototype);
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					return new TableGateway('publishers', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FlatlandAdmin\Model\PublishersMapper' => function ($sm) {
+					$gateway = $sm->get('PublishersTableGateway');
+					$mapper = new Model\PublishersMapper($gateway);
+					return $mapper;
+				},
+				'FlatlandAdmin\Form\AddPublisherFilter' => function ($sm) {
+					$filter = new Form\AddPublisherFilter();
+					return $filter;
 				},
 			),
 		);

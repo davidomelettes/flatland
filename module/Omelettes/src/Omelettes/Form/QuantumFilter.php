@@ -9,7 +9,7 @@ use Zend\InputFilter\InputFilter,
 	Zend\ServiceManager\ServiceLocatorInterface,
 	Zend\Validator\ValidatorChain;
 
-abstract class AbstractQuantumModelFilter implements InputFilterAwareInterface, ServiceLocatorAwareInterface
+class QuantumFilter implements InputFilterAwareInterface, ServiceLocatorAwareInterface
 {
 	/**
 	 * @var InputFilter

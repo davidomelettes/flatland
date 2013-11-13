@@ -2,9 +2,9 @@
 
 namespace FlatlandAdmin\Form;
 
-use Omelettes\Form\AbstractQuantumForm;
+use Omelettes\Form\QuantumForm;
 
-class AddGameForm extends AbstractQuantumForm
+class AddGameForm extends QuantumForm
 {
 	public function __construct()
 	{

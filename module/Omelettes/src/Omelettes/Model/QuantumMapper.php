@@ -2,15 +2,16 @@
 
 namespace Omelettes\Model;
 
-use Omelettes\Model\AbstractMapper,
-	Omelettes\Paginator\Adapter\DbTableGateway as DbTableGatewayAdapter,
+use Omelettes\Paginator\Adapter\DbTableGateway as DbTableGatewayAdapter,
+	Omelettes\Uuid\V4 as Uuid,
 	Omelettes\Validator\Uuid\V4 as UuidValidator;
 use Zend\Db\ResultSet\ResultSet,
+	Zend\Db\Sql\Expression,
 	Zend\Db\Sql\Predicate,
 	Zend\Db\Sql\Select,
 	Zend\Paginator\Paginator;
 
-class QuantumMapper extends AbstractMapper
+abstract class QuantumMapper extends AbstractMapper
 {
 	/**
 	 * @var Paginator
@@ -89,6 +90,42 @@ class QuantumMapper extends AbstractMapper
 		}
 		
 		return $this->select($this->generateSqlSelect($this->getWhere(), $this->getOrder()));
+	}
+	
+	public function createQuantum(QuantumModel $model)
+	{
+		$key = new Uuid();
+		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
+		$data = array(
+			'key'				=> (string)$key,
+			'name'				=> $model->name,
+			'created_by'		=> $identity->key,
+			'updated_by'		=> $identity->key,
+		);
+		
+		$this->tableGateway->insert($data);
+		$model->exchangeArray($data);
+	}
+	
+	public function updateQuantum(QuantumModel $model)
+	{
+		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
+		$data = array(
+			'name'				=> $model->name,
+			'updated_by'		=> $identity->key,
+			'updated'			=> new Expression('now()'),
+		);
+		
+		$this->tableGateway->update($data, array('key' => $model->key));
+		$model->exchangeArray($data);
+	}
+	
+	public function deleteQuantum(QuantumModel $model)
+	{
+		$data = array(
+			'deleted' => new Expression('now()'),
+		);
+		$this->tableGateway->update($data, array('key'=> $model->key));
 	}
 	
 }

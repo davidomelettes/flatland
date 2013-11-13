@@ -2,9 +2,9 @@
 
 namespace FlatlandAdmin\Form;
 
-use Omelettes\Form\AbstractQuantumModelFilter;
+use Omelettes\Form\QuantumFilter;
 
-class AddGameFilter extends AbstractQuantumModelFilter
+class AddGameFilter extends QuantumFilter
 {
 	public function getInputFilter()
 	{

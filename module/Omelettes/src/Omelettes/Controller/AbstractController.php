@@ -26,10 +26,13 @@ abstract class AbstractController extends AbstractActionController
 	 */
 	protected $logger;
 	
-	/**
-	 * @var Form\ConfirmDeleteForm
-	 */
-	protected $confirmDeleteForm;
+	public function getRouteName()
+	{
+		$event = $this->getEvent();
+		$routeMatch = $event->getRouteMatch();
+		
+		return $routeMatch->getMatchedRouteName();
+	}
 	
 	public function getAuthService()
 	{
@@ -59,31 +62,6 @@ abstract class AbstractController extends AbstractActionController
 		}
 		
 		return $this->logger;
-	}
-	
-	public function getConfirmDeleteForm($model = null, $route = null, $routeOptions = array())
-	{
-		if (!$this->confirmDeleteForm) {
-			$form = new Form\ConfirmDeleteForm();
-			if ($model instanceof Model\QuantumModel) {
-				$submitFieldset = $form->get('submit');
-				$submitFieldset->add(array(
-					'name'		=> 'cancel',
-					'type'		=> 'Omelettes\Form\Element\Url',
-					'attributes'=> array(
-						'value'		=> 'Cancel',
-					),
-					'options' => array(
-						'route' => $route,
-						'route_options' => $routeOptions,
-						'anchor_class' => 'btn btn-default',
-					),
-				));
-			}
-			$this->confirmDeleteForm = $form;
-		}
-		
-		return $this->confirmDeleteForm;
 	}
 	
 }
