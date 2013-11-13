@@ -9,6 +9,10 @@ return array(
 		'invokables' => array(
 		),
 	),
+	'navigation' => array(
+		'default' => array(
+		),
+	),
 	'router' => array(
 		'routes' => array(
 		),
