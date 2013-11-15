@@ -5,9 +5,10 @@ namespace Omelettes\Model;
 use Zend\Db\Sql\Predicate,
 	Zend\Db\Sql\Select,
 	Zend\Db\TableGateway\TableGateway,
+	Zend\ServiceManager\ServiceLocatorAwareInterface,
 	Zend\ServiceManager\ServiceLocatorAwareTrait;
 
-abstract class AbstractMapper
+abstract class AbstractMapper implements ServiceLocatorAwareInterface
 {
 	use ServiceLocatorAwareTrait;
 	

@@ -17,7 +17,7 @@ class UserMapper extends AuthMapper
 			'full_name'			=> $user->fullName,
 			'locale'			=> $user->locale,
 		);
-		$this->tableGateway->update($data, array('key' => $user->key));
+		$this->writeTableGateway->update($data, array('key' => $user->key));
 	}
 	
 }

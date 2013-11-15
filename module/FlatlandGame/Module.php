@@ -33,6 +33,12 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
 					return new TableGateway('games', $dbAdapter, null, $resultSetPrototype);
 				},
+				'GamesViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					return new TableGateway('games_view', $dbAdapter, null, $resultSetPrototype);
+				},
 				'DesignersTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
@@ -46,8 +52,9 @@ class Module
 					return new TableGateway('publishers', $dbAdapter, null, $resultSetPrototype);
 				},
 				'FlatlandGame\Model\GamesMapper' => function ($sm) {
-					$gateway = $sm->get('GamesTableGateway');
-					$mapper = new Model\GamesMapper($gateway);
+					$readGateway = $sm->get('GamesViewGateway');
+					$writeGateway = $sm->get('GamesTableGateway');
+					$mapper = new Model\GamesMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
 			),

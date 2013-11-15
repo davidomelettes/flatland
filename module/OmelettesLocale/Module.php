@@ -54,7 +54,7 @@ class Module
 					$dependencies = array(
 						'user_secondary_locales' => 'UserSecondaryLocalesTableGateway',
 					);
-					$mapper = new LocalesMapper($gateway, $dependencies);
+					$mapper = new LocalesMapper($gateway, $gateway, $dependencies);
 					return $mapper;
 				},
 				'OmelettesLocale\Model\LocaleLanguagesMapper' => function ($sm) {

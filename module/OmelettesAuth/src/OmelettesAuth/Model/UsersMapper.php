@@ -20,7 +20,7 @@ class UsersMapper extends SignupMapper
 			'password_reset_key'		=> $key,
 			'password_reset_requested'	=> 'now()',
 		);
-		$this->tableGateway->update($data, array('key' => $user->key));
+		$this->writeTableGateway->update($data, array('key' => $user->key));
 		
 		return (string)$key;
 	}
@@ -37,7 +37,7 @@ class UsersMapper extends SignupMapper
 			'password_reset_key'		=> null,
 			'password_reset_requested'	=> null,
 		);
-		$this->tableGateway->update($data, array('key' => $user->key));
+		$this->writeTableGateway->update($data, array('key' => $user->key));
 	}
 	
 	public function getSystemIdentity($systemIdentityKey)

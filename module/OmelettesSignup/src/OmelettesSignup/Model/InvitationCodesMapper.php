@@ -19,7 +19,7 @@ class InvitationCodesMapper extends QuantumMapper
 			'created_by'	=> $auth->getIdentity()->key,
 			'updated_by'	=> $auth->getIdentity()->key,
 		);
-		$this->tableGateway->insert($data);
+		$this->writeTableGateway->insert($data);
 		
 		$invitation->exchangeArray($data);
 	}
@@ -34,7 +34,7 @@ class InvitationCodesMapper extends QuantumMapper
 	
 	public function deleteInvitation($code)
 	{
-		$this->tableGateway->delete(array('key' => $code));
+		$this->writeTableGateway->delete(array('key' => $code));
 		
 		return $this;
 	}

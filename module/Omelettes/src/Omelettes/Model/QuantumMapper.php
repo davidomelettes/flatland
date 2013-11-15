@@ -69,7 +69,7 @@ abstract class QuantumMapper extends AbstractMapper
 				$where = null;
 			}
 			$paginationAdapter = new DbTableGatewayAdapter(
-				$this->tableGateway,
+				$this->readTableGateway,
 				$where,
 				$order
 			);
@@ -136,10 +136,10 @@ abstract class QuantumMapper extends AbstractMapper
 		
 		if ($key) {
 			// Updating
-			$this->tableGateway->update($data, array('key' => $key));
+			$this->writeTableGateway->update($data, array('key' => $key));
 		} else {
 			// Creating
-			$this->tableGateway->insert($data);
+			$this->writeTableGateway->insert($data);
 		}
 		$model->exchangeArray($data);
 	}
@@ -159,7 +159,7 @@ abstract class QuantumMapper extends AbstractMapper
 		$data = array(
 			'deleted' => new Expression('now()'),
 		);
-		$this->tableGateway->update($data, array('key'=> $model->key));
+		$this->writeTableGateway->update($data, array('key'=> $model->key));
 	}
 	
 }

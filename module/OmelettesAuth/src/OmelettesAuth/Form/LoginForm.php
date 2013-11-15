@@ -2,9 +2,9 @@
 
 namespace OmelettesAuth\Form;
 
-use Omelettes\Form\AbstractQuantumForm;
+use Omelettes\Form\QuantumForm;
 
-class LoginForm extends AbstractQuantumForm
+class LoginForm extends QuantumForm
 {
 	public function __construct()
 	{

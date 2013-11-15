@@ -18,11 +18,6 @@ class UsersMapper extends QuantumMapper
 		return $where;
 	}
 	
-	protected function getDefaultOrder()
-	{
-		return 'name';
-	}
-	
 	public function findByName($name)
 	{
 		$validator = new StringLength(array('min' => 1, 'encoding' => 'UTF-8'));
@@ -53,7 +48,7 @@ class UsersMapper extends QuantumMapper
 			'locale'			=> 'en_GB',
 		);
 		
-		$this->tableGateway->insert($data);
+		$this->writeTableGateway->insert($data);
 		
 		// Load model with new values
 		$user->exchangeArray($data);

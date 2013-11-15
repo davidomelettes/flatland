@@ -24,6 +24,8 @@ class Migration003Games extends AbstractMigration
 		
 		$this->insertFixture('migration/fixtures/003_games.xml');
 		
+		$this->viewCreate('games_view', "SELECT games.*, publishers.name as publisher FROM games LEFT JOIN publishers ON publishers.key = games.publisher_key");
+		
 		return true;
 	}
 	

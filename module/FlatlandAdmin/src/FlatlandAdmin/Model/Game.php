@@ -10,9 +10,12 @@ class Game extends QuantumModel
 	
 	protected $publisherKey;
 	
+	protected $publisher;
+	
 	protected $propertyMap = array(
 		'description'	=> 'description',
 		'publisherKey'	=> 'publisher_key',
+		'publisher'		=> 'publisher',
 	);
 	
 }

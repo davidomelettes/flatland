@@ -68,7 +68,7 @@ class UserLoginsMapper extends AbstractMapper
 			'token'		=> (string)$token,
 			'expiry'	=> (int)$expiry,
 		);
-		$this->tableGateway->insert($data);
+		$this->writeTableGateway->insert($data);
 		
 		return implode(',', array($data['name'], $data['series'], $data['token'], $data['expiry']));
 	}
@@ -82,7 +82,7 @@ class UserLoginsMapper extends AbstractMapper
 	 */
 	public function deleteForNameWithSeries($name, $series)
 	{
-		$this->tableGateway->delete(array('name' => $name, 'series' => $series));
+		$this->writeTableGateway->delete(array('name' => $name, 'series' => $series));
 	}
 	
 	/**
@@ -109,7 +109,7 @@ class UserLoginsMapper extends AbstractMapper
 		$result = $this->findOneWhere($where);
 		if ($result) {
 			// Delete the triplet
-			$this->tableGateway->delete(array('name' => $name, 'series' => $series, 'token' => $token));
+			$this->writeTableGateway->delete(array('name' => $name, 'series' => $series, 'token' => $token));
 			
 			// Issue a new token in this series
 			return $this->saveLogin($name, $series, $expiry);

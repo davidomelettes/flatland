@@ -4,10 +4,9 @@ namespace OmelettesUser\Form;
 
 use Zend\Authentication\AuthenticationService,
 	Zend\InputFilter\InputFilter;
-use Omelettes\Form\AbstractQuantumModelFilter;
+use Omelettes\Form\QuantumFilter;
 
-
-class ChangePasswordFilter extends AbstractQuantumModelFilter
+class ChangePasswordFilter extends QuantumFilter
 {
 	protected $authService;
 	

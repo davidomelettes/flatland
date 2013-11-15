@@ -2,9 +2,9 @@
 
 namespace OmelettesUser\Form;
 
-use Omelettes\Form\AbstractQuantumForm;
+use Omelettes\Form\QuantumForm;
 
-class UserInfoForm extends AbstractQuantumForm
+class UserInfoForm extends QuantumForm
 {
 	/**
 	 * @var array

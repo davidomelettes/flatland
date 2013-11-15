@@ -2,9 +2,9 @@
 
 namespace OmelettesAuth\Form;
 
-use Omelettes\Form\AbstractQuantumModelFilter;
+use Omelettes\Form\QuantumFilter;
 
-class LoginFilter extends AbstractQuantumModelFilter
+class LoginFilter extends QuantumFilter
 {
 	public function getInputFilter()
 	{
