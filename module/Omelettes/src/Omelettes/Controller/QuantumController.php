@@ -4,6 +4,7 @@ namespace Omelettes\Controller;
 
 use Omelettes\Form,
 	Omelettes\Model;
+use Zend\View\Model\JsonModel;
 
 abstract class QuantumController extends AbstractController
 {
@@ -258,6 +259,22 @@ abstract class QuantumController extends AbstractController
 			'model' => $model,
 			'form' => $form,
 		));
+	}
+	
+	public function autocompleteAction()
+	{
+		$viewModel = $this->returnViewModel();
+		if (!$viewModel instanceof JsonModel) {
+			$this->flashMessenger()->addErrorMessage('Accept: application/json only');
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		
+		$term = $this->params()->fromQuery('term', '');
+		$paginator = $this->getQuantumMapper()->fetchAllWhereNameLike($term, true);
+		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+		$viewModel->setVariable('paginator', $paginator);
+		
+		return $viewModel;
 	}
 	
 }

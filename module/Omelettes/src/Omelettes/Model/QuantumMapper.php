@@ -2,14 +2,15 @@
 
 namespace Omelettes\Model;
 
-use Omelettes\Paginator\Adapter\DbTableGateway as DbTableGatewayAdapter,
+use Omelettes\Db\Sql\Predicate as OmelettesPredicate,
+	Omelettes\Paginator\Adapter\DbTableGateway as DbTableGatewayAdapter,
+	Omelettes\Paginator\Paginator,
 	Omelettes\Uuid\V4 as Uuid,
 	Omelettes\Validator\Uuid\V4 as UuidValidator;
 use Zend\Db\ResultSet\ResultSet,
 	Zend\Db\Sql\Expression,
 	Zend\Db\Sql\Predicate,
-	Zend\Db\Sql\Select,
-	Zend\Paginator\Paginator;
+	Zend\Db\Sql\Select;
 
 abstract class QuantumMapper extends AbstractMapper
 {
@@ -85,11 +86,26 @@ abstract class QuantumMapper extends AbstractMapper
 	 */
 	public function fetchAll($paginated = false)
 	{
+		return $this->fetchAllWhere($this->getWhere(), $paginated);
+	}
+	
+	public function fetchAllWhere(Predicate\PredicateSet $where, $paginated = false)
+	{
 		if ($paginated) {
-			return $this->getPaginator($this->getWhere(), $this->getOrder());
+			return $this->getPaginator($where, $this->getOrder());
 		}
 		
-		return $this->select($this->generateSqlSelect($this->getWhere(), $this->getOrder()));
+		return $this->select($this->generateSqlSelect($where, $this->getOrder()));
+	}
+	
+	public function fetchAllWhereNameLike($term, $paginated = false)
+	{
+		$where = $this->getWhere();
+		if (!is_null($term) && '' !== $term) {
+			$where->addPredicate(new OmelettesPredicate\Ilike('name', $term.'%'));
+		}
+		
+		return $this->fetchAllWhere($where, $paginated);
 	}
 	
 	public function createQuantum(QuantumModel $model)

@@ -7,6 +7,7 @@ return array(
 	),
 	'form_elements' => array(
 		'invokables' => array(
+			'autocomplete' => 'Omelettes\Form\Element\Autocomplete',
 			'staticValue' => 'Omelettes\Form\Element\StaticValue',
 		),
 	),

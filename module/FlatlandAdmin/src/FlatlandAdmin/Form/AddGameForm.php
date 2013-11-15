@@ -28,9 +28,11 @@ class AddGameForm extends QuantumForm
 		
 		$this->add(array(
 			'name'		=> 'publisher',
-			'type'		=> 'Text',
+			'type'		=> 'Autocomplete',
 			'options'	=> array(
-				'label'		=> 'Publisher',
+				'label'			=> 'Publisher',
+				'source'		=> 'admin/publishers',
+				'source_options'=> array('action' => 'autocomplete'),
 			),
 			'attributes'=> array(
 				'id'		=> $this->getName() . 'Publisher',

@@ -4,7 +4,7 @@ namespace Omelettes\Model;
 
 use Omelettes\Model\AbstractModel;
 
-class QuantumModel extends AbstractModel implements Tabulatable
+class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializable
 {
 	/**
 	 * @var array
@@ -77,6 +77,11 @@ class QuantumModel extends AbstractModel implements Tabulatable
 				}
 			}
 		}
+	}
+	
+	public function jsonSerialize()
+	{
+		return $this->getArrayCopy();
 	}
 	
 	public function exchangeArray($data)
