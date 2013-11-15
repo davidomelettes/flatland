@@ -43,13 +43,9 @@ class Module
 					return $filter;
 				},
 				'FlatlandAdmin\Model\GamesMapper' => function ($sm) {
-					$gateway = $sm->get('GamesTableGateway');
-					$mapper = new Model\GamesMapper($gateway);
-					return $mapper;
-				},
-				'FlatlandAdmin\Model\GamesMapper' => function ($sm) {
-					$gateway = $sm->get('GamesTableGateway');
-					$mapper = new Model\GamesMapper($gateway);
+					$readGateway = $sm->get('GamesViewGateway');
+					$writeGateway = $sm->get('GamesTableGateway');
+					$mapper = new Model\GamesMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
 				'FlatlandAdmin\Model\PublishersMapper' => function ($sm) {
