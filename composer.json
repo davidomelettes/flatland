@@ -19,13 +19,37 @@
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "2.0.3",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-2.0.3.min.js",
+                    "type": "file"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery-ui",
+                "version": "1.10.3",
+                "dist": {
+                    "url": "http://jqueryui.com/resources/download/jquery-ui-1.10.3.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.2.*",
         "leafo/lessphp": "*",
-        "twbs/bootstrap": "3.0.0"
+        "twbs/bootstrap": "3.0.0",
+        "jquery/jquery": "2.0.3",
+        "jquery/jquery-ui": "1.10.3"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
