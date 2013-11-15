@@ -108,32 +108,50 @@ abstract class QuantumMapper extends AbstractMapper
 		return $this->fetchAllWhere($where, $paginated);
 	}
 	
-	public function createQuantum(QuantumModel $model)
+	protected function prepareSaveData(QuantumModel $model)
 	{
-		$key = new Uuid();
-		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
-		$data = array(
-			'key'				=> (string)$key,
-			'name'				=> $model->name,
-			'created_by'		=> $identity->key,
-			'updated_by'		=> $identity->key,
-		);
-		
-		$this->tableGateway->insert($data);
-		$model->exchangeArray($data);
-	}
-	
-	public function updateQuantum(QuantumModel $model)
-	{
+		$key = $model->key;
 		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 		$data = array(
 			'name'				=> $model->name,
 			'updated_by'		=> $identity->key,
 			'updated'			=> new Expression('now()'),
 		);
+		if (!$key) {
+			// Creating
+			$key = new Uuid();
+			$data = array_merge($data, array(
+				'key'			=> (string)$key,
+				'created_by'	=> $identity->key,
+			));
+		}
 		
-		$this->tableGateway->update($data, array('key' => $model->key));
+		return $data;
+	}
+	
+	public function saveQuantum(QuantumModel $model)
+	{
+		$key = $model->key;
+		$data = $this->prepareSaveData($model);
+		
+		if ($key) {
+			// Updating
+			$this->tableGateway->update($data, array('key' => $key));
+		} else {
+			// Creating
+			$this->tableGateway->insert($data);
+		}
 		$model->exchangeArray($data);
+	}
+	
+	public function createQuantum(QuantumModel $model)
+	{
+		return $this->saveQuantum($model);
+	}
+	
+	public function updateQuantum(QuantumModel $model)
+	{
+		return $this->saveQuantum($model);
 	}
 	
 	public function deleteQuantum(QuantumModel $model)
