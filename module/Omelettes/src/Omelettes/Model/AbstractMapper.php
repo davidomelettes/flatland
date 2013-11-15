@@ -5,20 +5,21 @@ namespace Omelettes\Model;
 use Zend\Db\Sql\Predicate,
 	Zend\Db\Sql\Select,
 	Zend\Db\TableGateway\TableGateway,
-	Zend\ServiceManager\ServiceLocatorAwareInterface,
-	Zend\ServiceManager\ServiceLocatorInterface;
+	Zend\ServiceManager\ServiceLocatorAwareTrait;
 
-abstract class AbstractMapper implements ServiceLocatorAwareInterface
+abstract class AbstractMapper
 {
+	use ServiceLocatorAwareTrait;
+	
 	/**
 	 * @var TableGateway
 	 */
-	protected $tableGateway;
-	
+	protected $readTableGateway;
+
 	/**
-	 * @var ServiceLocatorInterface
+	 * @var TableGateway
 	 */
-	protected $serviceLocator;
+	protected $writeTableGateway;
 	
 	/**
 	 * @var Predicate\PredicateSet
@@ -37,9 +38,10 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected $dependantTables = array();
 	
-	public function __construct(TableGateway $tableGateway, array $dependantTables = array())
+	public function __construct(TableGateway $readTableGateway, TableGateway $writeTableGateway = null, array $dependantTables = array())
 	{
-		$this->tableGateway = $tableGateway;
+		$this->readTableGateway = $readTableGateway;
+		$this->writeTableGateway = $writeTableGateway ? $writeTableGateway : $readTableGateway;
 		$this->dependantTables = $dependantTables;
 	}
 	
@@ -72,19 +74,9 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	*/
 	abstract public function fetchAll();
 	
-	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-	{
-		$this->serviceLocator = $serviceLocator;
-	}
-	
-	public function getServiceLocator()
-	{
-		return $this->serviceLocator;
-	}
-	
 	protected function getConnection()
 	{
-		return $this->tableGateway->getAdapter()->getDriver()->getConnection();
+		return $this->writeTableGateway->getAdapter()->getDriver()->getConnection();
 	}
 	
 	/**
@@ -174,7 +166,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected function generateSqlSelect($where, $order = null)
 	{
-		$select = $this->tableGateway->getSql()->select();
+		$select = $this->readTableGateway->getSql()->select();
 		if ($where instanceof Predicate\PredicateSet) {
 			if (count($where) < 1) {
 				// Prevent empty PredicateSets from generating bad SQL
@@ -200,7 +192,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected function select(Select $select)
 	{
-		return $this->tableGateway->selectWith($select);
+		return $this->readTableGateway->selectWith($select);
 	}
 	
 	/**
