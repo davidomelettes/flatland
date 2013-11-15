@@ -182,9 +182,9 @@ abstract class QuantumController extends AbstractController
 			}
 		}
 		
-		return array(
+		return $this->returnViewModel(array(
 			'form' => $form,
-		);
+		));
 	}
 	
 	public function viewAction()
@@ -195,9 +195,9 @@ abstract class QuantumController extends AbstractController
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
-		return array(
+		return $this->returnViewModel(array(
 			'model' => $model,
-		);
+		));
 	}
 	
 	public function indexAction()
@@ -205,9 +205,9 @@ abstract class QuantumController extends AbstractController
 		$paginator = $this->getQuantumMapper()->fetchAll(true);
 		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
 		
-		return array(
+		return $this->returnViewModel(array(
 			'paginator' => $paginator,
-		);
+		));
 	}
 	
 	public function editAction()
@@ -232,10 +232,10 @@ abstract class QuantumController extends AbstractController
 			}
 		}
 		
-		return array(
+		return $this->returnViewModel(array(
 			'form' => $form,
 			'model' => $model,
-		);
+		));
 	}
 	
 	public function deleteAction()
@@ -254,10 +254,10 @@ abstract class QuantumController extends AbstractController
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
-		return array(
+		return $this->returnViewModel(array(
 			'model' => $model,
 			'form' => $form,
-		);
+		));
 	}
 	
 }

@@ -7,10 +7,20 @@ use Omelettes\Model;
 use OmelettesAuth\Authentication\AuthenticationService;
 use OmelettesLocale\Model\LocalesMapper;
 use Zend\Log\Logger,
-	Zend\Mvc\Controller\AbstractActionController;
+	Zend\Mvc\Controller\AbstractActionController,
+	Zend\View\Model\ViewModel;
 
 abstract class AbstractController extends AbstractActionController
 {
+	protected $acceptCriteria = array(
+		'Zend\View\Model\ViewModel' => array(
+			'text/html',
+		),
+		'Zend\View\Model\JsonModel' => array(
+			'application/json',
+		),
+	);
+	
 	/**
 	 * @var AuthenticationService
 	 */
@@ -25,6 +35,20 @@ abstract class AbstractController extends AbstractActionController
 	 * @var Logger
 	 */
 	protected $logger;
+	
+	/**
+	 * Returns a view model selected by the HTTP Accept header criteria
+	 * 
+	 * @param array $variables
+	 * @return ViewModel
+	 */
+	public function returnViewModel(array $variables = array())
+	{
+		$viewModel = $this->acceptableViewModelSelector($this->acceptCriteria);
+		$viewModel->setVariables($variables, true);
+		
+		return $viewModel;
+	}
 	
 	public function getRouteName()
 	{
