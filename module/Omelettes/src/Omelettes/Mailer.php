@@ -88,7 +88,7 @@ class Mailer implements ServiceLocatorAwareInterface
 	}
 	
 	/**
-	 * Set the service locator.
+	 * Set the service locator
 	 *
 	 * @param  ServiceLocatorInterface $serviceLocator
 	 */
