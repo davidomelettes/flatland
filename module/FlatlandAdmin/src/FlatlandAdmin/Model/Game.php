@@ -6,10 +6,13 @@ use Omelettes\Model\QuantumModel;
 
 class Game extends QuantumModel
 {
+	protected $description;
+	
 	protected $publisherKey;
 	
 	protected $propertyMap = array(
-		'publisherKey' => 'publisher_key',
+		'description'	=> 'description',
+		'publisherKey'	=> 'publisher_key',
 	);
 	
 }

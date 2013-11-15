@@ -2,14 +2,9 @@
 
 namespace FlatlandGame\Model;
 
-use Omelettes\Model\QuantumModel;
+use FlatlandAdmin\Model\Game as AdminGame;
 
-class Game extends QuantumModel
+class Game extends AdminGame
 {
-	protected $description;
-	
-	protected $propertyMap = array(
-		'description' => 'description',
-	);
-	
+
 }
