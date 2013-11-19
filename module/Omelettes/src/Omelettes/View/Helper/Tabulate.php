@@ -16,7 +16,7 @@ class Tabulate extends AbstractHelper
 	protected $mock;
 	
 	protected $options = array(
-		'formulate'	=> true,
+		'formulate'	=> false,
 		'primary_action' => 'view',
 	);
 	
