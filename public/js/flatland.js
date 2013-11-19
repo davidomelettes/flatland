@@ -20,6 +20,32 @@
 $(function () {
 	$(document).ready(function () {
 		console.group('Page head');
+		
+		// Autocomplete inputs
+		$('.autocomplete').each(function(){
+			$(this).parents('.form-group').find('label').attr('for', $(this).attr('id'));
+			$(this).autocomplete({
+				select: function(event, ui) {
+					var $i = $(event.target);
+					var item = ui.item;
+					if (item.value) {
+						var $s = $('<p>').addClass('form-control-static bound').text(item.label+' ').append($('<span>').addClass('glyphicon glyphicon-remove')).click(function(){
+							$(this).next().val('').show().next().val('');
+							$(this).remove();
+						});
+						$i.hide().before($s).next().val(item.value);
+					} else {
+						$i.val('').next().val('');
+					}
+					return false;
+				}
+			}).click(function () {
+				if ($(this).is('.bound')) {
+					$(this).val('').removeClass('bound').next().val('');
+				}
+			});
+		});
+		
 		console.groupEnd();
 	});
 });

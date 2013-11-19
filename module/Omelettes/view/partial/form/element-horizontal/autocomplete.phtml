@@ -1,6 +1,10 @@
 <?php $element = $this->element; ?>
 <label class="col-lg-<?php echo $this->leftColWidth; ?> control-label" for="<?php echo $element->getAttribute('id'); ?>"><?php echo $element->getLabel(); ?></label>
 <div class="col-lg-<?php echo $this->rightColWidth; ?>">
+	<div class="input-group">
+		<input id="<?php echo $element->getAttribute('id'); ?>_ac" type="text" class="autocomplete form-control">
+		<span class="input-group-addon glyphicon glyphicon-search"></span>
+	</div>
 	<?php echo $this->formElement($element); ?>
 	<?php if ($this->formElementErrors($element)): ?>
 	<span class="help-block"><?php echo $this->formElementErrors($element); ?></span>
@@ -9,19 +13,9 @@
 <script type="text/javascript">
 	$(function () {
 		$(document).ready(function () {
-			console.log('Attaching autocompleter');
-			$('#<?php echo $element->getAttribute('id')?>').autocomplete({
+			$('#<?php echo $element->getAttribute('id'); ?>').hide();
+			$('#<?php echo $element->getAttribute('id').'_ac'; ?>').autocomplete({
 				source: <?php echo json_encode($this->url($element->getSource(), $element->getSourceOptions())); ?>,
-				response: function(event, ui) {
-					var items = ui.content[0].items;
-					ui.content.pop();
-					if (items.length === 0) {
-						ui.content.push({label: 'No Results', value: ''});
-					}
-					$.each(items, function(n, i) {
-						ui.content.push({label: i.name, value: i.key});
-					});
-				}
 			});
 		});
 	});
