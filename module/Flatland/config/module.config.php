@@ -22,7 +22,7 @@ return array(
 			),
 			array(
 				'label' => 'Forums',
-				'route' => 'home',
+				'route' => 'forums',
 				'icon'	=> 'comment',
 			),
 			array(

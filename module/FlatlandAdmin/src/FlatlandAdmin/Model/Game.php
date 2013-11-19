@@ -18,4 +18,17 @@ class Game extends QuantumModel
 		'publisher'		=> 'publisher',
 	);
 	
+	public function getTableHeadings()
+	{
+		$headings = parent::getTableHeadings();
+		$headings['actions'] = '';
+		
+		return $headings;
+	}
+	
+	public function getTableRowPartial()
+	{
+		return 'tabulate/admin-game';
+	}
+	
 }
