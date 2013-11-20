@@ -133,14 +133,16 @@ abstract class QuantumMapper extends AbstractMapper
 	{
 		$key = $model->key;
 		$data = $this->prepareSaveData($model);
-		
 		if ($key) {
 			// Updating
 			$this->writeTableGateway->update($data, array('key' => $key));
+			$data['key'] = $key;
 		} else {
 			// Creating
 			$this->writeTableGateway->insert($data);
 		}
+		
+		// Rehydrate
 		$model->exchangeArray($data);
 	}
 	

@@ -213,7 +213,8 @@ abstract class QuantumController extends AbstractController
 	
 	public function editAction()
 	{
-		$model = $this->getQuantumMapper()->find($this->params('key'));
+		$key = $this->params('key');
+		$model = $this->getQuantumMapper()->find($key);
 		if (!$model) {
 			$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
 			return $this->redirect()->toRoute($this->getRouteName());
@@ -227,6 +228,8 @@ abstract class QuantumController extends AbstractController
 			$form->setData($request->getPost());
 		
 			if ($form->isValid()) {
+				// Model has been hydrated, no non-form properties will be set
+				$model->key = $key;
 				$this->getQuantumMapper()->updateQuantum($model);
 				$this->flashMessenger()->addSuccessMessage('Record updated');
 				return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'key' => $model->key));
