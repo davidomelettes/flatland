@@ -13,6 +13,10 @@ return array(
 			'Game\Controller\Games' => 'FlatlandGame\Controller\GamesController',
 		),
 	),
+	'navigation' => array(
+		'default' => array(
+		),
+	),
 	'router' => array(
 		'routes' => array(
 			'games' => array(

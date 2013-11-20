@@ -3,10 +3,14 @@
 return array(
 	'acl' => array(
 		'resources' => array(
+			'guest'		=> array(
+				'stub',
+			),
 		),
 	),
 	'controllers' => array(
 		'invokables' => array(
+			'Stub\Controller\Stub' => 'Stub\Controller\StubController',
 		),
 	),
 	'navigation' => array(
@@ -15,6 +19,19 @@ return array(
 	),
 	'router' => array(
 		'routes' => array(
+			'stub' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/stub[/:action][/:key]',
+					'constraints'	=> array(
+						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+					),
+					'defaults'		=> array(
+						'controller'	=> 'Stub\Controller\Stub',
+						'action'		=> 'index',
+					),
+				),
+			),
 		),
 	),
 	'service_manager' => array(
