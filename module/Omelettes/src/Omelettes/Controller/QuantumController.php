@@ -332,11 +332,23 @@ abstract class QuantumController extends AbstractController
 		$action = $this->params()->fromPost('action', null);
 		$data = $this->params()->fromPost('data', array());
 		
+		if (empty($keys)) {
+			$this->flashMessenger()->addErrorMessage('Nothing selected');
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		
 		try {
-			$success = $this->getQuantumMapper()->processQuanta($keys, $action, $data);
-		} catch (UnknownProcessActionException $e) {
+			$successCount = $this->getQuantumMapper()->processQuanta($keys, $action, $data);
+		} catch (Model\Exception\UnknownProcessActionException $e) {
 			$this->flashMessenger()->addErrorMessage($e->getMessage());
 			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		switch ($action) {
+			case 'delete':
+				$this->flashMessenger()->addErrorMessage($successCount . ' item' . ($successCount === 1 ? '' : 's') . ' deleted');
+				break;
+			default:
+				$this->flashMessenger()->addErrorMessage('Huh?');
 		}
 		
 		return $this->redirect()->toRoute($this->getRouteName());

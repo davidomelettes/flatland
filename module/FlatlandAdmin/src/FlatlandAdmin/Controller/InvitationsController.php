@@ -44,7 +44,7 @@ class InvitationsController extends QuantumController
 		);
 	}
 	
-	public function inviteAction()
+	public function indexAction()
 	{
 		$form = $this->getAddQuantumForm();
 		$request = $this->getRequest();
@@ -69,9 +69,12 @@ class InvitationsController extends QuantumController
 			}
 		}
 	
+		$paginator = $this->getQuantumMapper()->fetchAll(true);
+		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+		
 		return array(
 			'form'		=> $form,
-			'invites'	=> $this->getQuantumMapper()->fetchAll(true),
+			'paginator'	=> $paginator,
 		);
 	}
 	

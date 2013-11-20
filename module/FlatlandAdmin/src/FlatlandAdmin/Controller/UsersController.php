@@ -52,7 +52,6 @@ class UsersController extends QuantumController
 		$config[] = array(
 			'label'			=> 'Invite',
 			'route'			=> 'admin/invites',
-			'routeOptions'	=> array('action' => 'invite'),
 			'icon'			=> 'bullhorn',
 		);
 		

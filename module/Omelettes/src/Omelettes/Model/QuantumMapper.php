@@ -193,18 +193,25 @@ abstract class QuantumMapper extends AbstractMapper
 			throw new \Exception(get_class($this) . ' is read-only');
 		}
 		
+		$successCount = 0;
+		
 		if (empty($keys)) {
-			return true;
+			return $successCount;
 		}
 		switch ($action) {
 			case 'delete':
-				$data = array('deleted' => new Expression('now()'));
-				$this->writeTableGateway->update($data, array('key' => $keys));
+				foreach ($keys as $key) {
+					if (FALSE !== ($model = $this->find($key))) {
+						$this->deleteQuantum($model);
+						$successCount++;
+					}
+				}
+				break;
 			default:
 				throw new Exception\UnknownProcessActionException('Unknown action: ' . $action);
 		}
 		
-		return true;
+		return $successCount;
 	}
 	
 }
