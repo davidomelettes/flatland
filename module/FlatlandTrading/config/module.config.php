@@ -15,6 +15,11 @@ return array(
 	),
 	'navigation' => array(
 		'default' => array(
+			array(
+				'label' => 'Trading',
+				'route' => 'trading',
+				'icon'	=> 'shopping-cart',
+			),
 		),
 	),
 	'router' => array(

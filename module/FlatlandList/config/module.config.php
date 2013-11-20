@@ -15,6 +15,11 @@ return array(
 	),
 	'navigation' => array(
 		'default' => array(
+			array(
+				'label' => 'Lists',
+				'route' => 'lists',
+				'icon'	=> 'list',
+			),
 		),
 	),
 	'router' => array(

@@ -15,6 +15,11 @@ return array(
 	),
 	'navigation' => array(
 		'default' => array(
+			array(
+				'label' => 'Groups & Events',
+				'route' => 'groups',
+				'icon'	=> 'calendar',
+			),
 		),
 	),
 	'router' => array(

@@ -15,6 +15,11 @@ return array(
 	),
 	'navigation' => array(
 		'default' => array(
+			array(
+				'label' => 'Forums',
+				'route' => 'forums',
+				'icon'	=> 'comment',
+			),
 		),
 	),
 	'router' => array(

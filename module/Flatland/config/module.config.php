@@ -15,31 +15,6 @@ return array(
 	),
 	'navigation' => array(
 		'default' => array(
-			array(
-				'label' => 'Games',
-				'route' => 'games',
-				'icon'	=> 'tower',
-			),
-			array(
-				'label' => 'Forums',
-				'route' => 'forums',
-				'icon'	=> 'comment',
-			),
-			array(
-				'label' => 'Trading',
-				'route' => 'trading',
-				'icon'	=> 'shopping-cart',
-			),
-			array(
-				'label' => 'Groups & Events',
-				'route' => 'groups',
-				'icon'	=> 'calendar',
-			),
-			array(
-				'label' => 'Lists',
-				'route' => 'lists',
-				'icon'	=> 'list',
-			),
 		),
 	),
 	'router' => array(

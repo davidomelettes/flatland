@@ -15,6 +15,11 @@ return array(
 	),
 	'navigation' => array(
 		'default' => array(
+			array(
+				'label' => 'Games',
+				'route' => 'games',
+				'icon'	=> 'tower',
+			),
 		),
 	),
 	'router' => array(
