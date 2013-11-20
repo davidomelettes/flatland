@@ -2,6 +2,9 @@
 
 namespace Stub;
 
+use Zend\Db\ResultSet\ResultSet,
+	Zend\Db\TableGateway\TableGateway;
+
 class Module
 {
 	public function getConfig()
@@ -24,6 +27,18 @@ class Module
 	{
 		return array(
 			'factories' => array(
+				'StubbyTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Stubby());
+					return new TableGateway('stubby', $dbAdapter, null, $resultSetPrototype);
+				},
+				'Stub\Model\StubbyMapper' => function ($sm) {
+					$readGateway = $sm->get('StubbyTableGateway');
+					$writeGateway = $sm->get('StubbyTableGateway');
+					$mapper = new Model\StubbyMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
 			),
 		);
 	}
