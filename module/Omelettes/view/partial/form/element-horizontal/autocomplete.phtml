@@ -1,8 +1,9 @@
 <?php $element = $this->element; ?>
+<?php $model = $this->model; ?>
 <label class="col-lg-<?php echo $this->leftColWidth; ?> control-label" for="<?php echo $element->getAttribute('id'); ?>"><?php echo $element->getLabel(); ?></label>
 <div class="col-lg-<?php echo $this->rightColWidth; ?>">
 	<div class="input-group">
-		<input id="<?php echo $element->getAttribute('id'); ?>_ac" type="text" class="autocomplete form-control">
+		<input id="<?php echo $element->getAttribute('id'); ?>_ac" type="text" class="autocomplete form-control" data-target="#<?php echo $element->getAttribute('id'); ?>" value="<?php echo $this->escapehtml($model->publisher); ?>">
 		<span class="input-group-addon glyphicon glyphicon-search"></span>
 	</div>
 	<?php echo $this->formElement($element); ?>

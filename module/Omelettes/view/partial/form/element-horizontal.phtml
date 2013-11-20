@@ -1,4 +1,5 @@
 <?php
+	$element = $this->element;
 	$elementType = $element->getAttribute('type');
 	if (!in_array($elementType, array('submit'))) {
 		$element->setAttribute('class', 'form-control ' . $element->getAttribute('class'));
@@ -13,6 +14,7 @@
 				'element'		=> $element,
 				'leftColWidth'	=> $leftColWidth,
 				'rightColWidth'	=> $rightColWidth,
+				'model'			=> $this->model,
 				'unwrap'		=> $unwrap,
 			)); ?>
 <?php if (!$unwrap): ?>

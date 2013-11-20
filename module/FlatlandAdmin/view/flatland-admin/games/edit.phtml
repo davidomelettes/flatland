@@ -2,4 +2,4 @@
 	'title' => 'Edit ' . $this->model->name,
 )); ?>
 
-<?php echo $this->partial('form/horizontal', array('form' => $this->form)); ?>
+<?php echo $this->partial('form/horizontal', array('form' => $this->form, 'model' => $this->model)); ?>

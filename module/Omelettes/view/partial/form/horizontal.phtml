@@ -19,6 +19,7 @@ echo $this->form()->openTag($form);
 			'fieldset' => $element,
 			'leftColWidth'	=> 2,
 			'rightColWidth'	=> 4,
+			'model' => $this->model,
 			'unwrap' => true,
 		)); ?>
 <?php else: ?>
@@ -28,6 +29,7 @@ echo $this->form()->openTag($form);
 			'element'		=> $element,
 			'leftColWidth'	=> 2,
 			'rightColWidth'	=> 4,
+			'model' => $this->model,
 			'unwrap'		=> false,
 		)); ?>
 <?php endif; ?>

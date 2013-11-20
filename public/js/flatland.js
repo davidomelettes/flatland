@@ -17,25 +17,32 @@
 	}
 }());
 
+var Om = Om || {};
+
 $(function () {
 	$(document).ready(function () {
 		console.group('Page head');
 		
 		// Autocomplete inputs
-		$('.autocomplete').each(function(){
+		$('.autocomplete').each(function() {
+			var $key = $($(this).data('target'));
 			$(this).parents('.form-group').find('label').attr('for', $(this).attr('id'));
 			$(this).autocomplete({
 				select: function(event, ui) {
-					var $i = $(event.target);
+					console.log('select');
+					var $ac = $(event.target);
 					var item = ui.item;
 					if (item.value) {
-						var $s = $('<p>').addClass('form-control-static bound').text(item.label+' ').append($('<span>').addClass('glyphicon glyphicon-remove')).click(function(){
-							$(this).next().val('').show().next().val('');
+						var $s = $('<p>').addClass('form-control-static bound').text(item.label+' ').append($('<span>').addClass('glyphicon glyphicon-remove text-danger')).click(function(){
+							$ac.val('').parent().show();
+							$key.val('');
 							$(this).remove();
 						});
-						$i.hide().before($s).next().val(item.value);
+						$ac.parent().hide().before($s);
+						$key.val(item.value);
 					} else {
-						$i.val('').next().val('');
+						$ac.val('');
+						$key.val('');
 					}
 					return false;
 				}
@@ -44,6 +51,9 @@ $(function () {
 					$(this).val('').removeClass('bound').next().val('');
 				}
 			});
+			if ($key.val() != '') {
+				$(this).data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:$key.val(),label:$(this).val()}});
+			}
 		});
 		
 		console.groupEnd();
