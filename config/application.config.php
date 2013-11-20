@@ -13,6 +13,7 @@ return array(
         'FlatlandGame',
     	'FlatlandForum',
     	'FlatlandTrading',
+    	'FlatlandList',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

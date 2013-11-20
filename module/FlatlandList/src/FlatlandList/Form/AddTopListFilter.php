@@ -1,10 +1,10 @@
 <?php
 
-namespace Stub\Form;
+namespace FlatlandList\Form;
 
 use Omelettes\Form\QuantumFilter;
 
-class AddStubbyFilter extends QuantumFilter
+class AddTopListFilter extends QuantumFilter
 {
 	public function getInputFilter()
 	{

@@ -37,7 +37,7 @@ return array(
 			),
 			array(
 				'label' => 'Lists',
-				'route' => 'home',
+				'route' => 'lists',
 				'icon'	=> 'list',
 			),
 		),

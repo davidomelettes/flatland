@@ -4,7 +4,7 @@ namespace OmelettesMigration;
 
 use Omelettes\Migration\AbstractMigration;
 
-class Migration005Forums extends AbstractMigration
+class Migration006Trading extends AbstractMigration
 {
 	public function migrate()
 	{
