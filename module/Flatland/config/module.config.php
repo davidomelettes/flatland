@@ -27,7 +27,7 @@ return array(
 			),
 			array(
 				'label' => 'Trading',
-				'route' => 'home',
+				'route' => 'trading',
 				'icon'	=> 'shopping-cart',
 			),
 			array(
