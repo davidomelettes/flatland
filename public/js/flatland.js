@@ -23,6 +23,19 @@ $(function () {
 	$(document).ready(function () {
 		console.group('Page head');
 		
+		// Tables
+		$('table.table').each(function() {
+			var $t = $(this);
+			$t.find('thead th.cb input').click(function() {
+				$t.find('tbody td.cb input').prop('checked', $(this).prop('checked'));
+			});
+			$t.find('.cb').click(function() {
+				$(this).find('input').click();
+			}).find('input').click(function(ev) {
+				ev.stopPropagation();
+			});
+		});
+		
 		// Autocomplete inputs
 		$('.autocomplete').each(function() {
 			var $key = $($(this).data('target'));

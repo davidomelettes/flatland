@@ -3,10 +3,12 @@
 use Omelettes\Model\Tabulatable;
 use Zend\Paginator\Paginator;
 
+$colspan = count($this->mock->getTableHeadings());
+
 ?>
 
 <?php if ($this->options['formulate']): ?>
-<form action="" method="post">
+<form class="form-inline" action="<?php echo $this->url(null, array('action' => 'process')); ?>" method="post">
 <?php endif; ?>
 <table class="table table-bordered table-hover">
 	<thead>
@@ -23,13 +25,24 @@ use Zend\Paginator\Paginator;
 			<?php endforeach; ?>
 		</tr>
 	</thead>
+	<?php if ($this->options['formulate']): ?>
 	<tfoot>
+		<tr>
+			<td colspan="<?php echo $colspan+1; ?>">
+				<label><?php echo $this->translate('With selected:'); ?>
+					<select class="form-control" name="action">
+						<option value="delete">Delete</option>
+					</select>
+				</label>
+				<button class="btn btn-default" type="submit"><?php echo $this->translate('Go'); ?></button>
+			</td>
+		</tr>
 	</tfoot>
+	<?php endif; ?>
 	<tbody>
 		<?php if (count($this->data) < 1): ?>
 		<tr>
 			<?php
-				$colspan = count($this->mock->getTableHeadings());
 				if ($this->options['formulate']) {
 					$colspan++;
 				}
@@ -43,7 +56,7 @@ use Zend\Paginator\Paginator;
 		<tr>
 			<?php if ($this->options['formulate']): ?>
 			<td class="cb">
-				<input type="checkbox">
+				<input type="checkbox" name="keys[]" value="<?php echo $datum->key; ?>">
 			</td>
 			<?php endif; ?>
 			<?php echo $this->partial($this->mock->getTableRowPartial(), array('data' => $datum, 'options' => $this->options)); ?>

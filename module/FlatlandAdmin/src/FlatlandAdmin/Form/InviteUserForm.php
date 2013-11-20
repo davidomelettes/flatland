@@ -9,7 +9,10 @@ class InviteUserForm extends QuantumForm
 	public function __construct($name = 'form-invite-user')
 	{
 		parent::__construct($name);
-		
+	}
+	
+	public function init()
+	{
 		$this->addNameElement('Email Address');
 		$this->get('name')->setAttribute('placeholder', 'Email Address');
 		

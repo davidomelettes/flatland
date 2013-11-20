@@ -4,4 +4,4 @@
 )); ?>
 
 <p><?php echo $this->partial('form/inline', array('form' => $this->form)); ?></p>
-<?php echo $this->tabulate($this->invites); ?>
+<?php echo $this->tabulate($this->invites, array('formulate' => true)); ?>

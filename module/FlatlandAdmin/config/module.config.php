@@ -7,6 +7,7 @@ return array(
 				'admin/designers',
 				'admin/games',
 				'admin/publishers',
+				'admin/invites',
 				'admin/users',
 			),
 		),
@@ -17,6 +18,7 @@ return array(
 			'Admin\Controller\Games' => 'FlatlandAdmin\Controller\GamesController',
 			'Admin\Controller\Publishers' => 'FlatlandAdmin\Controller\PublishersController',
 			'Admin\Controller\Users' => 'FlatlandAdmin\Controller\UsersController',
+			'Admin\Controller\Invites' => 'FlatlandAdmin\Controller\InvitationsController',
 		),
 	),
 	'navigation' => array(
@@ -110,6 +112,19 @@ return array(
 							),
 							'defaults'		=> array(
 								'controller'	=> 'Admin\Controller\Users',
+								'action'		=> 'index',
+							),
+						),
+					),
+					'invites' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route'			=> '/invites[/:action][/:key]',
+							'constraints'	=> array(
+								'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+							),
+							'defaults'		=> array(
+								'controller'	=> 'Admin\Controller\Invites',
 								'action'		=> 'index',
 							),
 						),

@@ -169,6 +169,11 @@ abstract class QuantumController extends AbstractController
 	
 	public function addAction()
 	{
+		if ($this->getQuantumMapper()->isReadOnly()) {
+			$this->flashMessenger()->addErrorMessage('You do not have permission to do that');
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		
 		$model = $this->getQuantumModel();
 		$form = $this->getAddQuantumForm();
 		$form->bind($model);
@@ -217,6 +222,11 @@ abstract class QuantumController extends AbstractController
 	
 	public function editAction()
 	{
+		if ($this->getQuantumMapper()->isReadOnly()) {
+			$this->flashMessenger()->addErrorMessage('You do not have permission to do that');
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		
 		$key = $this->params('key');
 		$model = $this->getQuantumMapper()->find($key);
 		if (!$model) {
@@ -249,6 +259,11 @@ abstract class QuantumController extends AbstractController
 	
 	public function deleteAction()
 	{
+		if ($this->getQuantumMapper()->isReadOnly()) {
+			$this->flashMessenger()->addErrorMessage('You do not have permission to do that');
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		
 		$model = $this->getQuantumMapper()->find($this->params('key'));
 		if (!$model) {
 			$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
@@ -298,6 +313,33 @@ abstract class QuantumController extends AbstractController
 		$viewModel->setVariables($results);
 		
 		return $viewModel;
+	}
+	
+	public function processAction()
+	{
+		if ($this->getQuantumMapper()->isReadOnly()) {
+			$this->flashMessenger()->addErrorMessage('You do not have permission to do that');
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		
+		$request = $this->getRequest();
+		if (!$request->isPost()) {
+			$this->flashMessenger()->addErrorMessage('POST requests only');
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		
+		$keys = $this->params()->fromPost('keys', array());
+		$action = $this->params()->fromPost('action', null);
+		$data = $this->params()->fromPost('data', array());
+		
+		try {
+			$success = $this->getQuantumMapper()->processQuanta($keys, $action, $data);
+		} catch (UnknownProcessActionException $e) {
+			$this->flashMessenger()->addErrorMessage($e->getMessage());
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		
+		return $this->redirect()->toRoute($this->getRouteName());
 	}
 	
 	public function getIndexNavigationConfig()

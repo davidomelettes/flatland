@@ -21,6 +21,11 @@ abstract class QuantumMapper extends AbstractMapper
 	 */
 	protected $paginator;
 	
+	public function isReadOnly()
+	{
+		return $this->readOnly;
+	}
+	
 	/**
 	 * @return Predicate\PredicateSet
 	 */
@@ -180,6 +185,26 @@ abstract class QuantumMapper extends AbstractMapper
 			'deleted' => new Expression('now()'),
 		);
 		$this->writeTableGateway->update($data, array('key'=> $model->key));
+	}
+	
+	public function processQuanta(array $keys, $action, $data = array())
+	{
+		if ($this->readOnly) {
+			throw new \Exception(get_class($this) . ' is read-only');
+		}
+		
+		if (empty($keys)) {
+			return true;
+		}
+		switch ($action) {
+			case 'delete':
+				$data = array('deleted' => new Expression('now()'));
+				$this->writeTableGateway->update($data, array('key' => $keys));
+			default:
+				throw new Exception\UnknownProcessActionException('Unknown action: ' . $action);
+		}
+		
+		return true;
 	}
 	
 }
