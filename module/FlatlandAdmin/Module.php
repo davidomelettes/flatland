@@ -42,9 +42,21 @@ class Module
 					);
 					return $filter;
 				},
+				'AdminGamesTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					return new TableGateway('games', $dbAdapter, null, $resultSetPrototype);
+				},
+				'AdminGamesViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					return new TableGateway('games_view', $dbAdapter, null, $resultSetPrototype);
+				},
 				'FlatlandAdmin\Model\GamesMapper' => function ($sm) {
-					$readGateway = $sm->get('GamesViewGateway');
-					$writeGateway = $sm->get('GamesTableGateway');
+					$readGateway = $sm->get('AdminGamesViewGateway');
+					$writeGateway = $sm->get('AdminGamesTableGateway');
 					$mapper = new Model\GamesMapper($readGateway, $writeGateway);
 					return $mapper;
 				},

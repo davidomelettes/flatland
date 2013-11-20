@@ -14,6 +14,8 @@ use Zend\Db\ResultSet\ResultSet,
 
 abstract class QuantumMapper extends AbstractMapper
 {
+	protected $readOnly = false;
+	
 	/**
 	 * @var Paginator
 	 */
@@ -139,6 +141,10 @@ abstract class QuantumMapper extends AbstractMapper
 	
 	public function saveQuantum(QuantumModel $model)
 	{
+		if ($this->readOnly) {
+			throw new \Exception(get_class($this) . ' is read-only');
+		}
+		
 		$key = $model->key;
 		$data = $this->prepareSaveData($model);
 		if ($key) {
@@ -166,6 +172,10 @@ abstract class QuantumMapper extends AbstractMapper
 	
 	public function deleteQuantum(QuantumModel $model)
 	{
+		if ($this->readOnly) {
+			throw new \Exception(get_class($this) . ' is read-only');
+		}
+		
 		$data = array(
 			'deleted' => new Expression('now()'),
 		);

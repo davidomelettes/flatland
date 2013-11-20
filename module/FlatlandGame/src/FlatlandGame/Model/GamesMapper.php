@@ -2,18 +2,10 @@
 
 namespace FlatlandGame\Model;
 
-use FlatlandAdmin\Model\GamesMapper as AdminGamesMapper;
+use Omelettes\Model\QuantumMapper;
 
-class GamesMapper extends AdminGamesMapper
+class GamesMapper extends QuantumMapper
 {
-	public function saveQuantum()
-	{
-		throw new \Exception('Method not used');
-	}
-	
-	public function deleteQuantum()
-	{
-		throw new \Exception('Method not used');
-	}
+	protected $readOnly = true;
 	
 }

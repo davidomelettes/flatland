@@ -42,6 +42,9 @@ return array(
 	'service_manager' => array(
 	),
 	'view_manager' => array(
+		'template_map' => array(
+			'tabulate/game'		=> __DIR__ . '/../view/partial/tabulate/game.phtml',
+		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',
 		),
