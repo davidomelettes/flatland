@@ -55,13 +55,14 @@ return array(
 	'view_manager' => array(
 		'template_map' => array(
 			'flash-messenger'		=> __DIR__ . '/../view/partial/flash-messenger.phtml',
-			'crud'					=> __DIR__ . '/../view/partial/crud.phtml',
 			'form/friendly'			=> __DIR__ . '/../view/partial/form/friendly.phtml',
 			'form/horizontal'		=> __DIR__ . '/../view/partial/form/horizontal.phtml',
 			'form/inline'			=> __DIR__ . '/../view/partial/form/inline.phtml',
 			'mail/layout/text'		=> __DIR__ . '/../view/mail/layout/text.phtml',
 			'mail/layout/html'		=> __DIR__ . '/../view/mail/layout/html.phtml',
-			'navigation'			=> __DIR__ . '/../view/partial/navigation.phtml',
+			'nav/buttons'			=> __DIR__ . '/../view/partial/navigation/buttons.phtml',
+			'nav/navbar'			=> __DIR__ . '/../view/partial/navigation/navbar.phtml',
+			'nav/pills'				=> __DIR__ . '/../view/partial/navigation/pills.phtml',
 			'pagination'			=> __DIR__ . '/../view/partial/pagination.phtml',
 			'page-title'			=> __DIR__ . '/../view/partial/page-title.phtml',
 			'tabulate/tabulate'		=> __DIR__ . '/../view/partial/tabulate.phtml',

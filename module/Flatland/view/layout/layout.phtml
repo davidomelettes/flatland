@@ -45,7 +45,7 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/"><?php echo $this->translate('Admin'); ?></a>
 			</div>
-			<?php echo $this->navigation('admin_navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('navigation'); ?>
+			<?php echo $this->navigation('admin_navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('nav/navbar'); ?>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<a href="#"><span class="badge">3</span> Reports</a>
@@ -65,7 +65,7 @@
 			</div>
 			
 			<div class="collapse navbar-collapse navbar-top-collapse">
-				<?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('navigation'); ?>
+				<?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('nav/navbar'); ?>
 				<?php if ($this->authService()->hasIdentity()): ?>
 				<ul class="nav navbar-nav navbar-right">
 					<li>

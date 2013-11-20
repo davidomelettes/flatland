@@ -2,13 +2,13 @@
 
 namespace FlatlandAdmin\Form;
 
-use Omelettes\Form\AbstractQuantumModelFilter,
+use Omelettes\Form\QuantumFilter,
 	Omelettes\Validator\Model\ModelDoesNotExist;
 use OmelettesSignup\Model\InvitationCodesMapper,
 	OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
 use Zend\Validator\EmailAddress;
 
-class InviteUserFilter extends AbstractQuantumModelFilter
+class InviteUserFilter extends QuantumFilter
 {
 	/**
 	 * @var SignupUsersMapper

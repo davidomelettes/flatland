@@ -2,41 +2,18 @@
 
 namespace OmelettesSignup\Model;
 
-use Omelettes\Model\QuantumMapper,
-	Omelettes\Uuid\V4 as Uuid;
-use OmelettesSignup\Model\InvitationCode;
-use Zend\Db\Sql\Predicate;
+use Omelettes\Model\QuantumMapper;
 
 class InvitationCodesMapper extends QuantumMapper
 {
-	public function saveInvitation(InvitationCode $invitation)
+	public function prepareSaveData($model)
 	{
-		$auth = $this->getServiceLocator()->get('AuthService');
-		$code = new Uuid();
-		$data = array(
-			'key'			=> (string)$code,
-			'name'			=> $invitation->name,
-			'created_by'	=> $auth->getIdentity()->key,
-			'updated_by'	=> $auth->getIdentity()->key,
-		);
-		$this->writeTableGateway->insert($data);
+		$data = parent::prepareSaveData($model);
+		$data = array_merge($data, array(
+			'full_name'		=> $model->fullName,
+		));
 		
-		$invitation->exchangeArray($data);
-	}
-	
-	public function findByName($emailAddress)
-	{
-		$where = $this->getWhere();
-		$where->addPredicate(new Predicate\Operator('name', '=', $emailAddress));
-	
-		return $this->findOneWhere($where);
-	}
-	
-	public function deleteInvitation($code)
-	{
-		$this->writeTableGateway->delete(array('key' => $code));
-		
-		return $this;
+		return $data;
 	}
 	
 }

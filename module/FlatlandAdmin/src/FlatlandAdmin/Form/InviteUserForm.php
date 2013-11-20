@@ -2,9 +2,9 @@
 
 namespace FlatlandAdmin\Form;
 
-use Omelettes\Form\AbstractQuantumForm;
+use Omelettes\Form\QuantumForm;
 
-class InviteUserForm extends AbstractQuantumForm
+class InviteUserForm extends QuantumForm
 {
 	public function __construct($name = 'form-invite-user')
 	{

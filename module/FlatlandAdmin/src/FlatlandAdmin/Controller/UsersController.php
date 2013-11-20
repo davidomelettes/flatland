@@ -3,28 +3,24 @@
 namespace FlatlandAdmin\Controller;
 
 use FlatlandAdmin\Form;
-use Omelettes\Controller\AbstractController;
+use Omelettes\Controller\QuantumController;
 use OmelettesAuth\Model\User as SignupUser;
 use OmelettesSignup\Model\InvitationCode,
-	OmelettesSignup\Model\InvitationCodesMapper,
-	OmelettesSignup\Model\UsersMapper;
+	OmelettesSignup\Model\InvitationCodesMapper;
 
-class UsersController extends AbstractController
+class UsersController extends QuantumController
 {
-	/**
-	 * @var UsersMapper
-	 */
-	protected $usersMapper;
+	protected $addQuantumFilterClass = 'FlatlandAdmin\Form\AddUserFilter';
 	
-	/**
-	 * @var Form\AddUserForm
-	 */
-	protected $addUserForm;
+	protected $addQuantumFormClass = 'FlatlandAdmin\Form\AddUserForm';
 	
-	/**
-	 * @var Form\AddUserFilter
-	 */
-	protected $addUserFilter;
+	protected $editQuantumFilterClass = 'FlatlandAdmin\Form\AddUserFilter';
+	
+	protected $editQuantumFormClass = 'FlatlandAdmin\Form\AddUserForm';
+	
+	protected $quantumMapperClass = 'OmelettesSignup\Model\UsersMapper';
+	
+	protected $quantumModelClass = 'OmelettesAuth\Model\User';
 	
 	/**
 	 * @var InvitationCodesMapper
@@ -40,36 +36,6 @@ class UsersController extends AbstractController
 	 * @var Form\InviteUserFilter
 	 */
 	protected $inviteUserFilter;
-	
-	public function getUsersMapper()
-	{
-		if (!$this->usersMapper) {
-			$usersMapper = $this->getServiceLocator()->get('OmelettesSignup\Model\UsersMapper');
-			$this->usersMapper = $usersMapper;
-		}
-		
-		return $this->usersMapper;
-	}
-	
-	public function getAddUserForm()
-	{
-		if (!$this->addUserForm) {
-			$form = new Form\AddUserForm();
-			$this->addUserForm = $form;
-		}
-		
-		return $this->addUserForm;
-	}
-	
-	public function getAddUserFilter()
-	{
-		if (!$this->addUserFilter) {
-			$filter = $this->getServiceLocator()->get('FlatlandAdmin\Form\AddUserFilter');
-			$this->addUserFilter = $filter;
-		}
-		
-		return $this->addUserFilter;
-	}
 	
 	public function getInvitationCodesMapper()
 	{
@@ -99,16 +65,6 @@ class UsersController extends AbstractController
 		}
 	
 		return $this->inviteUserFilter;
-	}
-	
-	public function indexAction()
-	{
-		$paginator = $this->getUsersMapper()->fetchAll(true);
-		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
-		
-		return array(
-			'users' => $paginator,
-		);
 	}
 	
 	public function addAction()
@@ -172,12 +128,13 @@ class UsersController extends AbstractController
 				$data = $form->getData();
 				
 				// Generate invitation code
-				$this->getInvitationCodesMapper()->saveInvitation($code);
+				$this->getInvitationCodesMapper()->saveQuantum($code);
 				
 				// Send invitation
 				$this->sendInvitationEmail($code);
 		
-				return $this->redirect()->toRoute('admin/users');
+				$this->flashMessenger()->addSuccessMessage('Invitation sent');
+				return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'invite'));
 			}
 		}
 		
@@ -185,6 +142,19 @@ class UsersController extends AbstractController
 			'form'		=> $form,
 			'invites'	=> $this->getInvitationCodesMapper()->fetchAll(true),
 		);
+	}
+	
+	public function getIndexNavigationConfig()
+	{
+		$config = parent::getIndexNavigationConfig();
+		$config[] = array(
+			'label'			=> 'Invite',
+			'route'			=> $this->getRouteName(),
+			'routeOptions'	=> array('action' => 'invite'),
+			'icon'			=> 'plus',
+		);
+		
+		return $config;
 	}
 	
 }

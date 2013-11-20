@@ -6,7 +6,7 @@
 	<?php endif; ?>
 	<?php if ($this->crud): ?>
 	<div class="pull-right">
-		<?php echo $this->partial('crud', array('model' => $this->model, 'actions' => $this->crud)); ?>
+		<?php echo $this->partial('nav/buttons', array('container' => $this->crud)); ?>
 	</div>
 	<?php endif; ?>
 	<h2><?php echo $this->escapehtml($this->title); ?></h2>

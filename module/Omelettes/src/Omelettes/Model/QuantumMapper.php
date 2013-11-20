@@ -108,6 +108,14 @@ abstract class QuantumMapper extends AbstractMapper
 		return $this->fetchAllWhere($where, $paginated);
 	}
 	
+	public function findByName($name)
+	{
+		$where = $this->getWhere();
+		$where->addPredicate(new Predicate\Operator('name', '=', $name));
+		
+		return $this->findOneWhere($where);
+	}
+	
 	protected function prepareSaveData(QuantumModel $model)
 	{
 		$key = $model->key;

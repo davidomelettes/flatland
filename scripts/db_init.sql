@@ -32,6 +32,7 @@ CREATE TABLE users (
 	updated_by UUID NOT NULL REFERENCES users(key),
 	created TIMESTAMP NOT NULL DEFAULT now(),
 	updated TIMESTAMP NOT NULL DEFAULT now(),
+	deleted TIMESTAMP,
 	full_name VARCHAR NOT NULL,
 	salt VARCHAR NOT NULL DEFAULT uuid_generate_v4(),
 	password_hash VARCHAR NOT NULL,

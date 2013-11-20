@@ -4,7 +4,9 @@ namespace Omelettes\Controller;
 
 use Omelettes\Form,
 	Omelettes\Model;
-use Zend\View\Model\JsonModel;
+use Zend\View\Model\JsonModel,
+	Zend\Navigation;
+use Omelettes\Model\QuantumModel;
 
 abstract class QuantumController extends AbstractController
 {
@@ -198,6 +200,7 @@ abstract class QuantumController extends AbstractController
 		
 		return $this->returnViewModel(array(
 			'model' => $model,
+			'crud' => $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
 	}
 	
@@ -208,6 +211,7 @@ abstract class QuantumController extends AbstractController
 		
 		return $this->returnViewModel(array(
 			'paginator' => $paginator,
+			'crud' => $this->constructNavigation($this->getIndexNavigationConfig()),
 		));
 	}
 	
@@ -239,6 +243,7 @@ abstract class QuantumController extends AbstractController
 		return $this->returnViewModel(array(
 			'form' => $form,
 			'model' => $model,
+			'crud' => $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
 	}
 	
@@ -261,6 +266,7 @@ abstract class QuantumController extends AbstractController
 		return $this->returnViewModel(array(
 			'model' => $model,
 			'form' => $form,
+			'crud' => $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
 	}
 	
@@ -292,6 +298,44 @@ abstract class QuantumController extends AbstractController
 		$viewModel->setVariables($results);
 		
 		return $viewModel;
+	}
+	
+	public function getIndexNavigationConfig()
+	{
+		return array(
+			array(
+				'label'			=> 'Add',
+				'route'			=> $this->getRouteName(),
+				'routeOptions'	=> array('action' => 'add'),
+				'icon'			=> 'plus',
+			),
+		);
+	}
+	
+	public function getViewNavigationConfig(QuantumModel $model)
+	{
+		return array(
+			array(
+				'label'			=> 'Edit',
+				'route'			=> $this->getRouteName(),
+				'routeOptions'	=> array('action' => 'edit', 'key' => $model->key),
+				'icon'			=> 'plus',
+			),
+			array(
+				'label'			=> 'Delete',
+				'route'			=> $this->getRouteName(),
+				'routeOptions'	=> array('action' => 'delete', 'key' => $model->key),
+				'icon'			=> 'plus',
+			),
+		);
+	}
+	
+	public function constructNavigation($config)
+	{
+		$factory = new Navigation\Service\ConstructedNavigationFactory($config);
+		$navigation = $factory->createService($this->getServiceLocator());
+		
+		return $navigation;
 	}
 	
 }
