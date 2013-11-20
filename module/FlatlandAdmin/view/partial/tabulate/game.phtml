@@ -1,4 +1,7 @@
 <?php echo $this->partial('tabulate/quantum'); ?>
+<td>
+	<?php echo $this->prettyText($this->data->publisher); ?>
+</td>
 <td class="actions">
 	<a class="btn btn-warning" href="<?php echo $this->url('admin/games', array('action' => 'edit', 'key' => $this->data->key)); ?>">Edit</a>
 	<a class="btn btn-danger" href="<?php echo $this->url('admin/games', array('action' => 'delete', 'key' => $this->data->key)); ?>">Delete</a>

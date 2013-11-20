@@ -21,6 +21,10 @@ class Game extends QuantumModel
 	public function getTableHeadings()
 	{
 		$headings = parent::getTableHeadings();
+		$headings = array_merge($headings, array(
+			'publisher' => 'Publisher',
+			'actions' => '',
+		));
 		$headings['actions'] = '';
 		
 		return $headings;
