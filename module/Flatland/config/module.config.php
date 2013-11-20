@@ -32,7 +32,7 @@ return array(
 			),
 			array(
 				'label' => 'Groups & Events',
-				'route' => 'home',
+				'route' => 'groups',
 				'icon'	=> 'calendar',
 			),
 			array(

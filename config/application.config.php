@@ -14,6 +14,7 @@ return array(
     	'FlatlandForum',
     	'FlatlandTrading',
     	'FlatlandList',
+    	'FlatlandGroup',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
