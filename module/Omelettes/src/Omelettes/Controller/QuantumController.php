@@ -373,13 +373,13 @@ abstract class QuantumController extends AbstractController
 				'label'			=> 'Edit',
 				'route'			=> $this->getRouteName(),
 				'routeOptions'	=> array('action' => 'edit', 'key' => $model->key),
-				'icon'			=> 'plus',
+				'icon'			=> 'pencil',
 			),
 			array(
 				'label'			=> 'Delete',
 				'route'			=> $this->getRouteName(),
 				'routeOptions'	=> array('action' => 'delete', 'key' => $model->key),
-				'icon'			=> 'plus',
+				'icon'			=> 'trash',
 			),
 		);
 	}

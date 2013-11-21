@@ -39,6 +39,10 @@ class Module
 					$mapper = new Model\GroupsMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
+				'FlatlandGroup\Form\AddGroupFilter' => function ($sm) {
+					$filter = new Form\AddGroupFilter();
+					return $filter;
+				},
 			),
 		);
 	}

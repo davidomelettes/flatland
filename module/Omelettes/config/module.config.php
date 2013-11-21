@@ -53,6 +53,8 @@ return array(
 		'invokables'	=> array(
 			'tabulate'		=> 'Omelettes\View\Helper\Tabulate',
 			'prettyText'	=> 'Omelettes\View\Helper\PrettyText',
+			'prettyTime'	=> 'Omelettes\View\Helper\PrettyTime',
+			'prettyUser'	=> 'Omelettes\View\Helper\PrettyUser',
 			'prettyUuid'	=> 'Omelettes\View\Helper\PrettyUuid',
 		),
 	),
@@ -71,6 +73,7 @@ return array(
 			'page-title'			=> __DIR__ . '/../view/partial/page-title.phtml',
 			'tabulate/tabulate'		=> __DIR__ . '/../view/partial/tabulate.phtml',
 			'tabulate/quantum'		=> __DIR__ . '/../view/partial/tabulate/quantum.phtml',
+			'info/authorship'		=> __DIR__ . '/../view/partial/info/authorship.phtml',
 		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',

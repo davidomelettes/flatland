@@ -6,36 +6,23 @@ use Zend\InputFilter\InputFilter,
 	Zend\InputFilter\InputFilterAwareInterface,
 	Zend\InputFilter\InputFilterInterface,
 	Zend\ServiceManager\ServiceLocatorAwareInterface,
-	Zend\ServiceManager\ServiceLocatorInterface,
+	Zend\ServiceManager\ServiceLocatorAwareTrait,
 	Zend\Validator\ValidatorChain;
 
 class QuantumFilter implements InputFilterAwareInterface, ServiceLocatorAwareInterface
 {
+	use ServiceLocatorAwareTrait;
+	
 	/**
 	 * @var InputFilter
 	 */
 	protected $inputFilter;
-	
-	/**
-	 * @var ServiceLocatorInterface
-	 */
-	protected $serviceLocator;
 	
 	public function setInputFilter(InputFilterInterface $inputFilter)
 	{
 		throw new \Exception('Not used');
 	}
 	
-	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-	{
-		$this->serviceLocator = $serviceLocator;
-	}
-	
-	public function getServiceLocator()
-	{
-		return $this->serviceLocator;
-	}
-
 	protected function getDefaultInputFilter()
 	{
 		$inputFilter = new InputFilter();
