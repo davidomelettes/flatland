@@ -11,9 +11,9 @@ class Migration001Users extends AbstractMigration
 		$this->tableAddColumns('users', array(
 			'name_reset_name'			=> 'VARCHAR',
 			'name_reset_key'			=> 'UUID',
-			'name_reset_requested'		=> 'TIMESTAMP',
+			'name_reset_requested'		=> 'TIMESTAMP WITH TIME ZONE',
 			'password_reset_key'		=> 'UUID',
-			'password_reset_requested'	=> 'TIMESTAMP',
+			'password_reset_requested'	=> 'TIMESTAMP WITH TIME ZONE',
 		));
 		
 		$this->insertFixture('migration/fixtures/001_users.xml');
@@ -31,7 +31,7 @@ class Migration001Users extends AbstractMigration
 			'series'	=> 'UUID NOT NULL',
 			'token'		=> 'UUID NOT NULL',
 			'expiry'	=> 'INT NOT NULL',
-			'created'	=> 'TIMESTAMP NOT NULL DEFAULT now()',
+			'created'	=> 'TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()',
 		), array('name', 'series', 'token'));
 		
 		$this->tableCreate('invitation_codes', array_merge($this->getQuantumTableColumns(), array(

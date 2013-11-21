@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION sha256(text) returns text AS $$
 -- Create log table
 CREATE TABLE log (
 	level INT NOT NULL DEFAULT '7',
-	created TIMESTAMP NOT NULL DEFAULT now(),
+	created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
 	tag VARCHAR NOT NULL,
 	message TEXT
 );
@@ -30,9 +30,9 @@ CREATE TABLE users (
 	name VARCHAR NOT NULL UNIQUE,
 	created_by UUID NOT NULL REFERENCES users(key),
 	updated_by UUID NOT NULL REFERENCES users(key),
-	created TIMESTAMP NOT NULL DEFAULT now(),
-	updated TIMESTAMP NOT NULL DEFAULT now(),
-	deleted TIMESTAMP,
+	created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+	updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+	deleted TIMESTAMP WITH TIME ZONE,
 	full_name VARCHAR NOT NULL,
 	salt VARCHAR NOT NULL DEFAULT uuid_generate_v4(),
 	password_hash VARCHAR NOT NULL,
@@ -62,7 +62,7 @@ INSERT INTO users (key, name, created_by, updated_by, full_name, password_hash, 
 CREATE TABLE migration_history (
 	sequence INT PRIMARY KEY,
 	name VARCHAR NOT NULL,
-	created TIMESTAMP NOT NULL DEFAULT now()
+	created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 INSERT INTO migration_history (sequence, name) VALUES ('0', 'Migration000Init');
 INSERT INTO log (level, tag, message) VALUES ('7', 'init', 'Database initialised');
