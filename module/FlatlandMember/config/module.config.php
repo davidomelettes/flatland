@@ -4,30 +4,35 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'guest'		=> array(
-				'stub' => array(),
+				'members' => array(),
 			),
 		),
 	),
 	'controllers' => array(
 		'invokables' => array(
-			'Stub\Controller\Stub' => 'Stub\Controller\StubController',
+			'Member\Controller\Members' => 'FlatlandMember\Controller\MembersController',
 		),
 	),
 	'navigation' => array(
 		'default' => array(
+			array(
+				'label' => 'Members',
+				'route' => 'members',
+				'icon'	=> 'user',
+			),
 		),
 	),
 	'router' => array(
 		'routes' => array(
-			'stub' => array(
+			'members' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route'			=> '/stub[/:action][/:key]',
+					'route'			=> '/members[/:action][/:key]',
 					'constraints'	=> array(
 						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
 					),
 					'defaults'		=> array(
-						'controller'	=> 'Stub\Controller\Stub',
+						'controller'	=> 'Member\Controller\Members' ,
 						'action'		=> 'index',
 					),
 				),

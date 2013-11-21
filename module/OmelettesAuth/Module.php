@@ -84,11 +84,11 @@ class Module
 				},
 				'OmelettesAuth\Model\UserLoginsMapper' => function($sm) {
 					$gateway = $sm->get('UserLoginsTableGateway');
-					$mapper = new Model\UserLoginsMapper($gateway);
+					$mapper = new Model\UserLoginsMapper($gateway, $gateway);
 					return $mapper;
 				},
 				'OmelettesAuth\Model\UsersMapper' => function($sm) {
-					$gateway = $sm->get('UsersTableGateway');
+					$gateway = $sm->get('UsersViewGateway');
 					$mapper = new Model\UsersMapper($gateway);
 					return $mapper;
 				},
@@ -105,6 +105,12 @@ class Module
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\User());
 					return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
+				},
+				'UsersViewGateway' => function($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\User());
+					return new TableGateway('users_view', $dbAdapter, null, $resultSetPrototype);
 				},
 			),
 		);

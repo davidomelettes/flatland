@@ -33,8 +33,14 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Group());
 					return new TableGateway('groups', $dbAdapter, null, $resultSetPrototype);
 				},
+				'GroupsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Group());
+					return new TableGateway('groups_view', $dbAdapter, null, $resultSetPrototype);
+				},
 				'FlatlandGroup\Model\GroupsMapper' => function ($sm) {
-					$readGateway = $sm->get('GroupsTableGateway');
+					$readGateway = $sm->get('GroupsViewGateway');
 					$writeGateway = $sm->get('GroupsTableGateway');
 					$mapper = new Model\GroupsMapper($readGateway, $writeGateway);
 					return $mapper;

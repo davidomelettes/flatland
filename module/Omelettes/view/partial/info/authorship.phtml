@@ -2,11 +2,11 @@
 	<dt><span class="glyphicon glyphicon-time"></span> Created</dt>
 	<dd><?php echo $this->prettyTime($this->model->created); ?></dd>
 	<dt>by</dt>
-	<dd><?php echo $this->prettyUser($this->model->createdBy); ?></dd>
+	<dd><?php echo $this->prettyUser($this->model->createdBy, $this->model->createdByFullName); ?></dd>
 	<?php if ($this->model->created !== $this->model->updated): ?>
 	<dt>Updated</dt>
 	<dd><?php echo $this->prettyTime($this->model->updated); ?></dd>
 	<dt>by</dt>
-	<dd><?php echo $this->prettyUser($this->model->updatedBy); ?></dd>
+	<dd><?php echo $this->prettyUser($this->model->updatedBy, $this->model->updatedByFullName); ?></dd>
 	<?php endif; ?>
 </dl>

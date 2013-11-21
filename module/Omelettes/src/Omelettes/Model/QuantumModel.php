@@ -17,12 +17,14 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	 * @var array
 	 */
 	protected $quantumPropertyMap = array(
-		'key'		=> 'key',
-		'name'		=> 'name',
-		'created'	=> 'created',
-		'updated'	=> 'updated',
-		'createdBy'	=> 'created_by',
-		'updatedBy'	=> 'updated_by',
+		'key'				=> 'key',
+		'name'				=> 'name',
+		'created'			=> 'created',
+		'updated'			=> 'updated',
+		'createdBy'			=> 'created_by',
+		'updatedBy'			=> 'updated_by',
+		'createdByFullName'	=> 'created_by_full_name',
+		'updatedByFullName'	=> 'created_by_full_name',
 	);
 	
 	protected $key;
@@ -31,6 +33,8 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	protected $updated;
 	protected $createdBy;
 	protected $updatedBy;
+	protected $createdByFullName;
+	protected $updatedByFullName;
 	
 	public function __construct($data = array())
 	{
@@ -183,6 +187,16 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	public function getUpdatedBy()
 	{
 		return $this->updatedBy;
+	}
+	
+	public function getCreatedByFullName()
+	{
+		return $this->createdByFullName;
+	}
+	
+	public function getUpdatedByFullName()
+	{
+		return $this->updatedByFullName;
 	}
 	
 	public function getTableHeadings()

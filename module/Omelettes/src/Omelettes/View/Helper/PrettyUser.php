@@ -4,9 +4,9 @@ namespace Omelettes\View\Helper;
 
 class PrettyUser extends AbstractPrettifier
 {
-	public function __invoke($userKey)
+	public function __invoke($userKey, $userFullName)
 	{
-		return $userKey;
+		return $userFullName;
 	}
 
 }

@@ -42,8 +42,20 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	public function __construct(TableGateway $readTableGateway, TableGateway $writeTableGateway = null, array $dependantTables = array())
 	{
 		$this->readTableGateway = $readTableGateway;
-		$this->writeTableGateway = $writeTableGateway ? $writeTableGateway : $readTableGateway;
+		if ($writeTableGateway) {
+			$this->writeTableGateway = $writeTableGateway;
+		}
 		$this->dependantTables = $dependantTables;
+	}
+	
+	/**
+	 * Returns whether or not this mapper may be used to make changes to the database
+	 * 
+	 * return boolean
+	 */
+	public function isReadOnly()
+	{
+		return (!$this->writeTableGateway instanceof TableGateway);
 	}
 	
 	/**

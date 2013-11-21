@@ -14,17 +14,10 @@ use Zend\Db\ResultSet\ResultSet,
 
 abstract class QuantumMapper extends AbstractMapper
 {
-	protected $readOnly = false;
-	
 	/**
 	 * @var Paginator
 	 */
 	protected $paginator;
-	
-	public function isReadOnly()
-	{
-		return $this->readOnly;
-	}
 	
 	/**
 	 * @return Predicate\PredicateSet

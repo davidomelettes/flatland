@@ -9,6 +9,8 @@ use Zend\Db\Sql\Predicate,
 
 class UsersMapper extends SignupMapper
 {
+	protected $readOnly = true;
+	
 	public function regeneratePasswordResetKey(User $user)
 	{
 		if (!$this->find($user->key)) {
