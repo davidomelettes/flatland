@@ -110,6 +110,23 @@ abstract class AbstractMigration
 		return $this;
 	}
 	
+	protected function quantumTableCreateWithView($tableName, $columns, array $viewExtraFields = array())
+	{
+		$columns = array_merge($columns, $this->getQuantumTableColumns());
+		$this->tableCreate($tableName, $columns);
+		
+		$viewName = $tableName . '_view';
+		$viewExtraFields = array_merge($viewExtraFields, array(
+			'uc.full_name AS created_by_full_name' => "LEFT JOIN users uc ON uc.key = $tableName.created_by",
+			'uu.full_name AS updated_by_full_name' => "LEFT JOIN users uu ON uu.key = $tableName.updated_by",
+		));
+		$viewDefinition = "SELECT $tableName.*, " . implode(', ', array_keys($viewExtraFields)) .
+			" FROM $tableName " . implode(' ', array_values($viewExtraFields));
+		$this->viewCreate($viewName, $viewDefinition);
+		
+		return $this;
+	}
+	
 	protected function tableAddColumns($tableName, $columns)
 	{
 		if (!$this->tableExists($tableName)) {
@@ -203,11 +220,11 @@ abstract class AbstractMigration
 		return array(
 			'key'			=> 'UUID PRIMARY KEY',
 			'name'			=> 'VARCHAR NOT NULL',
-			'created'		=> 'TIMESTAMP NOT NULL DEFAULT now()',
-			'updated'		=> 'TIMESTAMP NOT NULL DEFAULT now()',
+			'created'		=> 'TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()',
+			'updated'		=> 'TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()',
 			'created_by'	=> 'UUID NOT NULL REFERENCES users(key)',
 			'updated_by'	=> 'UUID NOT NULL REFERENCES users(key)',
-			'deleted'		=> 'TIMESTAMP',
+			'deleted'		=> 'TIMESTAMP WITH TIME ZONE',
 		);
 	}
 	
