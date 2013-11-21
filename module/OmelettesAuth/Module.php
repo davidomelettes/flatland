@@ -46,11 +46,11 @@ class Module
 						if (is_array($config) && isset($config['resources'])) {
 							$resources = $config['resources'];
 							foreach ($resources as $role => $roleResources) {
-								foreach ($roleResources as $resource) {
+								foreach ($roleResources as $resource => $privileges) {
 									if (!$acl->hasResource($resource)) {
 										$acl->addResource(new Acl\Resource\GenericResource($resource));
 									}
-									$acl->allow($role, $resource);
+									$acl->allow($role, $resource, $privileges);
 								}
 							}
 						}

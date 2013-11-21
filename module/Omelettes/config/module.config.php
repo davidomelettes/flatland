@@ -1,6 +1,10 @@
 <?php
 
 return array(
+	'acl' => array(
+		'resources' => array(
+		),
+	),
 	'controllers' => array(
 		'invokables' => array(
 		),

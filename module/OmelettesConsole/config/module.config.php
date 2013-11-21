@@ -4,7 +4,7 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'system' => array(
-				'migrate',
+				'migrate' => array(),
 			),
 		),
 	),

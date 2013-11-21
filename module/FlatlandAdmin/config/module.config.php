@@ -4,11 +4,11 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'admin' => array(
-				'admin/designers',
-				'admin/games',
-				'admin/publishers',
-				'admin/invites',
-				'admin/users',
+				'admin/designers' => array(),
+				'admin/games' => array(),
+				'admin/publishers' => array(),
+				'admin/invites' => array(),
+				'admin/users' => array(),
 			),
 		),
 	),

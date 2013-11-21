@@ -3,8 +3,11 @@
 return array(
 	'acl' => array(
 		'resources' => array(
-			'guest'		=> array(
-				'groups',
+			'guest' => array(
+				'groups' => array('index'),
+			),
+			'user' => array(
+				'groups' => array(),
 			),
 		),
 	),

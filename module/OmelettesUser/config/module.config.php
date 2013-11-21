@@ -3,8 +3,8 @@
 return array(
 	'acl' => array(
 		'resources' => array(
-			'user'		=> array(
-				'user',
+			'user' => array(
+				'user' => array(),
 			),
 		),
 	),

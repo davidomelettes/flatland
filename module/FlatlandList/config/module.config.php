@@ -4,7 +4,7 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'guest'		=> array(
-				'lists',
+				'lists' => array(),
 			),
 		),
 	),

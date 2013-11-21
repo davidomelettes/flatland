@@ -11,11 +11,11 @@ return array(
 		),
 		'resources' => array(
 			'guest'		=> array(
-				'login',
-				'logout',
-				'forgot-password',
-				'reset-password',
-				'login-theft-warning',
+				'login' => array(),
+				'logout' => array(),
+				'forgot-password' => array(),
+				'reset-password' => array(),
+				'login-theft-warning' => array(),
 			),
 		),
 	),
