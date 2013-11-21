@@ -4,6 +4,7 @@ return array(
 	'acl' => array(
 		'resources' => array(
 			'admin' => array(
+				'admin' => array(),
 				'admin/designers' => array(),
 				'admin/games' => array(),
 				'admin/publishers' => array(),
