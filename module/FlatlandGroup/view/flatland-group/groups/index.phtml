@@ -1,1 +1,16 @@
-<h2>Index Page</h2>
+<div class="row">
+	<div class="col-md-6">
+		<?php echo $this->partial('page-title', array(
+			'title'		=> 'Groups',
+			'paginator'	=> $this->paginator,
+			'crud'		=> $this->crud,
+		)); ?>
+		<?php echo $this->tabulate($this->paginator, array('primary_action' => 'view')); ?>
+	</div>
+	<div class="col-md-6">
+		<?php echo $this->partial('page-title', array(
+			'title'		=> 'Events',
+		)); ?>
+		<?php echo $this->tabulate($this->paginator, array('primary_action' => 'view')); ?>
+	</div>
+</div>

@@ -2,23 +2,23 @@
 
 namespace OmelettesAuth\View\Helper;
 
-use Zend\Authentication\AuthenticationService,
+use Zend\Permissions\Acl,
 	Zend\ServiceManager\ServiceLocatorAwareInterface,
 	Zend\ServiceManager\ServiceLocatorAwareTrait,
 	Zend\View\Helper\AbstractHelper;
 
-class AuthService extends AbstractHelper implements ServiceLocatorAwareInterface 
+class AclService extends AbstractHelper implements ServiceLocatorAwareInterface 
 {
 	use ServiceLocatorAwareTrait;
 	
 	/**
-	 * @var AuthenticationService
+	 * @var Acl\Acl
 	 */
-	protected $authService;
+	protected $aclService;
 	
 	public function __invoke()
 	{
-		return $this->getAuthService();
+		return $this->getAclService();
 	}
 	
 	/**
@@ -35,15 +35,15 @@ class AuthService extends AbstractHelper implements ServiceLocatorAwareInterface
 	/**
 	 * Returns the authentication service used by the application
 	 * 
-	 * @return AuthenticationService
+	 * @return Acl\Acl
 	 */
-	public function getAuthService()
+	public function getAclService()
 	{
-		if (!$this->authService) {
-			$this->authService = $this->getApplicationServiceLocator()->get('AuthService');
+		if (!$this->aclService) {
+			$this->aclService = $this->getApplicationServiceLocator()->get('AclService');
 		}
 		
-		return $this->authService;
+		return $this->aclService;
 	}
 	
 }

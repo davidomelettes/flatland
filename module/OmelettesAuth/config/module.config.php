@@ -86,6 +86,7 @@ return array(
 	),
 	'view_helpers' => array(
 		'invokables' => array(
+			'aclService' => 'OmelettesAuth\View\Helper\AclService',
 			'authService' => 'OmelettesAuth\View\Helper\AuthService',
 		),
 	),

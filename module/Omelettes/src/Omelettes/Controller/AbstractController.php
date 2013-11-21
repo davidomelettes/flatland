@@ -6,8 +6,10 @@ use Omelettes\Form;
 use Omelettes\Model;
 use OmelettesAuth\Authentication\AuthenticationService;
 use OmelettesLocale\Model\LocalesMapper;
-use Zend\Log\Logger,
+use Zend\Permissions\Acl,
+	Zend\Log\Logger,
 	Zend\Mvc\Controller\AbstractActionController,
+	Zend\View\Model\JsonModel,
 	Zend\View\Model\ViewModel;
 
 abstract class AbstractController extends AbstractActionController
@@ -20,6 +22,11 @@ abstract class AbstractController extends AbstractActionController
 			'application/json',
 		),
 	);
+	
+	/**
+	 * @var Acl\Acl
+	 */
+	protected $aclService;
 	
 	/**
 	 * @var AuthenticationService
@@ -56,6 +63,21 @@ abstract class AbstractController extends AbstractActionController
 		$routeMatch = $event->getRouteMatch();
 		
 		return $routeMatch->getMatchedRouteName();
+	}
+	
+	public function getAclService()
+	{
+		if (!$this->aclService) {
+			$aclService = $this->getServiceLocator()->get('AclService');
+			$this->aclService = $aclService;
+		}
+		
+		return $this->aclService;
+	}
+	
+	public function getAclRole()
+	{
+		return $this->getAuthService()->hasIdentity() ? $this->getAuthService()->getIdentity()->aclRole : 'guest';
 	}
 	
 	public function getAuthService()
