@@ -27,8 +27,14 @@ class Module
 	{
 		return array(
 			'factories' => array(
+				'MembersViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Member());
+					return new TableGateway('users_view', $dbAdapter, null, $resultSetPrototype);
+				},
 				'FlatlandMember\Model\MembersMapper' => function ($sm) {
-					$readGateway = $sm->get('UsersViewGateway');
+					$readGateway = $sm->get('MembersViewGateway');
 					$mapper = new Model\MembersMapper($readGateway);
 					return $mapper;
 				},

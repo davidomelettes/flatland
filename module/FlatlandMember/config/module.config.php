@@ -47,6 +47,7 @@ return array(
 	),
 	'view_manager' => array(
 		'template_map' => array(
+			'tabulate/member'		=> __DIR__ . '/../view/partial/tabulate/member.phtml',
 		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',
