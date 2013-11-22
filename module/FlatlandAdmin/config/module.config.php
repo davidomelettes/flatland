@@ -23,8 +23,7 @@ return array(
 		),
 	),
 	'navigation' => array(
-		'default' => array(),
-		'admin_navigation' => array(
+		'default' => array(
 			array(
 				'label' => 'Database',
 				'route' => 'admin/games',
@@ -42,12 +41,11 @@ return array(
 						'label' => 'Publishers',
 						'route' => 'admin/publishers',
 					),
+					array(
+						'label' => 'Users',
+						'route' => 'admin/users',
+					),
 				),
-			),
-			array(
-				'label' => 'Users',
-				'route' => 'admin/users',
-				'icon'	=> 'user',
 			),
 		),
 	),
@@ -136,7 +134,6 @@ return array(
 	),
 	'service_manager' => array(
 		'factories' => array(
-			'admin_navigation' => 'FlatlandAdmin\Navigation\Service\AdminNavigationFactory',
 		),
 	),
 	'view_helpers'	=> array(

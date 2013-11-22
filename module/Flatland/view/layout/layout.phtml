@@ -40,15 +40,6 @@
 	
 	</head>
 	<body>
-		<?php $aclRole = $this->authService()->hasIdentity() ? $this->authService()->getIdentity()->aclRole : 'guest'; ?>
-		<?php if ($this->aclService()->isAllowed($aclRole, 'admin')): ?>
-		<nav class="navbar navbar-static-top navbar-default admin" role="navigation">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/"><?php echo $this->translate('Admin'); ?></a>
-			</div>
-			<?php echo $this->navigation('admin_navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('nav/navbar'); ?>
-		</nav>
-		<?php endif; ?>
 		<nav class="navbar navbar-static-top navbar-inverse" role="navigation">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
@@ -77,7 +68,7 @@
 							<li>
 								<a href="#"><span class="badge">17</span> Game Updates</a>
 							</li>
-							<?php if ($this->aclService()->isAllowed($aclRole, 'admin')): ?>
+							<?php if ($this->aclService()->getAcl()->isAllowed($this->aclService()->getRole(), 'admin')): ?>
 							<li role="presentation" class="divider"></li>
 							<li role="presentation" class="dropdown-header">Admin</li>
 							<li>

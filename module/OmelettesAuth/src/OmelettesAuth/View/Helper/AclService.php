@@ -14,11 +14,11 @@ class AclService extends AbstractHelper implements ServiceLocatorAwareInterface
 	/**
 	 * @var Acl\Acl
 	 */
-	protected $aclService;
+	protected $acl;
 	
 	public function __invoke()
 	{
-		return $this->getAclService();
+		return $this;
 	}
 	
 	/**
@@ -37,13 +37,20 @@ class AclService extends AbstractHelper implements ServiceLocatorAwareInterface
 	 * 
 	 * @return Acl\Acl
 	 */
-	public function getAclService()
+	public function getAcl()
 	{
-		if (!$this->aclService) {
-			$this->aclService = $this->getApplicationServiceLocator()->get('AclService');
+		if (!$this->acl) {
+			$this->acl = $this->getApplicationServiceLocator()->get('AclService');
 		}
 		
-		return $this->aclService;
+		return $this->acl;
+	}
+	
+	public function getRole()
+	{
+		$auth = $this->getApplicationServiceLocator()->get('AuthService');
+		
+		return $auth->hasIdentity() ? $auth->getIdentity()->aclRole : 'guest';
 	}
 	
 }

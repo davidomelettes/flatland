@@ -57,6 +57,7 @@ INSERT INTO users (key, name, created_by, updated_by, full_name, password_hash, 
 	'SYSTEM_CONSOLE',
 	'system'
 );
+CREATE VIEW users_view AS SELECT * FROM users;
 
 -- Create database version history table
 CREATE TABLE migration_history (

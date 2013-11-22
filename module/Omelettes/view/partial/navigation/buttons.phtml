@@ -1,12 +1,11 @@
-<?php $aclRole = $this->authService()->hasIdentity() ? $this->authService()->getIdentity()->aclRole : 'guest'; ?>
-
 <?php if (count($this->container) > 0): ?>
+<?php $aclRole = $this->aclService()->getRole(); ?>
 <ul class="list-inline">
 	<?php foreach ($this->container as $page): ?>
 	<?php
 		$aclResource = $page->route;
 		$aclPrivilege = isset($page->routeOptions['action']) ? $page->routeOptions['action'] : 'index';
-		if (!$this->aclService()->isAllowed($aclRole, $aclResource, $aclPrivilege)) {
+		if (!$this->aclService()->getAcl()->isAllowed($aclRole, $aclResource, $aclPrivilege)) {
 			continue;
 		}
 	?>

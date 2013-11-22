@@ -49,6 +49,24 @@ class Module
 					$filter = new Form\AddGroupFilter();
 					return $filter;
 				},
+				'EventsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Event());
+					return new TableGateway('events', $dbAdapter, null, $resultSetPrototype);
+				},
+				'EventsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Event());
+					return new TableGateway('events_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FlatlandGroup\Model\EventsMapper' => function ($sm) {
+					$readGateway = $sm->get('EventsViewGateway');
+					$writeGateway = $sm->get('EventsTableGateway');
+					$mapper = new Model\EventsMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
 			),
 		);
 	}

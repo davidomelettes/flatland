@@ -12,7 +12,7 @@ return array(
     	'FlatlandAdmin',
         'FlatlandGame',
     	'FlatlandForum',
-    	'FlatlandTrading',
+    	//'FlatlandTrading',
     	'FlatlandList',
     	'FlatlandGroup',
     	'FlatlandMember',

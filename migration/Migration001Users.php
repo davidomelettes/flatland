@@ -15,7 +15,7 @@ class Migration001Users extends AbstractMigration
 			'password_reset_key'		=> 'UUID',
 			'password_reset_requested'	=> 'TIMESTAMP WITH TIME ZONE',
 		));
-		$this->viewCreate('users_view', "SELECT users.*, uc.full_name AS created_by_full_name, uu.full_name as updated_by_full_name FROM users LEFT JOIN users uc ON uc.key = users.created_by LEFT JOIN users uu ON uu.key = users.created_by");
+		$this->viewCreate('users_view', "SELECT users.*, uc.full_name AS created_by_full_name, uu.full_name as updated_by_full_name FROM users LEFT JOIN users uc ON uc.key = users.created_by LEFT JOIN users uu ON uu.key = users.created_by", true);
 		
 		$this->insertFixture('migration/fixtures/001_users.xml');
 		
