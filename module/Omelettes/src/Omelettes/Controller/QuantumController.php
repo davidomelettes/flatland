@@ -3,10 +3,10 @@
 namespace Omelettes\Controller;
 
 use Omelettes\Form,
-	Omelettes\Model;
+	Omelettes\Model,
+	Omelettes\Paginator\Paginator;
 use Zend\View\Model\JsonModel,
 	Zend\Navigation;
-use Omelettes\Model\QuantumModel;
 
 abstract class QuantumController extends AbstractController
 {
@@ -58,6 +58,11 @@ abstract class QuantumController extends AbstractController
 	protected $quantumModelClass;
 	
 	/**
+	 * @var Paginator
+	 */
+	protected $paginator;
+	
+	/**
 	 * @return QuantumMapper
 	 */
 	public function getQuantumMapper()
@@ -74,7 +79,7 @@ abstract class QuantumController extends AbstractController
 	}
 	
 	/**
-	 * @return QuantumModel
+	 * @return Model\QuantumModel
 	 */
 	public function getQuantumModel()
 	{
@@ -167,6 +172,17 @@ abstract class QuantumController extends AbstractController
 		return $this->deleteQuantumForm;
 	}
 	
+	public function getQuantumPaginator()
+	{
+		if (!$this->paginator) {
+			$paginator = $this->getQuantumMapper()->fetchAll(true);
+			$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+			$this->paginator = $paginator;
+		}
+		
+		return $this->paginator;
+	}
+	
 	public function addAction()
 	{
 		if ($this->getQuantumMapper()->isReadOnly()) {
@@ -211,12 +227,9 @@ abstract class QuantumController extends AbstractController
 	
 	public function indexAction()
 	{
-		$paginator = $this->getQuantumMapper()->fetchAll(true);
-		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
-		
 		return $this->returnViewModel(array(
-			'paginator' => $paginator,
-			'crud' => $this->constructNavigation($this->getIndexNavigationConfig()),
+			'paginator'	=> $this->getQuantumPaginator(),
+			'crud'		=> $this->constructNavigation($this->getIndexNavigationConfig()),
 		));
 	}
 	
@@ -294,11 +307,8 @@ abstract class QuantumController extends AbstractController
 		}
 		
 		$term = $this->params()->fromQuery('term', '');
-		$paginator = $this->getQuantumMapper()->fetchAllWhereNameLike($term, true);
-		$paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
-		
 		$results = array();
-		foreach ($paginator as $quantum) {
+		foreach ($this->getQuantumPaginator() as $quantum) {
 			$results[] = array(
 				'label' => $quantum->name,
 				'value' => $quantum->key,
@@ -366,7 +376,7 @@ abstract class QuantumController extends AbstractController
 		);
 	}
 	
-	public function getViewNavigationConfig(QuantumModel $model)
+	public function getViewNavigationConfig(Model\QuantumModel $model)
 	{
 		return array(
 			array(

@@ -50,6 +50,15 @@ class GroupsController extends QuantumController
 		return $this->groupEventsMapper;
 	}
 	
+	public function indexAction()
+	{
+		return $this->returnViewModel(array(
+			'paginator'	=> $this->getQuantumPaginator(),
+			'crud'		=> $this->constructNavigation($this->getIndexNavigationConfig()),
+			'events'	=> $this->getGroupEventsMapper()->fetchAll(true),
+		));
+	}
+	
 	public function viewAction()
 	{
 		$model = $this->getQuantumMapper()->find($this->params('key'));
