@@ -1,0 +1,60 @@
+<nav class="navbar navbar-static-top navbar-inverse" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
+			<span class="glyphicon glyphicon-align-justify"></span>
+		</button>
+		<a class="navbar-brand" href="/"><?php echo $this->translate('Flatland'); ?></a>
+	</div>
+	
+	<div class="collapse navbar-collapse navbar-top-collapse">
+		<?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('nav/navbar'); ?>
+		<?php if ($this->authService()->hasIdentity()): ?>
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<?php if ($this->authService()->getIdentity()->isPasswordAuthenticated()): ?>
+				<a href="#" title="<?php echo $this->translate('This session has been password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-success"></span></a>
+				<?php else: ?>
+				<a href="#" title="<?php echo $this->translate('This session has not been password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-warning"></span></a>
+				<?php endif; ?>
+			</li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="badge">31</span> <?php echo $this->translate('Notifications'); ?> <span class="caret"></span></a>
+				<ul class="dropdown-menu role="menu">
+					<li>
+						<a href="#"><span class="badge">2</span> Messages</a>
+					</li>
+					<li>
+						<a href="#"><span class="badge">17</span> Game Updates</a>
+					</li>
+					<?php if ($this->aclService()->getAcl()->isAllowed($this->aclService()->getRole(), 'admin')): ?>
+					<li role="presentation" class="divider"></li>
+					<li role="presentation" class="dropdown-header">Admin</li>
+					<li>
+						<a href="#"><span class="badge">3</span> Reports</a>
+					</li>
+					<li>
+						<a href="#"><span class="badge">9</span> Queue</a>
+					</li>
+					<?php endif; ?>
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $this->escapehtml($this->authService()->getIdentity()->fullName); ?> <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+						<a href="<?php echo $this->url('user'); ?>"><?php echo $this->translate('User Preferences'); ?></a>
+					</li>
+					<li>
+						<a href="<?php echo $this->url('logout'); ?>"><?php echo $this->translate('Sign out'); ?></a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<?php else: ?>
+		<div class="navbar-right">
+			<a class="btn btn-warning navbar-btn" href="<?php echo $this->url('signup'); ?>"><?php echo $this->translate('Create an account'); ?></a>
+			<a class="btn btn-primary navbar-btn" href="<?php echo $this->url('login'); ?>"><?php echo $this->translate('Sign in'); ?></a>
+		</div>
+		<?php endif; ?>
+	</div>
+</nav>

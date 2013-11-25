@@ -128,6 +128,9 @@ class Module
 	public function onBootstrap(MvcEvent $ev)
 	{
 		$this->bootstrapSession($ev);
+		
+		$app = $ev->getParam('application');
+		$app->getEventManager()->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setLayout'));
 	}
 	
 	public function bootstrapSession(MvcEvent $ev)
@@ -144,6 +147,21 @@ class Module
 		if (!isset($container->init)) {
 			$session->regenerateId(true);
 			$container->init = 1;
+		}
+	}
+	
+	public function setLayout(MvcEvent $ev)
+	{
+		$config = $ev->getApplication()->getServiceManager()->get('config');
+		if (!isset($config['layout'])) {
+			return;
+		}
+		$layoutConfig = $config['layout'];
+		
+		$routeName = $ev->getRouteMatch()->getMatchedRouteName();
+		if (isset($layoutConfig[$routeName])) {
+			$viewModel = $ev->getViewModel();
+			$viewModel->setTemplate($layoutConfig[$routeName]);
 		}
 	}
 	

@@ -35,4 +35,7 @@ return array(
 			__DIR__ . '/../view',
 		),
 	),
+	'layout' => array(
+		'signup' => 'layout/signup',
+	),
 );

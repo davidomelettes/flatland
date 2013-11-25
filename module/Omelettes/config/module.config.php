@@ -71,6 +71,7 @@ return array(
 			'nav/pills'				=> __DIR__ . '/../view/partial/navigation/pills.phtml',
 			'pagination'			=> __DIR__ . '/../view/partial/pagination.phtml',
 			'page-title'			=> __DIR__ . '/../view/partial/page-title.phtml',
+			'pretty/user'			=> __DIR__ . '/../view/partial/pretty/user.phtml',
 			'tabulate/tabulate'		=> __DIR__ . '/../view/partial/tabulate.phtml',
 			'tabulate/quantum'		=> __DIR__ . '/../view/partial/tabulate/quantum.phtml',
 			'info/authorship'		=> __DIR__ . '/../view/partial/info/authorship.phtml',

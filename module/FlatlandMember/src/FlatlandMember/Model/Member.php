@@ -26,4 +26,11 @@ class Member extends User
 		throw new \Exception('Security breach!');
 	}
 	
+	public function getAvatarUrl($size = '50')
+	{
+		$hash = md5($this->name);
+		$default = 'retro';
+		return sprintf('http://www.gravatar.com/avatar/%s?s=%d&amp;d=%s.jpg', $hash, $size, $default);
+	} 
+	
 }

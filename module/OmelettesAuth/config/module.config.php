@@ -99,4 +99,9 @@ return array(
 			__DIR__ . '/../view',
 		),
 	),
+	'layout' => array(
+		'login'				=> 'layout/signup',
+		'forgot-password'	=> 'layout/signup',
+		'reset-password'	=> 'layout/signup',
+	),
 );

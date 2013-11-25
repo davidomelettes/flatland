@@ -34,12 +34,16 @@ return array(
 	'service_manager' => array(
 	),
 	'view_manager' => array(
-		'display_not_found_reason' => true,
-		'display_exceptions'       => true,
-		'doctype'                  => 'HTML5',
-		'not_found_template'       => 'error/404',
-		'exception_template'       => 'error/index',
+		'display_not_found_reason'	=> true,
+		'display_exceptions'		=> true,
+		'doctype'					=> 'HTML5',
+		'not_found_template'		=> 'error/404',
+		'exception_template'		=> 'error/index',
 		'template_map' => array(
+			'html-head'				=> __DIR__ . '/../view/partial/html-head.phtml',
+			'html-body-end'			=> __DIR__ . '/../view/partial/html-body-end.phtml',
+			'navigation-top'		=> __DIR__ . '/../view/partial/navigation-top.phtml',
+			'navigation-bottom'		=> __DIR__ . '/../view/partial/navigation-bottom.phtml',
 		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',

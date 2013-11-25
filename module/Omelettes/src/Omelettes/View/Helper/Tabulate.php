@@ -5,8 +5,7 @@ namespace Omelettes\View\Helper;
 use Omelettes\Model\Tabulatable,
 	Omelettes\Paginator\Adapter\DbTableGateway as DbTableGatewayAdapter;
 use Zend\Db\ResultSet\ResultSet,
-	Zend\Paginator\Paginator,
-	Zend\View\Helper\AbstractHelper;
+	Zend\Paginator\Paginator;
 
 class Tabulate extends AbstractHelper
 {
