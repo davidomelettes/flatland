@@ -139,7 +139,7 @@ abstract class QuantumMapper extends AbstractMapper
 	
 	public function saveQuantum(QuantumModel $model)
 	{
-		if ($this->readOnly) {
+		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');
 		}
 		
@@ -170,7 +170,7 @@ abstract class QuantumMapper extends AbstractMapper
 	
 	public function deleteQuantum(QuantumModel $model)
 	{
-		if ($this->readOnly) {
+		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');
 		}
 		
@@ -182,7 +182,7 @@ abstract class QuantumMapper extends AbstractMapper
 	
 	public function processQuanta(array $keys, $action, $data = array())
 	{
-		if ($this->readOnly) {
+		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');
 		}
 		

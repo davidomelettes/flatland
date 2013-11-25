@@ -116,10 +116,6 @@ abstract class AbstractMigration
 		$this->tableCreate($tableName, $columns);
 		
 		$viewName = $tableName . '_view';
-		$viewExtraFields = array_merge($viewExtraFields, array(
-			'uc.full_name AS created_by_full_name' => "LEFT JOIN users uc ON uc.key = $tableName.created_by",
-			'uu.full_name AS updated_by_full_name' => "LEFT JOIN users uu ON uu.key = $tableName.updated_by",
-		));
 		$viewDefinition = "SELECT $tableName.*, " . implode(', ', array_keys($viewExtraFields)) .
 			" FROM $tableName " . implode(' ', array_values($viewExtraFields));
 		$this->viewCreate($viewName, $viewDefinition);
