@@ -63,7 +63,7 @@ abstract class QuantumController extends AbstractController
 	protected $paginator;
 	
 	/**
-	 * @return QuantumMapper
+	 * @return Model\QuantumMapper
 	 */
 	public function getQuantumMapper()
 	{

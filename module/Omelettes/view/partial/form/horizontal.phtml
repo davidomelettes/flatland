@@ -20,7 +20,6 @@ echo $this->form()->openTag($form);
 			'leftColWidth'	=> 2,
 			'rightColWidth'	=> 4,
 			'model' => $this->model,
-			'unwrap' => true,
 		)); ?>
 <?php else: ?>
 <?php echo $this->partial(
@@ -30,7 +29,6 @@ echo $this->form()->openTag($form);
 			'leftColWidth'	=> 2,
 			'rightColWidth'	=> 4,
 			'model' => $this->model,
-			'unwrap'		=> false,
 		)); ?>
 <?php endif; ?>
 <?php endforeach; ?>

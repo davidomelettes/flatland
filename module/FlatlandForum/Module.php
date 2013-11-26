@@ -27,6 +27,7 @@ class Module
 	{
 		return array(
 			'factories' => array(
+				// Forums
 				'ForumsTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
@@ -38,16 +39,39 @@ class Module
 					$mapper = new Model\ForumsMapper($readGateway);
 					return $mapper;
 				},
+				
+				// Threads
+				'FlatlandForum\Form\AddThreadFilter' => function ($sm) {
+					$filter = new Form\AddThreadFilter();
+					return $filter;
+				},
 				'ThreadsTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Thread());
 					return new TableGateway('threads', $dbAdapter, null, $resultSetPrototype);
 				},
+				'ThreadsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Thread());
+					return new TableGateway('threads_view', $dbAdapter, null, $resultSetPrototype);
+				},
 				'FlatlandForum\Model\ThreadsMapper' => function ($sm) {
-					$readGateway = $sm->get('ThreadsTableGateway');
-					$mapper = new Model\ThreadsMapper($readGateway);
+					$readGateway = $sm->get('ThreadsViewGateway');
+					$writeGateway = $sm->get('ThreadsTableGateway');
+					$mapper = new Model\ThreadsMapper($readGateway, $writeGateway);
 					return $mapper;
+				},
+				
+				// Posts
+				'FlatlandForum\Form\PostFieldsetFilter' => function ($sm) {
+					$filter = new Form\PostFieldsetFilter();
+					return $filter;
+				},
+				'FlatlandForum\Form\AddPostFilter' => function ($sm) {
+					$filter = new Form\AddPostFilter();
+					return $filter;
 				},
 				'PostsTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
@@ -55,9 +79,16 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Post());
 					return new TableGateway('posts', $dbAdapter, null, $resultSetPrototype);
 				},
+				'PostsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Post());
+					return new TableGateway('posts_view', $dbAdapter, null, $resultSetPrototype);
+				},
 				'FlatlandForum\Model\PostsMapper' => function ($sm) {
-					$readGateway = $sm->get('PostsTableGateway');
-					$mapper = new Model\PostsMapper($readGateway);
+					$readGateway = $sm->get('PostsViewGateway');
+					$writeGateway = $sm->get('PostsTableGateway');
+					$mapper = new Model\PostsMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
 			),

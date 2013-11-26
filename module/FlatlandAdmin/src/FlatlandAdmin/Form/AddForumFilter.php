@@ -12,6 +12,15 @@ class AddForumFilter extends QuantumFilter
 			$inputFilter = parent::getInputFilter();
 			$factory = $inputFilter->getFactory();
 			
+			$inputFilter->add($factory->createInput(array(
+				'name'			=> 'parent_key',
+				'required'		=> false,
+				'filters'		=> array(
+				),
+				'validators'	=> array(
+				),
+			)));
+			
 			$this->inputFilter = $inputFilter;
 		}
 		

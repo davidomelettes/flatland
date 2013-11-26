@@ -6,10 +6,13 @@ use Omelettes\Model\QuantumModel;
 
 class Forum extends QuantumModel
 {
+	protected $parentKey;
+	
 	protected $slug;
 	
 	protected $propertyMap = array(
-		'slug' => 'slug',
+		'parentKey'	=> 'parent_key',
+		'slug'		=> 'slug',
 	);
 	
 }

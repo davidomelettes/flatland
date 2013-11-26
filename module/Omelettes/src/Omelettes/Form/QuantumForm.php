@@ -60,10 +60,10 @@ class QuantumForm extends Form implements ServiceLocatorAwareInterface
 		return $this;
 	}
 	
-	public function addSubmitFieldset($buttonText = 'Save', $buttonClass = '')
+	public function addSubmitFieldset($buttonText = 'Save', $buttonClass = 'btn btn-primary')
 	{
 		$fieldset = new Fieldset\SubmitFieldset();
-		$fieldset->addSubmitElement($buttonText);
+		$fieldset->addSubmitElement($buttonText, $buttonClass);
 		$this->add($fieldset);
 	
 		return $this;

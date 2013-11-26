@@ -35,7 +35,7 @@ class LoginForm extends QuantumForm
 			),
 		));
 		
-		$this->addSubmitFieldset('Sign in');
+		$this->addSubmitFieldset('Sign in', 'btn btn-lg btn-block btn-primary');
 	}
 	
 }

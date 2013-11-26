@@ -5,6 +5,9 @@ return array(
 		'resources' => array(
 			'guest'		=> array(
 				'forums' => array(),
+				'threads' => array('index'),
+			),
+			'user' => array(
 				'threads' => array(),
 			),
 		),

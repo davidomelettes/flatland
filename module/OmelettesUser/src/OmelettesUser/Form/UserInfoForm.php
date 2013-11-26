@@ -11,9 +11,9 @@ class UserInfoForm extends QuantumForm
 	 */
 	protected $localeOptions;
 	
-	public function __construct()
+	public function __construct($name = 'form-user-info')
 	{
-		parent::__construct('form-user-info');
+		parent::__construct($name);
 	}
 	
 	/**

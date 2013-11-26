@@ -52,7 +52,7 @@ class SignupForm extends QuantumForm
 			),
 		));
 		
-		$this->addSubmitFieldset('Sign up for free');
+		$this->addSubmitFieldset('Sign up for free', 'btn btn-lg btn-block btn-warning');
 	}
 	
 }

@@ -12,7 +12,8 @@ class ForumsMapper extends ForumForumsMapper
 	{
 		$data = parent::prepareSaveData($model);
 		$data = array_merge($data, array(
-			'slug' => $this->generateSlug($model->name),
+			'parent_key'	=> $model->parentKey ? $model->parentKey : null,
+			'slug'			=> $this->generateSlug($model->name),
 		));
 		
 		return $data;
