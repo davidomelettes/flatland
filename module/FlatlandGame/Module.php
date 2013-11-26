@@ -42,13 +42,13 @@ class Module
 				'DesignersTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Designer());
 					return new TableGateway('designers', $dbAdapter, null, $resultSetPrototype);
 				},
 				'PublishersTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Publisher());
 					return new TableGateway('publishers', $dbAdapter, null, $resultSetPrototype);
 				},
 				'FlatlandGame\Model\GamesMapper' => function ($sm) {

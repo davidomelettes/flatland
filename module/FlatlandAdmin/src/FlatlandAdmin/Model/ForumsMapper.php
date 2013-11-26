@@ -2,18 +2,17 @@
 
 namespace FlatlandAdmin\Model;
 
-use FlatlandGame\Model\GamesMapper as GameGamesMapper;
+use FlatlandForum\Model\ForumsMapper as ForumForumsMapper;
 use Omelettes\Model\QuantumMapper,
 	Omelettes\Model\QuantumModel;
 
-class GamesMapper extends GameGamesMapper
+class ForumsMapper extends ForumForumsMapper
 {
 	protected function prepareSaveData(QuantumModel $model)
 	{
 		$data = parent::prepareSaveData($model);
 		$data = array_merge($data, array(
-			'description'	=> $model->description,
-			'publisher_key'	=> $model->publisherKey ? $model->publisherKey : null,
+			'slug' => $this->generateSlug($model->name),
 		));
 		
 		return $data;

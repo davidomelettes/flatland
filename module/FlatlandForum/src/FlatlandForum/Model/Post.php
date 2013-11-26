@@ -4,12 +4,9 @@ namespace FlatlandForum\Model;
 
 use Omelettes\Model\QuantumModel;
 
-class Forum extends QuantumModel
+class Post extends QuantumModel
 {
-	protected $slug;
-	
 	protected $propertyMap = array(
-		'slug' => 'slug',
 	);
 	
 }

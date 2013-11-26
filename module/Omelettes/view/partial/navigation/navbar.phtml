@@ -11,6 +11,12 @@
 		$liClasses = array();
 		if ($page->isActive()) {
 			$liClasses[] = 'active';
+		} elseif ($page->hasPages()) {
+			foreach ($page->getPages() as $subPage) {
+				if ($subPage->isActive()) {
+					$liClasses[] = 'active';
+				}
+			}
 		}
 		if ($page->hasPages()) {
 			$liClasses[] = 'dropdown';

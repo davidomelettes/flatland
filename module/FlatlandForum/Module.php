@@ -38,6 +38,28 @@ class Module
 					$mapper = new Model\ForumsMapper($readGateway);
 					return $mapper;
 				},
+				'ThreadsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Thread());
+					return new TableGateway('threads', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FlatlandForum\Model\ThreadsMapper' => function ($sm) {
+					$readGateway = $sm->get('ThreadsTableGateway');
+					$mapper = new Model\ThreadsMapper($readGateway);
+					return $mapper;
+				},
+				'PostsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Post());
+					return new TableGateway('posts', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FlatlandForum\Model\PostsMapper' => function ($sm) {
+					$readGateway = $sm->get('PostsTableGateway');
+					$mapper = new Model\PostsMapper($readGateway);
+					return $mapper;
+				},
 			),
 		);
 	}

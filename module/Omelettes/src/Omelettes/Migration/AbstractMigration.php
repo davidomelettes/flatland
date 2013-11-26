@@ -116,7 +116,8 @@ abstract class AbstractMigration
 		$this->tableCreate($tableName, $columns);
 		
 		$viewName = $tableName . '_view';
-		$viewDefinition = "SELECT $tableName.*, " . implode(', ', array_keys($viewExtraFields)) .
+		$selectFields = array_merge(array("$tableName.*"), array_keys($viewExtraFields));
+		$viewDefinition = "SELECT " . implode(', ', $selectFields) .
 			" FROM $tableName " . implode(' ', array_values($viewExtraFields));
 		$this->viewCreate($viewName, $viewDefinition);
 		

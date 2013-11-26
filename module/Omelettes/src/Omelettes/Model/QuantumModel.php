@@ -24,12 +24,6 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 		'updated'			=> 'updated',
 		'createdBy'			=> 'created_by',
 		'updatedBy'			=> 'updated_by',
-		/*
-		'createdByName'		=> 'created_by_name',
-		'udpatedByName'		=> 'udpated_by_name',
-		'createdByFullName'	=> 'created_by_full_name',
-		'updatedByFullName'	=> 'updated_by_full_name',
-		*/
 	);
 	
 	protected $key;
@@ -38,12 +32,6 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	protected $updated;
 	protected $createdBy;
 	protected $updatedBy;
-	/*
-	protected $createdByName;
-	protected $updatedByName;
-	protected $createdByFullName;
-	protected $updatedByFullName;
-	*/
 	
 	public function __construct($data = array())
 	{

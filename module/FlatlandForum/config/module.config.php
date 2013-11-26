@@ -5,12 +5,14 @@ return array(
 		'resources' => array(
 			'guest'		=> array(
 				'forums' => array(),
+				'threads' => array(),
 			),
 		),
 	),
 	'controllers' => array(
 		'invokables' => array(
 			'Forum\Controller\Forums' => 'FlatlandForum\Controller\ForumsController',
+			'Forum\Controller\Threads' => 'FlatlandForum\Controller\ThreadsController',
 		),
 	),
 	'navigation' => array(
@@ -33,6 +35,19 @@ return array(
 					),
 					'defaults'		=> array(
 						'controller'	=> 'Forum\Controller\Forums',
+						'action'		=> 'index',
+					),
+				),
+			),
+			'threads' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/threads[/:action][/:key]',
+					'constraints'	=> array(
+						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+					),
+					'defaults'		=> array(
+						'controller'	=> 'Forum\Controller\Threads',
 						'action'		=> 'index',
 					),
 				),

@@ -2,9 +2,9 @@
 
 namespace FlatlandAdmin\Model;
 
-use Omelettes\Model\QuantumModel;
+use FlatlandGame\Model\Designer as GameDesigner;
 
-class Designer extends QuantumModel
+class Designer extends GameDesigner
 {
 	protected $propertyMap = array();
 	

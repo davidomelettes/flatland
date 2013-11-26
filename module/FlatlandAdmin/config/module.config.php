@@ -6,9 +6,10 @@ return array(
 			'admin' => array(
 				'admin' => array(),
 				'admin/designers' => array(),
+				'admin/forums' => array(),
 				'admin/games' => array(),
-				'admin/publishers' => array(),
 				'admin/invites' => array(),
+				'admin/publishers' => array(),
 				'admin/users' => array(),
 			),
 		),
@@ -16,10 +17,11 @@ return array(
 	'controllers' => array(
 		'invokables' => array(
 			'Admin\Controller\Designers' => 'FlatlandAdmin\Controller\DesignersController',
+			'Admin\Controller\Forums' => 'FlatlandAdmin\Controller\ForumsController',
 			'Admin\Controller\Games' => 'FlatlandAdmin\Controller\GamesController',
+			'Admin\Controller\Invites' => 'FlatlandAdmin\Controller\InvitationsController',
 			'Admin\Controller\Publishers' => 'FlatlandAdmin\Controller\PublishersController',
 			'Admin\Controller\Users' => 'FlatlandAdmin\Controller\UsersController',
-			'Admin\Controller\Invites' => 'FlatlandAdmin\Controller\InvitationsController',
 		),
 	),
 	'navigation' => array(
@@ -29,6 +31,10 @@ return array(
 				'route' => 'admin/games',
 				'icon'	=> 'book',
 				'pages' => array(
+					array(
+						'label' => 'Forums',
+						'route' => 'admin/forums',
+					),
 					array(
 						'label' => 'Games',
 						'route' => 'admin/games',
@@ -124,6 +130,19 @@ return array(
 							),
 							'defaults'		=> array(
 								'controller'	=> 'Admin\Controller\Invites',
+								'action'		=> 'index',
+							),
+						),
+					),
+					'forums' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route'			=> '/forums[/:action][/:key]',
+							'constraints'	=> array(
+								'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+							),
+							'defaults'		=> array(
+								'controller'	=> 'Admin\Controller\Forums',
 								'action'		=> 'index',
 							),
 						),

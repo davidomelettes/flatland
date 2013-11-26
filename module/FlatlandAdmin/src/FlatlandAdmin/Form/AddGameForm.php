@@ -6,9 +6,9 @@ use Omelettes\Form\QuantumForm;
 
 class AddGameForm extends QuantumForm
 {
-	public function __construct()
+	public function __construct($name = 'form-add-game')
 	{
-		parent::__construct('form-add-game');
+		parent::__construct($name);
 	}
 	
 	public function init()

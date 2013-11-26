@@ -27,10 +27,7 @@ class Module
 	{
 		return array(
 			'factories' => array(
-				'FlatlandAdmin\Form\AddGameFilter' => function ($sm) {
-					$filter = new Form\AddGameFilter();
-					return $filter;
-				},
+				// Users
 				'FlatlandAdmin\Form\AddUserFilter' => function ($sm) {
 					$filter = new Form\AddUserFilter($sm->get('OmelettesSignup\Model\UsersMapper'));
 					return $filter;
@@ -42,6 +39,8 @@ class Module
 					);
 					return $filter;
 				},
+				
+				// Games
 				'AdminGamesTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
@@ -60,6 +59,8 @@ class Module
 					$mapper = new Model\GamesMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
+				
+				// Publishers
 				'FlatlandAdmin\Model\PublishersMapper' => function ($sm) {
 					$gateway = $sm->get('PublishersTableGateway');
 					$mapper = new Model\PublishersMapper($gateway);
@@ -69,6 +70,8 @@ class Module
 					$filter = new Form\AddPublisherFilter();
 					return $filter;
 				},
+				
+				// Designers
 				'FlatlandAdmin\Model\DesignersMapper' => function ($sm) {
 					$gateway = $sm->get('DesignersTableGateway');
 					$mapper = new Model\DesignersMapper($gateway);
@@ -77,6 +80,30 @@ class Module
 				'FlatlandAdmin\Form\AddDesignerFilter' => function ($sm) {
 					$filter = new Form\AddDesignerFilter();
 					return $filter;
+				},
+				
+				// Forums
+				'FlatlandAdmin\Form\AddForumFilter' => function ($sm) {
+					$filter = new Form\AddForumFilter();
+					return $filter;
+				},
+				'AdminForumsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Forum());
+					return new TableGateway('forums', $dbAdapter, null, $resultSetPrototype);
+				},
+				'AdminForumsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Forum());
+					return new TableGateway('forums_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FlatlandAdmin\Model\ForumsMapper' => function ($sm) {
+					$readGateway = $sm->get('AdminForumsViewGateway');
+					$writeGateway = $sm->get('AdminForumsTableGateway');
+					$mapper = new Model\ForumsMapper($readGateway, $writeGateway);
+					return $mapper;
 				},
 			),
 		);

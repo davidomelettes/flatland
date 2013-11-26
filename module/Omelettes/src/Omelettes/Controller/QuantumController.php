@@ -219,9 +219,9 @@ abstract class QuantumController extends AbstractController
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
-		return $this->returnViewModel(array(
-			'model' => $model,
-			'crud' => $this->constructNavigation($this->getViewNavigationConfig($model)),
+		return $this->returnViewModel( array(
+			'model'	=> $model,
+			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
 	}
 	
@@ -264,9 +264,9 @@ abstract class QuantumController extends AbstractController
 		}
 		
 		return $this->returnViewModel(array(
-			'form' => $form,
-			'model' => $model,
-			'crud' => $this->constructNavigation($this->getViewNavigationConfig($model)),
+			'form'	=> $form,
+			'model'	=> $model,
+			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
 	}
 	
@@ -292,9 +292,9 @@ abstract class QuantumController extends AbstractController
 		}
 		
 		return $this->returnViewModel(array(
-			'model' => $model,
-			'form' => $form,
-			'crud' => $this->constructNavigation($this->getViewNavigationConfig($model)),
+			'model'	=> $model,
+			'form'	=> $form,
+			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
 	}
 	

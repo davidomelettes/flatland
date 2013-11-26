@@ -2,9 +2,9 @@
 
 namespace FlatlandAdmin\Model;
 
-use Omelettes\Model\QuantumModel;
+use FlatlandGame\Model\Publisher as GamePublisher;
 
-class Publisher extends QuantumModel
+class Publisher extends GamePublisher
 {
 	protected $propertyMap = array();
 	
