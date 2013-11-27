@@ -12,11 +12,12 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li>
 				<?php if ($this->authService()->getIdentity()->isPasswordAuthenticated()): ?>
-				<a href="#" title="<?php echo $this->translate('This session has been password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-success"></span></a>
+				<a href="#" title="<?php echo $this->translate('This session has been recently password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-success"></span></a>
 				<?php else: ?>
-				<a href="#" title="<?php echo $this->translate('This session has not been password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-warning"></span></a>
+				<a href="#" title="<?php echo $this->translate('This session has not been recently password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-warning"></span></a>
 				<?php endif; ?>
 			</li>
+			<!--
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="badge">31</span> <?php echo $this->translate('Notifications'); ?> <span class="caret"></span></a>
 				<ul class="dropdown-menu role="menu">
@@ -38,6 +39,7 @@
 					<?php endif; ?>
 				</ul>
 			</li>
+			-->
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $this->escapehtml($this->authService()->getIdentity()->fullName); ?> <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">

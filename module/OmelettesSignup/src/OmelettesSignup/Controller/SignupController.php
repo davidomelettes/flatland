@@ -5,7 +5,7 @@ namespace OmelettesSignup\Controller;
 use Omelettes\Controller\AbstractController;
 use OmelettesAuth\Model\User as SignupUser;
 use OmelettesSignup\Form,
-OmelettesSignup\Model\InvitationCodesMapper,
+	OmelettesSignup\Model\InvitationCodesMapper,
 	OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
 use Zend\Form\FormInterface,
 	Zend\Mvc\Controller\AbstractActionController;
