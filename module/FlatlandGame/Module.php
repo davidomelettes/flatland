@@ -27,6 +27,7 @@ class Module
 	{
 		return array(
 			'factories' => array(
+				// Games
 				'GamesTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
@@ -39,23 +40,27 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Game());
 					return new TableGateway('games_view', $dbAdapter, null, $resultSetPrototype);
 				},
+				'FlatlandGame\Model\GamesMapper' => function ($sm) {
+					$readGateway = $sm->get('GamesViewGateway');
+					$writeGateway = $sm->get('GamesTableGateway');
+					$mapper = new Model\GamesMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
+				
+				// Designers
 				'DesignersTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Designer());
 					return new TableGateway('designers', $dbAdapter, null, $resultSetPrototype);
 				},
+				
+				// Publishers
 				'PublishersTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Publisher());
 					return new TableGateway('publishers', $dbAdapter, null, $resultSetPrototype);
-				},
-				'FlatlandGame\Model\GamesMapper' => function ($sm) {
-					$readGateway = $sm->get('GamesViewGateway');
-					$writeGateway = $sm->get('GamesTableGateway');
-					$mapper = new Model\GamesMapper($readGateway, $writeGateway);
-					return $mapper;
 				},
 			),
 		);

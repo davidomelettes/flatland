@@ -31,8 +31,8 @@
 	<publishers key="607d22c582074c879d8fb279bde271d3" name="Rio Grande Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<publishers key="ce011492f9c64bc586b3944a3cee3140" name="Steve Jackson Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<publishers key="6e60b8b149e24ce3b52ed747aa342bd1" name="Z-Man Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="7a348c7b0def42a9bc53494daabe1b3a" name="7 Wonders" publisher_key="56818110ba2444d18093e1a5d15644e0" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="69e37265ddc6401690d181be6185108b" name="7 Wonders: Leaders" publisher_key="56818110ba2444d18093e1a5d15644e0" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="7a348c7b0def42a9bc53494daabe1b3a" name="7 Wonders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="69e37265ddc6401690d181be6185108b" name="7 Wonders: Leaders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<games key="57c366d050434d8e9cbcd854064cd974" name="Agricola" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<games key="a82b20080671417388509518d8938a50" name="Android: Netrunner" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<games key="71edf543ae06438f954b57037cd58c14" name="Arkham Horror" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
