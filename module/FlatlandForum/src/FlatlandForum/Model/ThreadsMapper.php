@@ -7,5 +7,9 @@ use Omelettes\Model\QuantumMapper,
 
 class ThreadsMapper extends QuantumMapper
 {
+	protected function getDefaultOrder()
+	{
+		return 'created desc';
+	}
 	
 }

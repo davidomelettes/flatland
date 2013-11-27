@@ -17,7 +17,7 @@ class PostFieldset extends Fieldset
 				'label'		=> 'Content',
 			),
 			'attributes'=> array(
-				'id'		=> $this->getName() . 'Content',
+				'id'			=> $this->getName() . 'Content',
 			),
 		));
 	}

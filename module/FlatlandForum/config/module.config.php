@@ -65,6 +65,8 @@ return array(
 	),
 	'view_manager' => array(
 		'template_map' => array(
+			'tabulate/thread'		=> __DIR__ . '/../view/partial/tabulate/thread.phtml',
+			'tabulate/post'			=> __DIR__ . '/../view/partial/tabulate/post.phtml',
 		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',

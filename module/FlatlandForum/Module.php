@@ -69,8 +69,8 @@ class Module
 					$filter = new Form\PostFieldsetFilter();
 					return $filter;
 				},
-				'FlatlandForum\Form\AddPostFilter' => function ($sm) {
-					$filter = new Form\AddPostFilter();
+				'FlatlandForum\Form\ReplyFilter' => function ($sm) {
+					$filter = new Form\ReplyFilter();
 					return $filter;
 				},
 				'PostsTableGateway' => function ($sm) {

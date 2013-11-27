@@ -29,4 +29,17 @@ class Thread extends QuantumModel
 		return $this;
 	}
 	
+	public function getTableHeadings()
+	{
+		return array(
+			'name'			=> 'Name',
+			'created'		=> 'Date Started',
+		);
+	}
+	
+	public function getTableRowPartial()
+	{
+		return 'tabulate/thread';
+	}
+	
 }

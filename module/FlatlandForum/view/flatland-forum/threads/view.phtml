@@ -5,3 +5,5 @@
 )); ?>
 
 <?php echo $this->tabulate($this->paginator, array('primary_action' => 'view')); ?>
+
+<?php echo $this->partial('form/horizontal', array('form' => $this->form)); ?>

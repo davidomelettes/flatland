@@ -8,6 +8,11 @@ use Zend\Db\Sql\Predicate;
 
 class PostsMapper extends QuantumMapper
 {
+	protected function getDefaultOrder()
+	{
+		return 'created';
+	}
+	
 	protected function prepareSaveData(QuantumModel $model)
 	{
 		$data = parent::prepareSaveData($model);

@@ -4,9 +4,9 @@ namespace FlatlandForum\Form;
 
 use Omelettes\Form\QuantumForm;
 
-class AddThreadForm extends QuantumForm
+class ReplyForm extends QuantumForm
 {
-	public function __construct($name = 'form-add-post')
+	public function __construct($name = 'form-reply')
 	{
 		parent::__construct($name);
 	}

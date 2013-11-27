@@ -46,7 +46,7 @@ class QuantumFilter implements InputFilterAwareInterface, ServiceLocatorAwareInt
 				
 			$inputFilter->add($factory->createInput(array(
 				'name'			=> 'name',
-				'required'		=> 'true',
+				'required'		=> true,
 				'filters'		=> array(
 					array('name' => 'StripTags'),
 					array('name' => 'StringTrim'),
