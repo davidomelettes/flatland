@@ -4,7 +4,7 @@ namespace OmelettesMigration;
 
 use Omelettes\Migration\AbstractMigration;
 
-class Migration004Groups extends AbstractMigration
+class Migration006Groups extends AbstractMigration
 {
 	public function migrate()
 	{

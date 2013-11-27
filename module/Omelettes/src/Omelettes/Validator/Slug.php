@@ -6,7 +6,7 @@ use Zend\Validator\Regex;
 
 class Slug extends Regex
 {
-	const SLUG_REGEX_PATTERN = '[a-z][a-z0-9-]*';
+	const SLUG_REGEX_PATTERN = '[a-z][a-z0-9-]+';
 	
 	public function __construct($options = array())
 	{

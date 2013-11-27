@@ -308,7 +308,8 @@ abstract class QuantumController extends AbstractController
 		
 		$term = $this->params()->fromQuery('term', '');
 		$results = array();
-		foreach ($this->getQuantumPaginator() as $quantum) {
+		$paginator = $this->getQuantumMapper()->fetchAllWhereNameLike($term, true);
+		foreach ($paginator as $quantum) {
 			$results[] = array(
 				'label' => $quantum->name,
 				'value' => $quantum->key,

@@ -3,7 +3,10 @@
 return array(
 	'acl' => array(
 		'resources' => array(
-			'guest'		=> array(
+			'guest' => array(
+				'lists' => array('index', 'view'),
+			),
+			'user' => array(
 				'lists' => array(),
 			),
 		),

@@ -48,9 +48,9 @@ class ForumsController extends QuantumController
 	
 	public function viewAction()
 	{
-		$model = $this->getQuantumMapper()->find($this->params('key'));
+		$model = $this->getQuantumMapper()->findBySlug($this->params('slug'));
 		if (!$model) {
-			$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
+			$this->flashMessenger()->addErrorMessage('Failed to find record with slug: ' . $this->params('slug'));
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		

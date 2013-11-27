@@ -5,7 +5,7 @@ return array(
 		'resources' => array(
 			'guest'		=> array(
 				'forums' => array(),
-				'threads' => array('index'),
+				'threads' => array('index', 'view'),
 			),
 			'user' => array(
 				'threads' => array(),
@@ -32,9 +32,9 @@ return array(
 			'forums' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route'			=> '/forums[/:action][/:key]',
+					'route'			=> '/forums[/:slug][/:action]',
 					'constraints'	=> array(
-						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+						'slug'			=> Omelettes\Validator\Slug::SLUG_REGEX_PATTERN,
 					),
 					'defaults'		=> array(
 						'controller'	=> 'Forum\Controller\Forums',
@@ -45,7 +45,7 @@ return array(
 			'threads' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route'			=> '/threads[/:action][/:key]',
+					'route'			=> '/topics[/:action][/:key]',
 					'constraints'	=> array(
 						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
 					),
@@ -65,6 +65,7 @@ return array(
 	),
 	'view_manager' => array(
 		'template_map' => array(
+			'tabulate/forum'		=> __DIR__ . '/../view/partial/tabulate/forum.phtml',
 			'tabulate/thread'		=> __DIR__ . '/../view/partial/tabulate/thread.phtml',
 			'tabulate/post'			=> __DIR__ . '/../view/partial/tabulate/post.phtml',
 		),

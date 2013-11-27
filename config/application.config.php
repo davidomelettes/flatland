@@ -11,11 +11,11 @@ return array(
     	'OmelettesLocale',
     	'FlatlandAdmin',
         'FlatlandGame',
-    	'FlatlandForum',
-    	//'FlatlandTrading',
     	'FlatlandList',
-    	'FlatlandGroup',
+    	'FlatlandForum',
     	'FlatlandMember',
+    	//'FlatlandGroup',
+    	//'FlatlandTrading',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

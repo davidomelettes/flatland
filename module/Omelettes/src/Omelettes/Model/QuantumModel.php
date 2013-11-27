@@ -8,12 +8,14 @@ use OmelettesAuth\Model\User;
 class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializable
 {
 	/**
+	 * Array of model properties => database columns
+	 * 
 	 * @var array
 	 */
-	protected $propertyMap;
+	protected $propertyMap = array();
 
 	/**
-	 * Array of model properties => database columns
+	 * Property map for base quantum properties
 	 *
 	 * @var array
 	 */
@@ -35,10 +37,6 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 
 	public function __construct($data = array())
 	{
-		if (!is_array($this->propertyMap)) {
-			throw new \Exception(get_class($this) . ' has missing property map');
-		}
-
 		if (!empty($data)) {
 			$this->exchangeArray($data);
 		}
@@ -46,8 +44,9 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 
 	public function __get($name)
 	{
+		$map = $this->getPropertyMap();
 		$getterMethodName = 'get' . ucfirst($name);
-		if (!method_exists($this, $getterMethodName) && !isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
+		if (!method_exists($this, $getterMethodName) && !isset($map[$name])) {
 			throw new \Exception('Invalid ' . get_class($this) . ' property: ' . $name);
 		}
 
@@ -56,8 +55,9 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 
 	public function __set($name, $value)
 	{
+		$map = $this->getPropertyMap();
 		$setterMethodName = 'set' . ucfirst($name);
-		if (!method_exists($this, $setterMethodName) && !isset($this->quantumPropertyMap[$name]) && !isset($this->propertyMap[$name])) {
+		if (!method_exists($this, $setterMethodName) && !isset($map[$name])) {
 			throw new \Exception('Invalid ' . get_class($this) . ' property: ' . $name);
 		}
 
@@ -67,8 +67,9 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	public function __call($function, array $args)
 	{
 		if (preg_match('/(get|set)(.+)/', $function, $m)) {
+			$map = $this->getPropertyMap();
 			$property = lcfirst($m[2]);
-			if (isset($this->quantumPropertyMap[$property]) || isset($this->propertyMap[$property])) {
+			if (isset($map[$property])) {
 				if ('get' === $m[1]) {
 					// Getting a model property
 					return $this->$property;
@@ -81,6 +82,12 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 			}
 		}
 	}
+	
+	protected function getPropertyMap()
+	{
+		return array_merge($this->quantumPropertyMap, $this->propertyMap);
+	}
+	
 
 	public function jsonSerialize()
 	{
@@ -89,11 +96,8 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 
 	public function exchangeArray($data)
 	{
-		foreach ($this->quantumPropertyMap as $property => $column) {
-			$setterMethodName = 'set'.ucfirst($property);
-			$this->$setterMethodName(isset($data[$column]) ? $data[$column] : null);
-		}
-		foreach ($this->propertyMap as $property => $column) {
+		$map = $this->getPropertyMap();
+		foreach ($map as $property => $column) {
 			$setterMethodName = 'set'.ucfirst($property);
 			$this->$setterMethodName(isset($data[$column]) ? $data[$column] : null);
 		}
@@ -104,11 +108,8 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	public function getArrayCopy()
 	{
 		$copy = array();
-		foreach ($this->quantumPropertyMap as $property => $column) {
-			$getterMethodName = 'get'.ucfirst($property);
-			$copy[$column] = $this->$getterMethodName();
-		}
-		foreach ($this->propertyMap as $property => $column) {
+		$map = $this->getPropertyMap();
+		foreach ($map as $property => $column) {
 			$getterMethodName = 'get'.ucfirst($property);
 			$copy[$column] = $this->$getterMethodName();
 		}

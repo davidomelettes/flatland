@@ -15,4 +15,9 @@ class Forum extends QuantumModel
 		'slug'		=> 'slug',
 	);
 	
+	public function getTableRowPartial()
+	{
+		return 'tabulate/forum';
+	}
+	
 }
