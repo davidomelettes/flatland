@@ -92,6 +92,8 @@ class AuthController extends AbstractController
 				$passwordResetKey = $this->getUsersMapper()->regeneratePasswordResetKey($user);
 				$this->sendForgotPasswordEmail($emailAddress, $passwordResetKey);
 				$this->flashMessenger()->addSuccessMessage("Instructions for resetting your password have been sent to $emailAddress");
+				
+				return $this->redirect()->toRoute('login');
 			}
 		}
 		
@@ -124,7 +126,7 @@ class AuthController extends AbstractController
 	public function getLoginForm()
 	{
 		if (!$this->loginForm) {
-			$loginForm = new Form\LoginForm();
+			$loginForm = $this->getServiceLocator()->get('FormElementManager')->get('OmelettesAuth\Form\LoginForm');
 			$this->loginForm = $loginForm;
 		}
 		

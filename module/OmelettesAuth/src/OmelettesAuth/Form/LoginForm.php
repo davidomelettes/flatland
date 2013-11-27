@@ -6,10 +6,13 @@ use Omelettes\Form\QuantumForm;
 
 class LoginForm extends QuantumForm
 {
-	public function __construct()
+	public function __construct($name = 'form-login')
 	{
-		parent::__construct('form-login');
-		
+		parent::__construct($name);
+	}
+	
+	public function init()
+	{
 		$this->addNameElement('Email Address');
 		$this->get('name')->setAttribute('placeholder', 'Email Address');
 		
@@ -24,6 +27,22 @@ class LoginForm extends QuantumForm
 				'placeholder'	=> 'Password',
 			),
 		));
+		
+		$router = $this->getApplicationServiceLocator()->get('Router');
+		$url = $router->assemble(array(), array('name' => 'forgot-password'));
+		$this->add(array(
+			'name'		=> 'forgot',
+			'type'		=> 'StaticValue',
+			'options'	=> array(
+				'label'			=> 'Password',
+				'escape_html'	=> false,
+			),
+			'attributes'=> array(
+				'id'			=> $this->getName() . 'Forgot',
+				'value'			=> sprintf('<a href="%s">%s</a>', $url, 'Forgot Password?'),
+			),
+		));
+		
 		$this->add(array(
 			'name'		=> 'remember_me',
 			'type'		=> 'Checkbox',

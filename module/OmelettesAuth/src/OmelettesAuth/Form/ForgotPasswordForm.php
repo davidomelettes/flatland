@@ -13,7 +13,7 @@ class ForgotPasswordForm extends QuantumForm
 		$this->addNameElement('Email Address');
 		$this->get('name')->setAttribute('placeholder', 'Email Address');
 		
-		$this->addSubmitFieldset('Reset password');
+		$this->addSubmitFieldset('Reset password', 'btn btn-lg btn-block btn-primary');
 	}
 	
 	public function init()

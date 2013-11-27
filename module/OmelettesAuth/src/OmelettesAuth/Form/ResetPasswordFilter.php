@@ -2,10 +2,10 @@
 
 namespace OmelettesAuth\Form;
 
+use Omelettes\Form\QuantumFilter;
 use Zend\InputFilter\InputFilter;
-use Omelettes\Form\AbstractQuantumModelFilter;
 
-class ResetPasswordFilter extends AbstractQuantumModelFilter
+class ResetPasswordFilter extends QuantumFilter
 {
 	public function getInputFilter()
 	{

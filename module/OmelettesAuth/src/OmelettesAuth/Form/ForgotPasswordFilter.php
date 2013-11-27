@@ -2,13 +2,13 @@
 
 namespace OmelettesAuth\Form;
 
-use Omelettes\Form\AbstractQuantumModelFilter,
-	Omelettes\Validator\Model\QuantumExists;
+use Omelettes\Form\QuantumFilter,
+	Omelettes\Validator\Model\ModelExists;
 use OmelettesAuth\Model\UsersMapper;
 use Zend\InputFilter\InputFilter,
 	Zend\Validator\EmailAddress;
 
-class ForgotPasswordFilter extends AbstractQuantumModelFilter
+class ForgotPasswordFilter extends QuantumFilter
 {
 	/**
 	 * @var UsersMapper
@@ -43,14 +43,14 @@ class ForgotPasswordFilter extends AbstractQuantumModelFilter
 						),
 					),
 					array(
-						'name'		=> 'Omelettes\Validator\Model\QuantumExists',
+						'name'		=> 'Omelettes\Validator\Model\ModelExists',
 						'options'	=> array(
 							'table'		=> 'users',
 							'field'		=> 'name',
 							'mapper'	=> $this->usersMapper,
 							'method'	=> 'findByName',
 							'messages'	=> array(
-								QuantumExists::ERROR_MODEL_DOES_NOT_EXIST => 'No user with that email address was found',
+								ModelExists::ERROR_MODEL_DOES_NOT_EXIST => 'No user with that email address was found',
 							),
 						),
 					),

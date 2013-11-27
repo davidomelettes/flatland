@@ -2,13 +2,13 @@
 
 namespace OmelettesAuth\Form;
 
-use Omelettes\Form\AbstractQuantumForm;
+use Omelettes\Form\QuantumForm;
 
-class ResetPasswordForm extends AbstractQuantumForm
+class ResetPasswordForm extends QuantumForm
 {
-	public function __construct($name = null)
+	public function __construct($name = 'form-reset-password')
 	{
-		parent::__construct('form-reset-password');
+		parent::__construct($name);
 		
 		$this->add(array(
 			'name'		=> 'password_new',
@@ -35,7 +35,7 @@ class ResetPasswordForm extends AbstractQuantumForm
 			),
 		));
 		
-		$this->addSubmitFieldset('Change Password');
+		$this->addSubmitFieldset('Change Password', 'btn btn-primary btn-lg btn-block');
 	}
 	
 }
