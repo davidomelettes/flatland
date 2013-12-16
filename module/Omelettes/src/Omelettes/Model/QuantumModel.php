@@ -126,7 +126,12 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 
 	public function getKey()
 	{
-		return $this->key;
+		$key = $this->key;
+		if ($key) {
+			$key = str_replace('-', '', $key);
+		}
+		
+		return $key;
 	}
 
 	public function setName($name)
@@ -140,7 +145,7 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	{
 		return $this->name;
 	}
-
+	
 	public function setCreated($ts)
 	{
 		$this->created = $ts;

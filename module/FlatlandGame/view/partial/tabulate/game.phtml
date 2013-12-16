@@ -1,1 +1,8 @@
-<?php echo $this->partial('tabulate/quantum'); ?>
+<td>
+	<?php
+		$routeOptions = $this->data->slug ?
+			array('slug' => $this->data->slug) :
+			array('key' => $this->data->key);
+	?>
+	<a href="<?php echo $this->url('games/game', $routeOptions); ?>"><?php echo $this->escapehtml($this->data->name); ?></a>
+</td>

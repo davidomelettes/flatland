@@ -61,15 +61,14 @@ class GroupsController extends QuantumController
 	
 	public function viewAction()
 	{
-		$model = $this->getQuantumMapper()->find($this->params('key'));
-		if (!$model) {
-			$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
+		$group = $this->findRequestedModel();
+		if (!$group) {
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
 		return $this->returnViewModel(array(
-			'model' 	=> $model,
-			'crud'		=> $this->constructNavigation($this->getViewNavigationConfig($model)),
+			'model' 	=> $group,
+			'crud'		=> $this->constructNavigation($this->getViewNavigationConfig($group)),
 			'members'	=> $this->getGroupMembersMapper()->fetchAll(true),
 			'events'	=> $this->getGroupEventsMapper()->fetchAll(true),
 		));

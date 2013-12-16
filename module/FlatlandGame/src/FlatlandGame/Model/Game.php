@@ -6,7 +6,10 @@ use Omelettes\Model\QuantumModel;
 
 class Game extends QuantumModel
 {
+	protected $slug;
+	
 	protected $propertyMap = array(
+		'slug' => 'slug',
 	);
 	
 	public function getTableHeadings()

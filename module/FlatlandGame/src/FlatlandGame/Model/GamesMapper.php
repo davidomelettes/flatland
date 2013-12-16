@@ -6,6 +6,5 @@ use Omelettes\Model\QuantumMapper;
 
 class GamesMapper extends QuantumMapper
 {
-	protected $readOnly = true;
 	
 }

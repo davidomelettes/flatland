@@ -9,6 +9,11 @@ return array(
 		'invokables' => array(
 		),
 	),
+	'filters' => array(
+		'invokables' => array(
+			'Slug' => 'Omelettes\Filter\Slug',
+		),
+	),
 	'form_elements' => array(
 		'invokables' => array(
 			'autocomplete' => 'Omelettes\Form\Element\Autocomplete',

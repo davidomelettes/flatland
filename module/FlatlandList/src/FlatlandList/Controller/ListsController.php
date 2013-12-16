@@ -67,16 +67,15 @@ class ListsController extends QuantumController
 	
 	public function viewAction()
 	{
-		$model = $this->getQuantumMapper()->find($this->params('key'));
-		if (!$model) {
-			$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
+		$list = $this->findRequestedModel();
+		if (!$list) {
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
 		return $this->returnViewModel( array(
-			'model'		=> $model,
-			'crud'		=> $this->constructNavigation($this->getViewNavigationConfig($model)),
-			'listItems'	=> $this->getListItemsMapper()->fetchForList($model, true),
+			'model'		=> $list,
+			'crud'		=> $this->constructNavigation($this->getViewNavigationConfig($list)),
+			'listItems'	=> $this->getListItemsMapper()->fetchForList($list, true),
 		));
 	}
 	
@@ -95,9 +94,8 @@ class ListsController extends QuantumController
 	
 	public function addItemAction()
 	{
-		$list = $this->getQuantumMapper()->find($this->params('key'));
+		$list = $this->findRequestedModel();
 		if (!$list) {
-			$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		

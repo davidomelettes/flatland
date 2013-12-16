@@ -23,7 +23,8 @@
 		}
 	?>
 	<li class="<?php echo implode(' ', $liClasses); ?>">
-		<a href="<?php echo $page->hasPages() ? '#' : $this->url($page->route); ?>"<?php echo $page->hasPages() ? ' data-toggle="dropdown"' : ''; ?>>
+		<?php $routeOptions = $page->routeOptions ? $page->routeOptions : array(); ?>
+		<a href="<?php echo $page->hasPages() ? '#' : $this->url($page->route, $routeOptions); ?>"<?php echo $page->hasPages() ? ' data-toggle="dropdown"' : ''; ?>>
 			<?php if ($page->icon): ?>
 			<span class="glyphicon glyphicon-<?php echo $page->icon; ?>"></span>
 			<?php endif; ?>
@@ -35,8 +36,9 @@
 		<?php if ($page->hasPages()): ?>
 		<ul class="dropdown-menu" role="menu">
 			<?php foreach ($page->getPages() as $subPage): ?>
+			<?php $routeOptions = $subPage->routeOptions ? $subPage->routeOptions : array(); ?>
 			<li>
-				<a href="<?php echo $this->url($subPage->route); ?>"><?php echo $this->translate($subPage->label); ?></a>
+				<a href="<?php echo $this->url($subPage->route, $routeOptions); ?>"><?php echo $this->translate($subPage->label); ?></a>
 			</li>
 			<?php endforeach; ?>
 		</ul>

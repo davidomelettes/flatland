@@ -183,9 +183,36 @@ abstract class QuantumController extends AbstractController
 		return $this->paginator;
 	}
 	
+	protected function findRequestedModel()
+	{
+		// Do we have a slug?
+		$slug = $this->params('slug');
+		if ($slug) {
+			$model = $this->getQuantumMapper()->findBySlug($slug);
+			if (!$model) {
+				$this->flashMessenger()->addErrorMessage('Failed to find record with slug: ' . $this->params('slug'));
+			}
+			return $model;
+		}
+		
+		// Do we have a key?
+		$key = $this->params('key');
+		if ($key) {
+			$model = $this->getQuantumMapper()->find($key);
+			if (!$model) {
+				$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
+			}
+			return $model;
+		}
+		
+		$this->flashMessenger()->addErrorMessage('Missing identifier');
+		
+		return false;
+	}
+	
 	public function addAction()
 	{
-		if ($this->getQuantumMapper()->isReadOnly()) {
+		if ($this->getQuantumMapper()->isReadOnly() || !$this->addQuantumFormClass) {
 			$this->flashMessenger()->addErrorMessage('You do not have permission to do that');
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
@@ -213,9 +240,8 @@ abstract class QuantumController extends AbstractController
 	
 	public function viewAction()
 	{
-		$model = $this->getQuantumMapper()->find($this->params('key'));
+		$model = $this->findRequestedModel();
 		if (!$model) {
-			$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
@@ -235,7 +261,7 @@ abstract class QuantumController extends AbstractController
 	
 	public function editAction()
 	{
-		if ($this->getQuantumMapper()->isReadOnly()) {
+		if ($this->getQuantumMapper()->isReadOnly() || !$this->editQuantumFormClass) {
 			$this->flashMessenger()->addErrorMessage('You do not have permission to do that');
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
@@ -272,14 +298,13 @@ abstract class QuantumController extends AbstractController
 	
 	public function deleteAction()
 	{
-		if ($this->getQuantumMapper()->isReadOnly()) {
+		if ($this->getQuantumMapper()->isReadOnly() || !$this->deleteQuantumFormClass) {
 			$this->flashMessenger()->addErrorMessage('You do not have permission to do that');
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
-		$model = $this->getQuantumMapper()->find($this->params('key'));
+		$model = $this->findRequestedModel();
 		if (!$model) {
-			$this->flashMessenger()->addErrorMessage('Failed to find record with key: ' . $this->params('key'));
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
@@ -328,7 +353,7 @@ abstract class QuantumController extends AbstractController
 	
 	public function processAction()
 	{
-		if ($this->getQuantumMapper()->isReadOnly()) {
+		if ($this->getQuantumMapper()->isReadOnly() || !$this->editQuantumFormClass) {
 			$this->flashMessenger()->addErrorMessage('You do not have permission to do that');
 			return $this->redirect()->toRoute($this->getRouteName());
 		}

@@ -6,13 +6,25 @@ use Omelettes\Model\QuantumModel;
 
 class Thread extends QuantumModel
 {
+	protected $slug;
+	
+	protected $forumKey;
+	
+	protected $gameKey;
+	
+	protected $groupKey;
+	
 	/**
 	 * @var Post
 	 */
 	protected $post;
 	
 	protected $propertyMap = array(
-		'post' => 'post',
+		'slug'		=> 'slug',
+		'forumKey'	=> 'forum_key',
+		'gameKey'	=> 'game_key',
+		'groupKey'	=> 'group_key',
+		'post'		=> 'post',
 	);
 	
 	public function setPost($postData)

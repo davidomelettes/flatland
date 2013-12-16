@@ -112,7 +112,7 @@ abstract class AbstractMigration
 	
 	protected function quantumTableCreateWithView($tableName, array $columns = array(), array $viewExtraFields = array())
 	{
-		$columns = array_merge($columns, $this->getQuantumTableColumns());
+		$columns = array_merge($this->getQuantumTableColumns(), $columns);
 		$this->tableCreate($tableName, $columns);
 		
 		$viewName = $tableName . '_view';

@@ -116,6 +116,14 @@ abstract class QuantumMapper extends AbstractMapper
 		return $this->findOneWhere($where);
 	}
 	
+	public function findBySlug($slug)
+	{
+		$where = $this->getWhere();
+		$where->addPredicate(new Predicate\Operator('slug', '=', $slug));
+	
+		return $this->findOneWhere($where);
+	}
+	
 	protected function prepareSaveData(QuantumModel $model)
 	{
 		$key = $model->key;

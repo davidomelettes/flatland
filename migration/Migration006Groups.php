@@ -8,7 +8,13 @@ class Migration006Groups extends AbstractMigration
 {
 	public function migrate()
 	{
-		$this->quantumTableCreateWithView('groups');
+		$this->quantumTableCreateWithView('groups', array(
+			'slug'			=> 'VARCHAR',
+		));
+		
+		$this->tableAddColumns('threads', array(
+			'group_key'		=> 'UUID REFERENCES groups(key)',
+		));
 		
 		$this->tableCreate('group_users', array(
 			'group_key' => 'UUID NOT NULL REFERENCES groups(key)',

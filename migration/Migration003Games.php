@@ -8,11 +8,17 @@ class Migration003Games extends AbstractMigration
 {
 	public function migrate()
 	{
-		$this->quantumTableCreateWithView('publishers');
+		$this->quantumTableCreateWithView('publishers', array(
+			'slug'			=> 'VARCHAR',
+		));
 		
-		$this->quantumTableCreateWithView('designers');
+		$this->quantumTableCreateWithView('designers', array(
+			'slug'			=> 'VARCHAR',
+		));
 		
-		$this->quantumTableCreateWithView('games');
+		$this->quantumTableCreateWithView('games', array(
+			'slug'			=> 'VARCHAR',
+		));
 		
 		$this->insertFixture('migration/fixtures/003_games.xml');
 		

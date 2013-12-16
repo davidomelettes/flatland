@@ -1,0 +1,6 @@
+<td>
+	<a href="<?php echo $this->url('games/game/forum/topic', array('topic_key' => $this->data->key, 'topic_slug' => $this->data->slug), array(), true); ?>"><?php echo $this->escapehtml($this->data->name); ?></a>
+</td>
+<td>
+	<?php echo $this->prettyTime($this->data->created); ?>
+</td>

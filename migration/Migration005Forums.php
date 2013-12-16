@@ -14,13 +14,16 @@ class Migration005Forums extends AbstractMigration
 		));
 		
 		$this->quantumTableCreateWithView('threads', array(
+			'slug'			=> 'VARCHAR',
 			'forum_key'		=> 'UUID REFERENCES forums(key)',
+			'game_key'		=> 'UUID REFERENCES games(key)',
 		));
 		
 		$this->quantumTableCreateWithView('posts', array(
-			'content'		=> "TEXT NOT NULL",
-			'format'		=> "VARCHAR NOT NULL DEFAULT 'text'",
-			'thread_key'	=> 'UUID NOT NULL REFERENCES threads(key)',
+			'content'			=> "TEXT NOT NULL",
+			'format'			=> "VARCHAR NOT NULL DEFAULT 'text'",
+			'locale_code'		=> "VARCHAR NOT NULL DEFAULT 'en_GB'",
+			'thread_key'		=> 'UUID NOT NULL REFERENCES threads(key)',
 		));
 		
 		$this->insertFixture('migration/fixtures/005_forums.xml');

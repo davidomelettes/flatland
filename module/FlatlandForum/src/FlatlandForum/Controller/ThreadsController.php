@@ -93,9 +93,9 @@ class ThreadsController extends QuantumController
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
-		$model = $this->getQuantumModel();
+		$thread = $this->getQuantumModel();
 		$form = $this->getAddQuantumForm();
-		$form->bind($model);
+		$form->bind($thread);
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -103,17 +103,18 @@ class ThreadsController extends QuantumController
 			$form->setData($request->getPost());
 		
 			if ($form->isValid()) {
-				$post = $model->post;
+				$post = $thread->post;
 				
 				$this->getQuantumMapper()->beginTransaction();
 				try {
-					$this->getQuantumMapper()->createQuantum($model);
-					$post->threadKey = $model->key;
+					$thread->forumKey = $forum->key;
+					$this->getQuantumMapper()->createQuantum($thread);
+					$post->threadKey = $thread->key;
 					$this->getPostsMapper()->createQuantum($post);
 					
 					$this->getQuantumMapper()->commitTransaction();
 					$this->flashMessenger()->addSuccessMessage('Topic created');
-					return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'key' => $model->key));
+					return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'key' => $thread->key));
 					
 				} catch (\Exception $e) {
 					$this->getQuantumMapper()->rollbackTransaction();
@@ -131,9 +132,8 @@ class ThreadsController extends QuantumController
 	
 	public function viewAction()
 	{
-		$thread = $this->getQuantumMapper()->find($this->params('key'));
+		$thread = $this->findRequestedModel();
 		if (!$thread) {
-			$this->flashMessenger()->addErrorMessage('Failed to find thread with key: ' . $this->params('key'));
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		

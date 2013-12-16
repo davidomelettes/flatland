@@ -30,6 +30,7 @@ return array(
 				'label' => 'Database',
 				'route' => 'admin/games',
 				'icon'	=> 'book',
+				'class' => 'dropdown',
 				'pages' => array(
 					array(
 						'label' => 'Forums',

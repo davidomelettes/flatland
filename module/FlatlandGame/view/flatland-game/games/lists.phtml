@@ -1,0 +1,8 @@
+<?php echo $this->partial('page-title', array(
+	'title'		=> $this->model->name . ' Lists',
+	'paginator' => $this->paginator,
+)); ?>
+
+<?php echo $this->partial('navigation-game', array('nav' => $this->modelNav)); ?>
+
+<?php echo $this->tabulate($this->paginator); ?>

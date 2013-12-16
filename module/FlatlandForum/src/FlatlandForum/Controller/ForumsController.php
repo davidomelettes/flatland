@@ -48,16 +48,15 @@ class ForumsController extends QuantumController
 	
 	public function viewAction()
 	{
-		$model = $this->getQuantumMapper()->findBySlug($this->params('slug'));
-		if (!$model) {
-			$this->flashMessenger()->addErrorMessage('Failed to find record with slug: ' . $this->params('slug'));
+		$forum = $this->findRequestedModel();
+		if (!$forum) {
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
 		return $this->returnViewModel(array(
-			'model'		=> $model,
-			'crud'		=> $this->constructNavigation($this->getViewNavigationConfig($model)),
-			'paginator'	=> $this->getThreadsMapper()->fetchAll(true),
+			'model'		=> $forum,
+			'crud'		=> $this->constructNavigation($this->getViewNavigationConfig($forum)),
+			'paginator'	=> $this->getThreadsMapper()->fetchForForum($forum, true),
 		));
 	}
 	

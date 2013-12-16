@@ -62,6 +62,26 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Publisher());
 					return new TableGateway('publishers', $dbAdapter, null, $resultSetPrototype);
 				},
+				
+				// Forums
+				'GameForumThreadsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Thread());
+					return new TableGateway('threads', $dbAdapter, null, $resultSetPrototype);
+				},
+				'GameForumThreadsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Thread());
+					return new TableGateway('threads_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'FlatlandGame\Model\ThreadsMapper' => function ($sm) {
+					$readGateway = $sm->get('GameForumThreadsViewGateway');
+					$writeGateway = $sm->get('GameForumThreadsTableGateway');
+					$mapper = new Model\ThreadsMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
 			),
 		);
 	}

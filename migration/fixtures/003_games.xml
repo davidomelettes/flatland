@@ -31,26 +31,26 @@
 	<publishers key="607d22c582074c879d8fb279bde271d3" name="Rio Grande Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<publishers key="ce011492f9c64bc586b3944a3cee3140" name="Steve Jackson Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 	<publishers key="6e60b8b149e24ce3b52ed747aa342bd1" name="Z-Man Games" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="7a348c7b0def42a9bc53494daabe1b3a" name="7 Wonders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="69e37265ddc6401690d181be6185108b" name="7 Wonders: Leaders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="57c366d050434d8e9cbcd854064cd974" name="Agricola" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="a82b20080671417388509518d8938a50" name="Android: Netrunner" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="71edf543ae06438f954b57037cd58c14" name="Arkham Horror" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="6631d43e0e8f4c96bcb79ebc992f9300" name="Carcassonne" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="d9a180ac379c4c99bd90e76d2893422a" name="Chess" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="de6df735e5114191948995963788bc54" name="Dominion" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="8b2c2fa5f93b41129835d526743b0552" name="Elder Sign" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="ac1790a6055b4f219aa4872176f68d9e" name="A Game of Thrones: The Card Game" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="bb80d405245b4cf99a7ed705c67a7d35" name="Go" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="324c4797810041e5b90ee151d89c0191" name="The Lord of the Rings: The Card Game" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="84e0b435772844309518cd30b309b692" name="Othello" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="d8b461ea05a044598daacf66e0d54ca2" name="Pandemic" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="c7bfe58c83c44b7fae652e4241db4373" name="Pathfinder Adventure Card Game: Rise of the Runelords - Base Set" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="9056d8a9451449bcb3658906ea1d9ede" name="Puerto Rico" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="dd13e8611cc1499aa8130d080b841fd2" name="The Resistance" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="956acdb9a05846b7a319d0c21da14b2c" name="The Settlers of Catan" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="a63c770d68c840309ba81cdc1b205356" name="Ticket to Ride" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="54c33a1c1b2e4b9a804c5c46f645cc39" name="Ticket to Ride: Europe" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="e44a924e03bc41d7826c5986ddfbef00" name="Trains" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
-	<games key="3cbc4820f935426baa70068d9d9a711c" name="Zombies!!!" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="7a348c7b0def42a9bc53494daabe1b3a" name="7 Wonders" slug="7-wonders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="69e37265ddc6401690d181be6185108b" name="7 Wonders: Leaders" slug="7-wonders-leaders" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="57c366d050434d8e9cbcd854064cd974" name="Agricola" slug="agricola" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="a82b20080671417388509518d8938a50" name="Android: Netrunner" slug="android-netrunner" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="71edf543ae06438f954b57037cd58c14" name="Arkham Horror" slug="arkham-horror" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="6631d43e0e8f4c96bcb79ebc992f9300" name="Carcassonne" slug="carcassonne" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="d9a180ac379c4c99bd90e76d2893422a" name="Chess" slug="chess" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="de6df735e5114191948995963788bc54" name="Dominion" slug="dominion" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="8b2c2fa5f93b41129835d526743b0552" name="Elder Sign" slug="elder-sign" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="ac1790a6055b4f219aa4872176f68d9e" name="A Game of Thrones: The Card Game" slug="a-game-of-thrones-the-card-game" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="bb80d405245b4cf99a7ed705c67a7d35" name="Go" slug="go" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="324c4797810041e5b90ee151d89c0191" name="The Lord of the Rings: The Card Game" slug="the-lord-of-the-rings-the-card-game" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="84e0b435772844309518cd30b309b692" name="Othello" slug="othello" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="d8b461ea05a044598daacf66e0d54ca2" name="Pandemic" slug="pandemic" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="c7bfe58c83c44b7fae652e4241db4373" name="Pathfinder Adventure Card Game: Rise of the Runelords - Base Set" slug="pathfinder-adventure-card-game-rise-of-the-runelords-base-set" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="9056d8a9451449bcb3658906ea1d9ede" name="Puerto Rico" slug="puerto-rico" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="dd13e8611cc1499aa8130d080b841fd2" name="The Resistance" slug="the-resistance" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="956acdb9a05846b7a319d0c21da14b2c" name="The Settlers of Catan" slug="the-settlers-of-catan" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="a63c770d68c840309ba81cdc1b205356" name="Ticket to Ride" slug="ticket-to-ride" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="54c33a1c1b2e4b9a804c5c46f645cc39" name="Ticket to Ride: Europe" slug="ticket-to-ride-europe" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="e44a924e03bc41d7826c5986ddfbef00" name="Trains" slug="trains" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
+	<games key="3cbc4820f935426baa70068d9d9a711c" name="Zombies!!!" slug="zombies" created_by="52eb818797564fbea112319d50dc46d0" updated_by="52eb818797564fbea112319d50dc46d0" />
 </dataset>

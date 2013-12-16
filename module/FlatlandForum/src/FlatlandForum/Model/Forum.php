@@ -6,13 +6,13 @@ use Omelettes\Model\QuantumModel;
 
 class Forum extends QuantumModel
 {
-	protected $parentKey;
-	
 	protected $slug;
 	
+	protected $parentKey;
+	
 	protected $propertyMap = array(
-		'parentKey'	=> 'parent_key',
 		'slug'		=> 'slug',
+		'parentKey'	=> 'parent_key',
 	);
 	
 	public function getTableRowPartial()
